@@ -1,7 +1,7 @@
 package day02;
 import java.lang.*;
 
-public class Exercise2 {
+public class Exercise02 {
 	public static void main(String[] args) {
 		
 		// 아침 8시 40분부터 오후 3시 15분까지 공부했으면 총 공부 시간은?
