@@ -1,5 +1,4 @@
 package day04;
-
 import java.util.Scanner;
 
 public class Exercise01 {
@@ -9,15 +8,16 @@ public class Exercise01 {
 		
 		Scanner sc = new Scanner(System.in);
 		
-		System.out.println("금액을 입력해주세요.");
-		int money = sc.nextInt();
-		
-		int change = 0;
-		
 		int orgJuice = 2500;
 		int coffee = 1800;
 		int water = 1200;
 		
+		System.out.println("오렌지 주스: " + orgJuice + "원 / 커피: " + coffee + "원 / 물: " + water + "원");
+		
+		System.out.println("금액을 입력해주세요.");
+		int money = sc.nextInt();
+		
+		int change = 0;
 		
 		if (money >= orgJuice) {
 			System.out.println("오렌지 주스를 구매할 수 있습니다.");
