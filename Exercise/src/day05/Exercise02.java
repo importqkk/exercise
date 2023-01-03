@@ -14,14 +14,25 @@ public class Exercise02 {
 		sc.close();
 		
 		int score = myScore / 10;
+//		char grade;
+//		
+//		switch(score) {
+//		case 9, 10: grade = 'A'; break;
+//		case 8: grade = 'B'; break;
+//		case 7: grade = 'C'; break;
+//		case 6: grade = 'D'; break;
+//		default: grade = 'F'; break;
+//		}
 		
-		switch(score) {
-		case 9, 10: System.out.println("A"); break;
-		case 8: System.out.println("B"); break;
-		case 7: System.out.println("C"); break;
-		case 6: System.out.println("D"); break;
-		default: System.out.println("F"); break;
-		}
+		char grade = switch(score) {
+		case 9, 10 -> 'A';
+		case 8 -> 'B';
+		case 7 -> 'C';
+		case 6 -> 'D';
+		default -> 'F';
+		};
+		
+		System.out.println(grade);
 		
 	}
 }
