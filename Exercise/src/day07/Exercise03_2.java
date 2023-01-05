@@ -26,7 +26,6 @@ public class Exercise03_2 {
 		}
 		
 		
-		
 		// 출력
 		for(int i = 0; i < data.length; i++) {
 			System.out.print(data[i]);
