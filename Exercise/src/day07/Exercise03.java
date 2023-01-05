@@ -12,7 +12,6 @@ public class Exercise03 {
 		
 		
 		// 처리
-		
 		for(int k = 0; k < data.length; k++) {
 			int index = k;
 			int backup = data[index];
