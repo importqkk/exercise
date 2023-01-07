@@ -36,7 +36,6 @@ public class Exercise02 {
 			}
 		}
 		
-		
 		// 출력
 		for(int i = 0; i < arr.length; i++) {
 			for(int k = 0; k < arr[i].length; k++) {
