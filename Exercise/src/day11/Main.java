@@ -28,7 +28,6 @@ public class Main {
 		s.print();
 		s.sleep();
 		s.eat();
-		s.eat();
 		s.fly();
 		s.winter();
 		
