@@ -30,7 +30,7 @@ public class Exercise02 {
 			
 		}
 		catch(Exception e) {
-			System.out.println("1에서 7까지의 숫자 중 하나만 입력해주세요.");
+			System.err.println("1에서 7까지의 숫자 중 하나만 입력해주세요.");
 //			e.printStackTrace();
 		}
 	
