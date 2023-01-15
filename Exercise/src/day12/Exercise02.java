@@ -25,7 +25,6 @@ public class Exercise02 {
 					System.out.println("GAME OVER!");
 					break;
 				}
-				
 			}
 		}
 		
