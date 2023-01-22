@@ -1,4 +1,5 @@
 package ex230122;
+
 public class Plan {
 	
 	private String type;
@@ -37,11 +38,6 @@ public class Plan {
 	}
 	
 	
-//	public void setting(String type, int month, int price) {
-//		this.setting(type, month, price, false);
-//	}
-	
-	
 	public Plan(String type, int month, int price, boolean recommend) {
 		this.type = type;
 		this.month = month;
@@ -51,16 +47,21 @@ public class Plan {
 	
 	
 	public void print() {
-		System.out.print(type + "\t\t");
-		if(month == 12) {	
-			System.out.print(month + "개월 (" + rate + "%)\t\t");
-			System.out.println(price + " (월 \\" + price / 12 + ")");
+		if(recommend == true) {			
+			System.out.print(type + " (추천)\t\t");
 		}
 		else {
-			System.out.print(month + "개월\t\t");
-			System.out.println("\\" + price);
+			System.out.print(type+"\t\t");
 		}
-		
+		if(month == 12) {	
+			System.out.print(month + "개월(" + rate + "%)\t\t");
+			System.out.println(price + "원 (월 " + price / 12 + "원)");
+		}
+		else {
+			System.out.print(month + "개월\t\t\t");
+			System.out.println(price + "원");
+		}
+		System.out.println();
 	}
 	
 }
