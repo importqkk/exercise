@@ -1,5 +1,4 @@
 package ex230122;
-
 public class Plan {
 	
 	private String type;
