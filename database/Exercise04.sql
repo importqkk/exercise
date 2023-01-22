@@ -1,27 +1,27 @@
 create table menu(
-    name varchar2(45) unique not null check(regexp_like(name, '^[°¡-ÆR0-9][°¡-ÆR0-9 ]+$')),
-    type varchar2(9) not null check(type in('À½·á', 'µğÀúÆ®')),
+    name varchar2(45) unique not null check(regexp_like(name, '^[ê°€-í£0-9][ê°€-í£0-9 ]+$')),
+    type varchar2(9) not null check(type in('ìŒë£Œ', 'ë””ì €íŠ¸')),
     price number not null check(price >= 0)
 );
 
 
 insert into menu(name, type, price)
-values('¾Æ¸Ş¸®Ä«³ë', 'À½·á', '4500');
+values('ì•„ë©”ë¦¬ì¹´ë…¸', 'ìŒë£Œ', '4500');
 
 insert into menu(name, type, price)
-values('Ä«Æä¶ó¶¼', 'À½·á', '5000');
+values('ì¹´í˜ë¼ë–¼', 'ìŒë£Œ', '5000');
 
 insert into menu(name, type, price)
-values('·¹¸ğ³×ÀÌµå', 'À½·á', '5500');
+values('ë ˆëª¨ë„¤ì´ë“œ', 'ìŒë£Œ', '5500');
 
 insert into menu(name, type, price)
-values('·¹µåº§ºª ÄÉÀÌÅ©', 'µğÀúÆ®', '5600');
+values('ë ˆë“œë²¨ë²³ ì¼€ì´í¬', 'ë””ì €íŠ¸', '5600');
 
 insert into menu(name, type, price)
-values('¿ìÀ¯Çªµù', 'µğÀúÆ®', '4800');
+values('ìš°ìœ í‘¸ë”©', 'ë””ì €íŠ¸', '4800');
 
 insert into menu(name, type, price)
-values('¸¶Ä«´Ù¹Ì¾Æ ÄíÅ°', 'µğÀúÆ®', '3500');
+values('ë§ˆì¹´ë‹¤ë¯¸ì•„ ì¿ í‚¤', 'ë””ì €íŠ¸', '3500');
 
 
 commit;
