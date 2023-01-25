@@ -1,4 +1,5 @@
 package ex230125;
+
 import java.util.Scanner;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
