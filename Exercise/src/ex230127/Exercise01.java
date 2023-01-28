@@ -2,7 +2,7 @@ package ex230127;
 import java.util.Scanner;
 import org.springframework.jdbc.core.JdbcTemplate;
 
-public class Test01 {
+public class Exercise01 {
 	public static void main(String[] args) {
 		
 		Scanner scan = new Scanner(System.in);
