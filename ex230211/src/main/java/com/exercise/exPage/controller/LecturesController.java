@@ -1,4 +1,4 @@
-package com.exercise.ex230211.controller;
+package com.exercise.exPage.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -7,8 +7,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import com.exercise.ex230211.dao.LecturesDao;
-import com.exercise.ex230211.dto.LecturesDto;
+
+import com.exercise.exPage.dao.LecturesDao;
+import com.exercise.exPage.dto.LecturesDto;
 
 @Controller
 @RequestMapping("/lectures")
