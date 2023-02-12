@@ -2,7 +2,6 @@ package com.exercise.ex230211.dao;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -31,7 +30,8 @@ public class LecturesDao {
 	
 	// 강의 등록
 	public void add(LecturesDto lecturesDto) {
-		String sql = "insert into lectures(no, lecture, lecturer, hours, fee) values(lectures_seq.nextval, ?, ?, ?, ?)";
+		String sql = "insert into lectures(no, lecture, lecturer, hours, fee) "
+					+ "values(lectures_seq.nextval, ?, ?, ?, ?)";
 		Object[] param = {lecturesDto.getLecturesLecture(), lecturesDto.getLecturesLecturer(), 
 							lecturesDto.getLecturesHours(), lecturesDto.getLecturesFee()};
 		jdbcTemplate.update(sql, param);
