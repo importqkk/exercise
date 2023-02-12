@@ -11,7 +11,7 @@
 		<br>
 		
 		<a href="/">메인</a>
-		<a href="/lectures/add">강의등록</a>
+		<a href="/lectures/list">강의</a>
 		<a href="#">로그인</a>
 		<a href="#">회원가입</a>
 		
