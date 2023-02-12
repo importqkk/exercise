@@ -41,7 +41,6 @@ public class LecturesController {
 			@RequestParam(required = false, defaultValue = "") String keyword) {
 		model.addAttribute("page", page);
 		model.addAttribute("size", size);
-
 		// 목록
 		if(keyword.equals("")) {
 			// 전체 게시글 개수
@@ -50,7 +49,6 @@ public class LecturesController {
 			// 전체 페이지수
 			int totalPage = (totalCount + size - 1) / size;
 			model.addAttribute("totalPage", totalPage);
-			model.addAttribute("mode", "목록");
 			model.addAttribute("list", lecturesDao.list(page, size));
 		}
 		// 검색
@@ -61,7 +59,6 @@ public class LecturesController {
 			// 전체 페이지수
 			int totalPage = (totalCount + size - 1) / size;
 			model.addAttribute("totalPage", totalPage);
-			model.addAttribute("mode", "검색");
 			model.addAttribute("keyword", keyword);
 			model.addAttribute("list", lecturesDao.list(page, size, column, keyword));
 		}
