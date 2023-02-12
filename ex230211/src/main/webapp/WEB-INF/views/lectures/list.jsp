@@ -42,12 +42,15 @@
 					<tr>
 						<td>${lecturesDto.lecturesNo}</td>
 						<td>
-							<a href="detail?lecturesNo=${lecturesDto.lecturesNo}">${lecturesDto.lecturesLecture}</a>
+							<a href="detail?lecturesNo=${lecturesDto.lecturesNo}">
+								${lecturesDto.lecturesLecture}
+							</a>
 						</td>
 						<td>${lecturesDto.lecturesLecturer}</td>
 						<td>${lecturesDto.lecturesHours}</td>
 						<td align="right">
-							<fmt:formatNumber value="${lecturesDto.lecturesFee}" pattern="#,##0"></fmt:formatNumber>
+							<fmt:formatNumber value="${lecturesDto.lecturesFee}" pattern="#,##0">
+							</fmt:formatNumber>
 						</td>
 					</tr>
 			</c:forEach>
@@ -72,7 +75,9 @@
 				${i}
 			</c:when>
 			<c:otherwise>
-				<a href="list?column=${column}&keyword=${keyword}&page=${i}">${i}</a>
+				<a href="list?column=${column}&keyword=${keyword}&page=${i}">
+					${i}
+				</a>
 			</c:otherwise>
 		</c:choose>
 	</c:forEach>
