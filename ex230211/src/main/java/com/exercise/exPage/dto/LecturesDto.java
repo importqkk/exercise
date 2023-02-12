@@ -1,4 +1,4 @@
-package com.exercise.ex230211.dto;
+package com.exercise.exPage.dto;
 import lombok.Data;
 
 @Data
