@@ -1,4 +1,4 @@
-package com.exercise.ex230211;
+package com.exercise.exPage;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
