@@ -1,4 +1,4 @@
-package com.exercise.ex230211.controller;
+package com.exercise.exPage.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
