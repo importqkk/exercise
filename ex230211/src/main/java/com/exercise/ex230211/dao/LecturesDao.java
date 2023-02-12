@@ -1,6 +1,8 @@
 package com.exercise.ex230211.dao;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -33,6 +35,41 @@ public class LecturesDao {
 		Object[] param = {lecturesDto.getLecturesLecture(), lecturesDto.getLecturesLecturer(), 
 							lecturesDto.getLecturesHours(), lecturesDto.getLecturesFee()};
 		jdbcTemplate.update(sql, param);
+	}
+	
+	// 강의 목록, 검색
+	public List<LecturesDto> list(int page, int size) {
+		int end = page * size;
+		int begin = end - (size - 1);
+		String sql = "select * from ("
+							+ "select TMP.*, rownum RN from ("
+								+ "select * from lectures order by no asc"
+							+ ")TMP"
+					+ ") where RN between ? and ?";
+		Object[] param = {begin, end};
+		return jdbcTemplate.query(sql, mapper, param);
+	}
+	public List<LecturesDto> list(int page, int size, String column, String keyword) {
+		int end = page * size;
+		int begin = end - (size - 1);
+		String sql = "select * from ("
+							+ "select TMP.*, rownum RN from ("
+								+ "select * from lectures where instr(#1, ?) > 0 order by #1 asc"
+							+ ")TMP"
+					+ ") where RN between ? and ?";
+		sql = sql.replace("#1", column);
+		Object[] param = {keyword, begin, end};
+		return jdbcTemplate.query(sql, mapper, param);
+	}
+	public int listCount() {
+		String sql = "select count(*) from lectures";
+		return jdbcTemplate.queryForObject(sql, int.class);
+	}
+	public int listCount(String column, String keyword) {
+		String sql = "select count(*) from lectures where instr(#1, ?) > 0";
+		sql = sql.replace("#1", column);
+		Object[] param = {keyword};
+		return jdbcTemplate.queryForObject(sql, int.class, param);
 	}
 	
 }
