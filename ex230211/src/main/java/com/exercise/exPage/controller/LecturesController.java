@@ -37,7 +37,7 @@ public class LecturesController {
 	@GetMapping("/list")
 	public String list(Model model,
 			@RequestParam(required = false, defaultValue = "1") int page,
-			@RequestParam(required = false, defaultValue = "2") int size,
+			@RequestParam(required = false, defaultValue = "3") int size,
 			@RequestParam(required = false, defaultValue = "lecture") String column,
 			@RequestParam(required = false, defaultValue = "") String keyword) {
 		model.addAttribute("page", page);
@@ -64,6 +64,14 @@ public class LecturesController {
 			model.addAttribute("list", lecturesDao.list(page, size, column, keyword));
 		}
 		return "/WEB-INF/views/lectures/list.jsp";
+	}
+	
+	// 강의 상세보기
+	@GetMapping("/detail")
+	public String detail(Model model,
+			@RequestParam int lecturesNo) {
+		model.addAttribute("lecturesDto", lecturesDao.detail(lecturesNo));
+		return "/WEB-INF/views/lectures/detail.jsp";
 	}
 	
 }
