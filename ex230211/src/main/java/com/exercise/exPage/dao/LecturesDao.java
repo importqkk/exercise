@@ -74,4 +74,12 @@ public class LecturesDao {
 		return jdbcTemplate.queryForObject(sql, int.class, param);
 	}
 	
+	// 강의 상세보기
+	public LecturesDto detail(int lecturesNo) {
+		String sql = "select * from lectures where no = ?";
+		Object[] param = {lecturesNo};
+		List<LecturesDto> list = jdbcTemplate.query(sql, mapper, param);
+		return list.isEmpty() ? null : list.get(0);
+	}
+	
 }
