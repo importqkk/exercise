@@ -27,13 +27,12 @@
 			검색 결과가 없습니다.
 		</c:when>
 		<c:otherwise>
-			<table border="1" width="650">
+			<table border="1" width="600">
 		<thead>
 			<tr>
 				<th>번호</th>
 				<th width="50%">강의명</th>
 				<th>강사명</th>
-				<th>시수</th>
 				<th>수강료</th>
 			</tr>
 		</thead>
@@ -47,7 +46,6 @@
 							</a>
 						</td>
 						<td>${lecturesDto.lecturesLecturer}</td>
-						<td>${lecturesDto.lecturesHours}</td>
 						<td align="right">
 							<fmt:formatNumber value="${lecturesDto.lecturesFee}" pattern="#,##0">
 							</fmt:formatNumber>
@@ -57,7 +55,7 @@
 		</tbody>
 		<tfoot>
 			<tr>
-				<td colspan="5" align="right">
+				<td colspan="4" align="right">
 					<a href="add">등록</a>
 				</td>
 			</tr>
