@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.exercise.exPage.dao.LecturesDao;
 import com.exercise.exPage.dto.LecturesDto;
 
@@ -71,6 +72,20 @@ public class LecturesController {
 			@RequestParam int lecturesNo) {
 		model.addAttribute("lecturesDto", lecturesDao.detail(lecturesNo));
 		return "/WEB-INF/views/lectures/detail.jsp";
+	}
+	
+	// 강의 정보 수정
+	@GetMapping("/edit")
+	public String edit(Model model, int no) {
+		model.addAttribute("lecturesDto", lecturesDao.detail(no));
+		return "/WEB-INF/views/lectures/edit.jsp";
+	}
+	@PostMapping("/edit")
+	public String edit(RedirectAttributes attr,
+			@ModelAttribute LecturesDto lecturesDto) {
+		lecturesDao.edit(lecturesDto);
+		attr.addAttribute("lecturesNo", lecturesDto.getLecturesNo());
+		return "redirect:detail";
 	}
 	
 }
