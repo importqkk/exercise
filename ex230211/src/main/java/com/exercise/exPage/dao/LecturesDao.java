@@ -80,4 +80,13 @@ public class LecturesDao {
 		return list.isEmpty() ? null : list.get(0);
 	}
 	
+	// 강의 정보 수정
+	public boolean edit(LecturesDto lecturesDto) {
+		String sql = "update lectures set lecture = ?, lecturer = ?, hours = ?, fee = ? where no = ?";
+		Object[] param = {lecturesDto.getLecturesLecture(), lecturesDto.getLecturesLecturer(), 
+						lecturesDto.getLecturesHours(), lecturesDto.getLecturesFee(),
+						lecturesDto.getLecturesNo()};
+		return jdbcTemplate.update(sql, param) > 0;
+	}
+	
 }
