@@ -89,4 +89,11 @@ public class LecturesDao {
 		return jdbcTemplate.update(sql, param) > 0;
 	}
 	
+	// 강의 삭제
+	public boolean delete(int no) {
+		String sql = "delete lectures where no = ?";
+		Object[] param = {no};
+		return jdbcTemplate.update(sql, param) > 0;
+	}
+	
 }
