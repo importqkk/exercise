@@ -35,6 +35,7 @@
 	
 	<br>
 	
+	<a href="list">전체목록</a>
 	<a href="/">메인으로</a>
 
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
