@@ -88,4 +88,11 @@ public class LecturesController {
 		return "redirect:detail";
 	}
 	
+	// 강의 삭제
+	@GetMapping("/delete")
+	public String delete(@RequestParam int no) {
+		lecturesDao.delete(no);
+		return "/WEB-INF/views/lectures/delete.jsp";
+	}
+	
 }
