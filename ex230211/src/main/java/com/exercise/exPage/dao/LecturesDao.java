@@ -7,6 +7,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 import com.exercise.exPage.dto.LecturesDto;
+import com.exercise.exPage.vo.PageVO;
 
 @Repository
 public class LecturesDao {
@@ -38,38 +39,39 @@ public class LecturesDao {
 	}
 	
 	// 강의 목록, 검색
-	public List<LecturesDto> list(int page, int size) {
-		int end = page * size;
-		int begin = end - (size - 1);
-		String sql = "select * from ("
-							+ "select TMP.*, rownum RN from ("
-								+ "select * from lectures order by no asc"
-							+ ")TMP"
-					+ ") where RN between ? and ?";
-		Object[] param = {begin, end};
-		return jdbcTemplate.query(sql, mapper, param);
-	}
-	public List<LecturesDto> list(int page, int size, String column, String keyword) {
-		int end = page * size;
-		int begin = end - (size - 1);
-		String sql = "select * from ("
+	public List<LecturesDto> list(PageVO vo) {
+		if(vo.isSearch()) {
+			String sql = "select * from ("
 							+ "select TMP.*, rownum RN from ("
 								+ "select * from lectures where instr(#1, ?) > 0 order by #1 asc"
 							+ ")TMP"
 					+ ") where RN between ? and ?";
-		sql = sql.replace("#1", column);
-		Object[] param = {keyword, begin, end};
+		sql = sql.replace("#1", vo.getColumn());
+		Object[] param = {vo.getKeyword(), vo.getFirst(), vo.getLast()};
 		return jdbcTemplate.query(sql, mapper, param);
+		}
+		else {
+			String sql = "select * from ("
+							+ "select TMP.*, rownum RN from ("
+								+ "select * from lectures order by no asc"
+							+ ")TMP"
+					+ ") where RN between ? and ?";
+		Object[] param = {vo.getFirst(), vo.getLast()};
+		return jdbcTemplate.query(sql, mapper, param);
+		}
 	}
-	public int listCount() {
-		String sql = "select count(*) from lectures";
-		return jdbcTemplate.queryForObject(sql, int.class);
-	}
-	public int listCount(String column, String keyword) {
-		String sql = "select count(*) from lectures where instr(#1, ?) > 0";
-		sql = sql.replace("#1", column);
-		Object[] param = {keyword};
-		return jdbcTemplate.queryForObject(sql, int.class, param);
+	public int listCount(PageVO vo) {
+		if(vo.isSearch()) {
+			String sql = "select count(*) from lectures where instr(#1, ?) > 0";
+			sql = sql.replace("#1", vo.getColumn());
+			Object[] param = {vo.getKeyword()};
+			return jdbcTemplate.queryForObject(sql, int.class, param);
+		}
+		else {
+			String sql = "select count(*) from lectures";
+			return jdbcTemplate.queryForObject(sql, int.class);
+		}
+		
 	}
 	
 	// 강의 상세보기
