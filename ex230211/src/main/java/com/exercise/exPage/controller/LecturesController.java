@@ -1,4 +1,5 @@
 package com.exercise.exPage.controller;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.exercise.exPage.dao.LecturesDao;
 import com.exercise.exPage.dto.LecturesDto;
+import com.exercise.exPage.vo.PageVO;
 
 @Controller
 @RequestMapping("/lectures")
@@ -36,33 +38,11 @@ public class LecturesController {
 	// 강의 목록, 검색
 	@GetMapping("/list")
 	public String list(Model model,
-			@RequestParam(required = false, defaultValue = "1") int page,
-			@RequestParam(required = false, defaultValue = "3") int size,
-			@RequestParam(required = false, defaultValue = "lecture") String column,
-			@RequestParam(required = false, defaultValue = "") String keyword) {
-		model.addAttribute("page", page);
-		model.addAttribute("size", size);
-		// 목록
-		if(keyword.equals("")) {
-			// 전체 게시글 개수
-			int totalCount = lecturesDao.listCount();
-			model.addAttribute("totalCount", totalCount);
-			// 전체 페이지수
-			int totalPage = (totalCount + size - 1) / size;
-			model.addAttribute("totalPage", totalPage);
-			model.addAttribute("list", lecturesDao.list(page, size));
-		}
-		// 검색
-		else {
-			// 전체 게시글 개수
-			int totalCount = lecturesDao.listCount(column, keyword);
-			model.addAttribute("totalCount", totalCount);
-			// 전체 페이지수
-			int totalPage = (totalCount + size - 1) / size;
-			model.addAttribute("totalPage", totalPage);
-			model.addAttribute("keyword", keyword);
-			model.addAttribute("list", lecturesDao.list(page, size, column, keyword));
-		}
+			@ModelAttribute("vo") PageVO vo) {
+		int countTotalData = lecturesDao.listCount(vo);
+		vo.setCountTotalData(countTotalData);
+		List<LecturesDto> list = lecturesDao.list(vo);
+		model.addAttribute("list", list);
 		return "/WEB-INF/views/lectures/list.jsp";
 	}
 	
