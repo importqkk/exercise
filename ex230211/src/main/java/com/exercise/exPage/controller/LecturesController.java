@@ -1,4 +1,5 @@
 package com.exercise.exPage.controller;
+import java.io.IOException;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -8,9 +9,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.exercise.exPage.dao.LecturesDao;
 import com.exercise.exPage.dto.LecturesDto;
+import com.exercise.exPage.service.LecturesService;
 import com.exercise.exPage.vo.PageVO;
 
 @Controller
@@ -19,6 +22,8 @@ public class LecturesController {
 
 	@Autowired
 	private LecturesDao lecturesDao;
+	@Autowired
+	private LecturesService lecturesService;
 	
 	// 강의 등록
 	@GetMapping("/add")
@@ -26,8 +31,9 @@ public class LecturesController {
 		return "/WEB-INF/views/lectures/add.jsp";
 	}
 	@PostMapping("/add")
-	public String add(@ModelAttribute LecturesDto lecturesDto) {
-		lecturesDao.add(lecturesDto);
+	public String add(@ModelAttribute LecturesDto lecturesDto,
+			@RequestParam MultipartFile attach) throws IllegalStateException, IOException {
+		lecturesService.add(lecturesDto, attach);
 		return "redirect:addCompleted";
 	}
 	@GetMapping("/addCompleted")
