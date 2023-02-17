@@ -7,11 +7,11 @@
 
 	<br><br>
 
-	<form action="add" method="post">
-		<table border="0" width="250">
+	<form action="add" method="post" enctype="multipart/form-data">
+		<table border="0" width="350">
 			<tbody>
 				<tr>
-					<th width="35%">강의명</th>
+					<th width="50%">강의명</th>
 					<td><input type="text" name="lecturesLecture" required></td>
 				</tr>
 				<tr>
@@ -25,6 +25,10 @@
 				<tr>
 					<th>수강료</th>
 					<td><input type="number" name="lecturesFee" required min=0></td>
+				</tr>
+				<tr>
+					<th>사진등록</th>
+					<td><input type="file" name="attach" accept="image/"></td>
 				</tr>
 				<tr>
 					<td colspan="2" align="right"><button>등록</button></td>
