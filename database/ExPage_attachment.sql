@@ -1,5 +1,16 @@
-drop table members;
-drop table members_img;
+create table attachment(
+    attachment_no number primary key,
+    attachment_name varchar2(256) not null,
+    attachment_type varchar2(60) not null,
+    attachment_size number not null
+);
+create sequence attachment_seq;
+
+create table lecture_img(
+    lecture_no not null references lectures(no) on delete cascade,
+    attachment_no not null references attachment(attachment_no) on delete cascade,
+    primary key(lecture_no, attachment_no)
+);
 
 create table members(
     member_id varchar2(20) primary key check(regexp_like(member_id, '^[a-z0-9-_]{5,20}$')),
@@ -30,8 +41,11 @@ create table members_img(
 
 commit;
 
-select * from members;
-select * from members_img;
+select attachment_seq.nextval from dual;
 
-delete members;
-delete members_img;
+select * from attachment;
+select * from lecture_img;
+
+drop table attachment;
+drop table lecture_img;
+drop sequence attachment_seq;
