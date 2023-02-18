@@ -20,6 +20,8 @@ select attachment_seq.nextval from dual;
 select * from attachment;
 select * from lecture_img;
 
+delete attachment;
+
 drop table attachment;
 drop table lecture_img;
 drop sequence attachment_seq;
