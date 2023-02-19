@@ -15,15 +15,15 @@ create table lecture_img(
 create table members(
     member_id varchar2(20) primary key check(regexp_like(member_id, '^[a-z0-9-_]{5,20}$')),
     member_pw varchar2(16) not null check(
-        regexp_like(member_pw, '[A-Z]+') and    -- ´ë¹®ÀÚ 1°³ ÀÌ»ó
-        regexp_like(member_pw, '[a-z]+') and    -- ¼Ò¹®ÀÚ 1°³ ÀÌ»ó
-        regexp_like(member_pw, '[0-9]+') and    -- ¼ıÀÚ 1°³ ÀÌ»ó
-        regexp_like(member_pw, '[!@#$%^&*?=+_-]+') and    -- Æ¯¼ö¹®ÀÚ 1°³ ÀÌ»ó
+        regexp_like(member_pw, '[A-Z]+') and    -- ëŒ€ë¬¸ì 1ê°œ ì´ìƒ
+        regexp_like(member_pw, '[a-z]+') and    -- ì†Œë¬¸ì 1ê°œ ì´ìƒ
+        regexp_like(member_pw, '[0-9]+') and    -- ìˆ«ì 1ê°œ ì´ìƒ
+        regexp_like(member_pw, '[!@#$%^&*?=+_-]+') and    -- íŠ¹ìˆ˜ë¬¸ì 1ê°œ ì´ìƒ
         regexp_like(member_pw, '^[A-Za-z0-9!@#$%^&*?=+_-]{8,16}$')),
-    member_nick varchar2(30) not null unique check(regexp_like(member_nick, '^[°¡-ÆR0-9]{2,10}$')),
+    member_nick varchar2(30) not null unique check(regexp_like(member_nick, '^[ê°€-í£0-9]{2,10}$')),
     member_email varchar2(100) not null check(member_email like '%@%'),
-    member_first_name varchar2(15) not null check(regexp_like(member_first_name, '^[°¡-ÆR]{1,5}$')),
-    member_last_name varchar2(6) not null check(regexp_like(member_last_name, '^[°¡-ÆR]{1,2}$')),
+    member_first_name varchar2(15) not null check(regexp_like(member_first_name, '^[ê°€-í£]{1,5}$')),
+    member_last_name varchar2(6) not null check(regexp_like(member_last_name, '^[ê°€-í£]{1,2}$')),
     member_tel char(11) check(regexp_like(member_tel, '^010[1-9][0-9]{7}$')),
     member_birth char(10) check(regexp_like(member_birth, '^(19[0-9]{2}|20[0-9]{2})-(((0[13578]|1[02])-(0[1-9]|[12][0-9]|3[01]))|((0[469]|11)-(0[1-9]|[12][0-9]|30))|02-(0[1-9]|[12][0-9]))$')),
     
@@ -39,13 +39,25 @@ create table members_img(
     primary key(member_id, attachment_no)
 );
 
+create view member_with_img as
+    select M.member_id, M.member_nick, M.member_email, M.member_first_name, M.member_last_name, 
+            M.member_tel, M.member_birth, M.member_point, M.member_level, M.member_join, M.member_login, 
+            IMG.attachment_no
+    from members M
+    left outer join members_img IMG 
+        on M.member_id = IMG.member_id;
+
 commit;
 
 select attachment_seq.nextval from dual;
 
+select * from members;
 select * from attachment;
 select * from lecture_img;
+select * from members_img;
+select * from member_with_img;
 
 drop table attachment;
 drop table lecture_img;
 drop sequence attachment_seq;
+drop view member_with_img;
