@@ -1,3 +1,4 @@
+-- 첨부파일 테이블
 create table attachment(
     attachment_no number primary key,
     attachment_name varchar2(256) not null,
@@ -6,12 +7,14 @@ create table attachment(
 );
 create sequence attachment_seq;
 
+-- 강의 사진 연결 테이블
 create table lecture_img(
     lecture_no not null references lectures(no) on delete cascade,
     attachment_no not null references attachment(attachment_no) on delete cascade,
     primary key(lecture_no, attachment_no)
 );
 
+-- 회원 테이블
 create table members(
     member_id varchar2(20) primary key check(regexp_like(member_id, '^[a-z0-9-_]{5,20}$')),
     member_pw varchar2(16) not null check(
@@ -33,12 +36,14 @@ create table members(
     member_login date
 );
 
+-- 회원 프로필 사진 연결 테이블
 create table members_img(
     member_id not null references members(member_id) on delete cascade,
     attachment_no not null references attachment(attachment_no) on delete cascade,
     primary key(member_id, attachment_no)
 );
 
+-- 회원 정보, 프로필사진 조회용 뷰
 create view member_with_img as
     select M.member_id, M.member_nick, M.member_email, M.member_first_name, M.member_last_name, 
             M.member_tel, M.member_birth, M.member_point, M.member_level, M.member_join, M.member_login, 
