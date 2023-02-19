@@ -1,6 +1,7 @@
 package com.exercise.exPage.dao;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -44,6 +45,20 @@ public class MembersDao {
 						membersDto.getMemberFirstName(), membersDto.getMemberLastName(),
 						membersDto.getMemberTel(), membersDto.getMemberBirth()};
 		jdbcTemplate.update(sql, param);
+	}
+	
+	// 단일조회
+	public MembersDto selectOne(String memberID) {
+		String sql = "select * from members where member_id = ?";
+		Object[] param = {memberID};
+		List<MembersDto> list = jdbcTemplate.query(sql, mapper, param);
+		return list.isEmpty() ? null : list.get(0);
+	}
+	// 최종 로그인 시각 업데이트
+	public boolean updateLoginDate(String memberID) {
+		String sql = "update members set member_login = sysdate where member_id = ?";
+		Object[] param = {memberID};
+		return jdbcTemplate.update(sql, param) > 0;
 	}
 	
 }
