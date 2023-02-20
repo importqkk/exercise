@@ -8,6 +8,6 @@
 	<br><br>
 	
 	<a href="/">메인으로</a>
-	<a href="#">마이페이지</a>
+	<a href="/members/login">로그인</a>
 
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
