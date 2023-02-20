@@ -5,6 +5,7 @@ import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import com.exercise.exPage.configuration.FileProperties;
 import com.exercise.exPage.dao.AttachmentDao;
 import com.exercise.exPage.dao.MembersDao;
 import com.exercise.exPage.dao.MembersImgDao;
@@ -21,13 +22,13 @@ public class MembersService {
 	private MembersImgDao membersImgDao;
 	@Autowired
 	private AttachmentDao attachmentDao;
+	@Autowired
+	private FileProperties props;
 	
-	// 위치 설정
-	private final File dir = new File("C:/Users/KBCARD/Desktop/sts_workspace/upload");
-	
-	// 폴더 생성
+	private File dir;
 	@PostConstruct
 	public void init() {
+		dir = new File(props.getPath());
 		dir.mkdirs();
 	}
 	
