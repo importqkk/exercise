@@ -16,7 +16,7 @@
 		
 		<c:choose>
 			<c:when test="${sessionScope.memberID != null}">
-				<a href="#">마이페이지</a>
+				<a href="/members/mypage">마이페이지</a>
 				<a href="/members/logout">로그아웃</a>
 			</c:when>
 			<c:otherwise>
