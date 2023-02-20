@@ -61,6 +61,9 @@ select * from attachment;
 select * from lecture_img;
 select * from members_img;
 select * from member_with_img;
+select * from member_with_img where member_id = 'testuser01';
+select * from members where member_id='testuser01';
+select * from attachment where attachment_no=1;
 
 drop table attachment;
 drop table lecture_img;
