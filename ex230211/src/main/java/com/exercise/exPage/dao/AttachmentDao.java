@@ -1,6 +1,8 @@
 package com.exercise.exPage.dao;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -18,8 +20,8 @@ public class AttachmentDao {
 		public AttachmentDto mapRow(ResultSet rs, int rowNum) throws SQLException {
 			return AttachmentDto.builder()
 						.attachmentNo(rs.getInt("attachment_no"))
-						.attachmentName(rs.getString("attachmentName"))
-						.attachmentType(rs.getString("attachmentType"))
+						.attachmentName(rs.getString("attachment_name"))
+						.attachmentType(rs.getString("attachment_type"))
 						.attachmentSize(rs.getLong("attachment_size"))
 					.build();
 		}
@@ -35,6 +37,14 @@ public class AttachmentDao {
 		Object[] param = {attachmentDto.getAttachmentNo(), attachmentDto.getAttachmentName(),
 							attachmentDto.getAttachmentType(), attachmentDto.getAttachmentSize()};
 		jdbcTemplate.update(sql, param);
+	}
+	
+	// 파일 불러오기
+	public AttachmentDto selectOne(int attachmentNo) {
+		String sql = "select * from attachment where attachment_no = ?";
+		Object[] param = {attachmentNo};
+		List<AttachmentDto> list = jdbcTemplate.query(sql, mapper, param);
+		return list.isEmpty() ? null : list.get(0);
 	}
 	
 }
