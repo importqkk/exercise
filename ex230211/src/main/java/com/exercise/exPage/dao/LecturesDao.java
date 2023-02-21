@@ -58,7 +58,7 @@ public class LecturesDao {
 		else {
 			String sql = "select * from ("
 							+ "select TMP.*, rownum RN from ("
-								+ "select * from lectures order by no asc"
+								+ "select * from lectures order by no desc"
 							+ ")TMP"
 					+ ") where RN between ? and ?";
 		Object[] param = {vo.getFirst(), vo.getLast()};
