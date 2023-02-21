@@ -30,11 +30,16 @@ public class LecturesDao {
 	};
 	
 	// 강의 등록
+	public int sequence() {
+		String sql = "select lectures_seq.nextval from dual";
+		return jdbcTemplate.queryForObject(sql, int.class);
+	}
 	public void add(LecturesDto lecturesDto) {
 		String sql = "insert into lectures(no, lecture, lecturer, hours, fee) "
-					+ "values(lectures_seq.nextval, ?, ?, ?, ?)";
-		Object[] param = {lecturesDto.getLecturesLecture(), lecturesDto.getLecturesLecturer(), 
-							lecturesDto.getLecturesHours(), lecturesDto.getLecturesFee()};
+					+ "values(?, ?, ?, ?, ?)";
+		Object[] param = {lecturesDto.getLecturesNo(), lecturesDto.getLecturesLecture(), 
+							lecturesDto.getLecturesLecturer(), lecturesDto.getLecturesHours(), 
+							lecturesDto.getLecturesFee()};
 		jdbcTemplate.update(sql, param);
 	}
 	
