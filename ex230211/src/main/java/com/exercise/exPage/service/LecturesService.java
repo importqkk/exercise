@@ -32,7 +32,18 @@ public class LecturesService {
 	
 	public void add(LecturesDto lecturesDto, MultipartFile attach) throws IllegalStateException, IOException {
 		// [1] 강의 등록
-		lecturesDao.add(lecturesDto);
+		// 번호 생성
+		int lectureNo = lecturesDao.sequence();
+		// 생성한 번호 넣기
+		lecturesDto.setLecturesNo(lectureNo);
+		// 등록
+		lecturesDao.add(LecturesDto.builder()
+					.lecturesNo(lectureNo)
+					.lecturesLecture(lecturesDto.getLecturesLecture())
+					.lecturesLecturer(lecturesDto.getLecturesLecturer())
+					.lecturesHours(lecturesDto.getLecturesHours())
+					.lecturesFee(lecturesDto.getLecturesFee())
+				.build());
 		// [2] (사진을 등록했을 시)사진 저장 및 등록
 		if(!attach.isEmpty()) {
 			// 번호 생성
