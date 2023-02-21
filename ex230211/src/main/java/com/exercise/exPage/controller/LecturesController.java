@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import com.exercise.exPage.dao.LectureImgDao;
 import com.exercise.exPage.dao.LecturesDao;
 import com.exercise.exPage.dto.LecturesDto;
 import com.exercise.exPage.service.LecturesService;
@@ -24,6 +26,8 @@ public class LecturesController {
 	private LecturesDao lecturesDao;
 	@Autowired
 	private LecturesService lecturesService;
+	@Autowired
+	private LectureImgDao lectureImgDao;
 	
 	// 강의 등록
 	@GetMapping("/add")
@@ -57,6 +61,7 @@ public class LecturesController {
 	public String detail(Model model,
 			@RequestParam int lecturesNo) {
 		model.addAttribute("lecturesDto", lecturesDao.detail(lecturesNo));
+		model.addAttribute("image", lectureImgDao.selectOne(lecturesNo));
 		return "/WEB-INF/views/lectures/detail.jsp";
 	}
 	
