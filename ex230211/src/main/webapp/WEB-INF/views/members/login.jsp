@@ -39,6 +39,9 @@
 		<br>
 	</c:if>
 	
+	<br>
+	<a href="/members/findID">아이디 찾기</a> / <a href="/members/findPW">비밀번호 찾기</a>
+	<br><br>
 	<a href="/">메인으로</a>
 	
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
