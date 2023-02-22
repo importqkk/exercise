@@ -89,4 +89,23 @@ public class MembersController {
 		return "/WEB-INF/views/members/mypage.jsp";
 	}
 	
+	// 아이디 찾기
+	@GetMapping("/findID")
+	public String findID() {
+		return "/WEB-INF/views/members/findID.jsp";
+	}
+	@PostMapping("/findID")
+	public String findID(@ModelAttribute MembersDto membersDto,
+			Model model, RedirectAttributes attr) {
+		try {
+			String memberID = membersDao.findID(membersDto);
+			model.addAttribute("findID", memberID);
+			return "/WEB-INF/views/members/findIDComplete.jsp";
+		}
+		catch(Exception e) {
+			attr.addAttribute("mode", "error");
+			return "redirect:findID";
+		}
+	}
+	
 }
