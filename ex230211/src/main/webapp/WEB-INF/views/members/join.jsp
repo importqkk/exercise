@@ -44,7 +44,7 @@
 					<th colspan="2">*이메일</th>
 				</tr>
 				<tr>
-					<td colspan="2"><input type="text" name="memberEmail" required></td>
+					<td colspan="2"><input type="email" name="memberEmail" required></td>
 				</tr>
 				<tr>
 					<th colspan="2">*성</th>
