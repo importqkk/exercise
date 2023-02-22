@@ -61,4 +61,11 @@ public class MembersDao {
 		return jdbcTemplate.update(sql, param) > 0;
 	}
 	
+	// 아이디 찾기
+	public String findID(MembersDto membersDto) {
+		String sql = "select member_id from members where member_nick=? and member_email=?";
+		Object[] param = {membersDto.getMemberNick(), membersDto.getMemberEmail()};
+		return jdbcTemplate.queryForObject(sql, String.class, param);
+	}
+	
 }
