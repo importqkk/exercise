@@ -68,4 +68,22 @@ public class MembersDao {
 		return jdbcTemplate.queryForObject(sql, String.class, param);
 	}
 	
+	// 비밀번호 변경
+	public boolean changePW(String memberID, String memberPW) {
+		String sql = "update members set member_pw = ? where member_id = ?";
+		Object[] param = {memberPW, memberID};
+		return jdbcTemplate.update(sql, param) > 0;
+	}
+	
+	// 개인정보 변경
+	public boolean changeInfo(MembersDto membersDto) {
+		String sql = "update members set member_nick=?, member_email=?, member_first_name=?, "
+					+ "member_last_name=?, member_tel=?, member_birth=? where member_id=?";
+		Object[] param = {membersDto.getMemberNick(), membersDto.getMemberEmail(),
+						membersDto.getMemberFirstName(), membersDto.getMemberLastName(),
+						membersDto.getMemberTel(), membersDto.getMemberBirth(),
+						membersDto.getMemberID()};
+		return jdbcTemplate.update(sql, param) > 0;
+	}
+	
 }
