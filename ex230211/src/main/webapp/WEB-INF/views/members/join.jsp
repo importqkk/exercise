@@ -70,7 +70,7 @@
 					<td>-를 포함하여 YYYY-MM-DD 형식으로 입력</td>
 				</tr>
 				<tr>
-					<td colspan="2"><input type="text" name="memberBirth"></td>
+					<td colspan="2"><input type="date" name="memberBirth"></td>
 				</tr>
 				<tr>
 					<td colspan="2" align="right"><button>가입</button></td>
