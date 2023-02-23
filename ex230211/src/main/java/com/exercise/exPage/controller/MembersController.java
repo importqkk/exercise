@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.exercise.exPage.dao.MembersDao;
@@ -106,6 +107,69 @@ public class MembersController {
 			attr.addAttribute("mode", "error");
 			return "redirect:findID";
 		}
+	}
+	
+	// 비밀번호 변경
+	@GetMapping("/changePW")
+	public String changePW() {
+		return "/WEB-INF/views/members/changePW.jsp";
+	}
+	@PostMapping("/changePW")
+	public String changePW(HttpSession session,
+			RedirectAttributes attr,
+			@RequestParam String currentPW, 
+			@RequestParam String newPW) {
+		// 아이디검사
+		String memberID = (String)session.getAttribute("memberID");
+		MembersDto membersDto = membersDao.selectOne(memberID);
+		// 비밀번호 검사
+		// 비밀번호가 일치하지 않는다면
+		if(!currentPW.equals(membersDto.getMemberPW())) {
+			attr.addAttribute("mode", "error");
+			return "redirect:changePW";
+		}
+		// 비밀번호가 일치한다면 비밀번호 변경
+		
+		membersDao.changePW(memberID, newPW);
+		return "redirect:changePWComplete";
+		
+	}
+	@GetMapping("/changePWComplete")
+	public String changePWComplete() {
+		return "/WEB-INF/views/members/changePWComplete.jsp";
+	}
+	
+	// 개인정보 변경
+	@GetMapping("/changeInfo")
+	public String changeInfo(Model model,
+			HttpSession session) {
+		// 세션 아이디와 일치하는 회원의 개인정보 불러오기
+		String memberID = (String)session.getAttribute("memberID");
+		MembersDto membersDto = membersDao.selectOne(memberID);
+		model.addAttribute("memberDto", membersDto);
+		return "/WEB-INF/views/members/changeInfo.jsp";
+	}
+	@PostMapping("/changeInfo")
+	public String changeInfo(HttpSession session,
+			RedirectAttributes attr,
+			@ModelAttribute MembersDto membersDto) {
+		// 비밀번호 검사를 위해 세션 아이디 불러오기
+		String memberID = (String)session.getAttribute("memberID");
+		MembersDto findDto = membersDao.selectOne(memberID);
+		// 비밀번호 검사
+		// 비밀번호가 일치하지 않는다면
+		if(!findDto.getMemberPW().equals(membersDto.getMemberPW())) {
+			attr.addAttribute("mode", "error");
+			return "redirect:changeInfo";
+		}
+		// 비밀번호가 일치한다면 개인정보 변경
+		membersDto.setMemberID(memberID);
+		membersDao.changeInfo(membersDto);
+		return "redirect:changeInfoComplete";
+	}
+	@GetMapping("/changeInfoComplete")
+	public String changeInfoComplete() {
+		return "/WEB-INF/views/members/changeInfoComplete.jsp";
 	}
 	
 }
