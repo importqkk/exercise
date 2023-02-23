@@ -66,6 +66,10 @@
 	</table>
 	
 	<br>
+	<a href="/members/changeInfo">개인정보 변경</a> / 
+	<a href="/members/changePW">비밀번호 변경</a>
+	
+	<br><br>
 	
 	<a href="/">메인으로</a>
 
