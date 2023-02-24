@@ -51,6 +51,10 @@ create view member_with_img as
     from members M
     left outer join members_img IMG 
         on M.member_id = IMG.member_id;
+        
+-- 탈퇴 회원 대기 테이블
+create table waiting as select * from members;
+truncate table waiting;
 
 commit;
 
@@ -61,6 +65,7 @@ select * from attachment;
 select * from lecture_img;
 select * from members_img;
 select * from member_with_img;
+select * from waiting;
 select * from member_with_img where member_id = 'testuser01';
 select * from members where member_id='testuser01';
 select * from attachment where attachment_no=1;
