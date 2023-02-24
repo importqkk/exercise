@@ -172,4 +172,38 @@ public class MembersController {
 		return "/WEB-INF/views/members/changeInfoComplete.jsp";
 	}
 	
+	// 회원 탈퇴
+	@GetMapping("/leave")
+	public String leave() {
+		return "/WEB-INF/views/members/leave.jsp";
+	}
+	@PostMapping("/leave")
+	public String leave(RedirectAttributes attr, HttpSession session,
+			@RequestParam String memberPW) {
+		// 비밀번호 검사를 위해 세션에서 아이디 불러와서 해당 아이디 정보 가져오기
+		String memberID = (String)session.getAttribute("memberID");
+		MembersDto membersDto = membersDao.selectOne(memberID);
+		// 비밀번호 검사
+		// 비밀번호가 일치하지 않는다면
+		if(!memberPW.equals(membersDto.getMemberPW())) {
+			attr.addAttribute("mode", "error");
+			return "redirect:leave";
+		}
+		// 비밀번호가 일치한다면
+		// 해당 회원 정보 임시보관
+		MembersDto temporaryDto = membersDao.selectOne(memberID);
+		// 회원 탈퇴
+		membersDao.leave(memberID);
+		// 로그아웃
+		session.removeAttribute("memberID");
+		session.removeAttribute("memberLevel");
+		// 회원 정보 탈퇴 대기 테이블로 이동
+		membersDao.waiting(temporaryDto);
+		return "/WEB-INF/views/members/leaveComplete.jsp";
+	}
+	@GetMapping("/leaveComplete")
+	public String leaveComplete() {
+		return "/WEB-INF/views/members/leaveComplete.jsp";
+	}
+	
 }
