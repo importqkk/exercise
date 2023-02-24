@@ -72,5 +72,9 @@
 	<br><br>
 	
 	<a href="/">메인으로</a>
+	
+	<br><br><br><br>
+	
+	<a href="/members/leave">회원 탈퇴</a>
 
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
