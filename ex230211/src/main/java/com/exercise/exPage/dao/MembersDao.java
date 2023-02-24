@@ -86,4 +86,26 @@ public class MembersDao {
 		return jdbcTemplate.update(sql, param) > 0;
 	}
 	
+	// 회원 탈퇴
+	public boolean leave(String memberID) {
+		String sql = "delete members where member_id = ?";
+		Object[] param = {memberID};
+		return jdbcTemplate.update(sql, param) > 0;
+	}
+	// 탈퇴한 회원 탈퇴 대기 명단으로 옮기기
+	public void waiting(MembersDto membersDto) {
+		String sql = "insert into waiting("
+						+ "member_id, member_pw, member_nick, member_email, "
+						+ "member_first_name, member_last_name, member_tel, member_birth, "
+						+ "member_point, member_level, member_join, member_login) "
+					+ "values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		Object[] param = {membersDto.getMemberID(), membersDto.getMemberPW(), 
+						membersDto.getMemberNick(), membersDto.getMemberEmail(), 
+						membersDto.getMemberFirstName(), membersDto.getMemberLastName(),
+						membersDto.getMemberTel(), membersDto.getMemberBirth(),
+						membersDto.getMemberPoint(), membersDto.getMemberLevel(),
+						membersDto.getMemberJoin(), membersDto.getMemberLogin()};
+		jdbcTemplate.update(sql, param);
+	}
+	
 }
