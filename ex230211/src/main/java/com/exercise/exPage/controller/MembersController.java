@@ -2,6 +2,8 @@ package com.exercise.exPage.controller;
 import java.io.IOException;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import com.exercise.exPage.component.RandomStringComponent;
 import com.exercise.exPage.dao.MembersDao;
 import com.exercise.exPage.dao.MembersImgDao;
 import com.exercise.exPage.dto.MembersDto;
@@ -26,6 +29,10 @@ public class MembersController {
 	private MembersService membersService;
 	@Autowired
 	private MembersImgDao membersImgDao;
+	@Autowired
+	private RandomStringComponent ranStringComponent;
+	@Autowired
+	private JavaMailSender sender;
 	
 	// 회원가입
 	@GetMapping("/join")
@@ -204,6 +211,42 @@ public class MembersController {
 	@GetMapping("/leaveComplete")
 	public String leaveComplete() {
 		return "/WEB-INF/views/members/leaveComplete.jsp";
+	}
+	
+	// 비밀번호 찾기(일회용 비밀번호)
+	@GetMapping("/findPW")
+	public String findPW() {
+		return "/WEB-INF/views/members/findPW.jsp";
+	}
+	@PostMapping("/findPW")
+	public String findPW(RedirectAttributes attr,
+			@RequestParam String inID,
+			@RequestParam String inEmail) {
+		// 입력한 아이디와 일치하는 회원 정보 불러오기
+		String memberID = inID;
+		MembersDto membersDto = membersDao.selectOne(memberID);
+		// 불러온 회원정보에 있는 이메일과 입력한 이메일 일치 검사
+		// 이메일이 일치하지 않는다면
+		if(!membersDto.getMemberEmail().equals(inEmail)) {
+			attr.addAttribute("mode", "error");
+			return "redirect:findPW";
+		}
+		// 이메일이 일치한다면
+		// 임시 비밀번호 생성
+		String temporaryPW = ranStringComponent.generateString();
+		// 생성한 임시 비밀번호로 비밀번호 변경
+		membersDao.changePW(memberID, temporaryPW);
+		// 임시 비밀번호를 회원 이메일로 전송
+		SimpleMailMessage message = new SimpleMailMessage();
+		message.setTo(membersDto.getMemberEmail());
+		message.setSubject("[개발하는 쿼카] 임시 비밀번호 발급");
+		message.setText("회원님의 임시 비밀번호는 "+temporaryPW+" 입니다. 로그인 후 비밀번호를 반드시 변경해주시길 바랍니다.");
+		sender.send(message);
+		return "redirect:findPWComplete";
+	}
+	@GetMapping("/findPWComplete")
+	public String findPWComplete() {
+		return "/WEB-INF/views/members/findPWComplete.jsp";
 	}
 	
 }
