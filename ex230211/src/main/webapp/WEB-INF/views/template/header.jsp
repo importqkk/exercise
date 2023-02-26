@@ -13,6 +13,7 @@
 		
 		<a href="/">메인</a>
 		<a href="/lectures/list">강의</a>
+		<a href="/board/list">게시판</a>
 		
 		<c:choose>
 			<c:when test="${sessionScope.memberID != null}">
