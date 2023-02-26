@@ -56,6 +56,31 @@ create view member_with_img as
 create table waiting as select * from members;
 truncate table waiting;
 
+-- 게시판 테이블
+create table board(
+    board_no number primary key,
+    board_category varchar2(6) not null check(board_category in('공지', '질문', '답변')),
+    board_title varchar2(150) not null,
+    board_content varchar2(4000) not null,
+    board_writer references members(member_id) on delete set null,
+    board_date date default sysdate not null,
+    board_like number default 0 not null check(board_like >= 0),
+    board_comment number default 0 not null check(board_comment >= 0),
+    board_view number default 0 not null check(board_view >= 0),
+    board_report number default 0 not null check(board_report >= 0),
+    board_group number not null check(board_group > 0),
+    board_parent references board(board_no) on delete cascade,
+    board_depth number default 0 not null check(board_depth >= 0)
+);
+create sequence board_seq;
+
+-- 게시판 사진 연결 테이블
+create table board_img(
+    board_no not null references board(board_no) on delete cascade,
+    attachment_no not null references attachment(attachment_no) on delete cascade,
+    primary key(board_no, attachment_no)
+);
+
 commit;
 
 select attachment_seq.nextval from dual;
@@ -69,8 +94,13 @@ select * from waiting;
 select * from member_with_img where member_id = 'testuser01';
 select * from members where member_id='testuser01';
 select * from attachment where attachment_no=1;
+select * from board;
+select * from board_img;
 
 drop table attachment;
 drop table lecture_img;
 drop sequence attachment_seq;
 drop view member_with_img;
+drop table board;
+drop table board_img;
+drop sequence board_seq;
