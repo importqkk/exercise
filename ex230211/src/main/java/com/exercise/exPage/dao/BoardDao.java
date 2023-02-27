@@ -58,5 +58,11 @@ public class BoardDao {
 		List<BoardDto> list = jdbcTemplate.query(sql, mapper, param);
 		return list.isEmpty() ? null : list.get(0);
 	}
+	// 조회수 카운트
+	public boolean updateView(int boardNo) {
+		String sql = "update board set board_view = board_view + 1 where board_no = ?";
+		Object[] param = {boardNo};
+		return jdbcTemplate.update(sql, param) > 0;
+	}
 	
 }
