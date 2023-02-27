@@ -1,5 +1,7 @@
 package com.exercise.exPage.controller;
 import java.io.IOException;
+import java.util.Set;
+import java.util.TreeSet;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import com.exercise.exPage.dao.BoardDao;
+import com.exercise.exPage.dao.BoardImgDao;
 import com.exercise.exPage.dto.BoardDto;
 import com.exercise.exPage.service.BoardService;
 
@@ -20,6 +24,10 @@ public class BoardController {
 
 	@Autowired
 	private BoardService boardService;
+	@Autowired
+	private BoardDao boardDao;
+	@Autowired
+	private BoardImgDao boardImgDao;
 	
 	// 게시글 등록
 	@GetMapping("/post")
@@ -41,6 +49,44 @@ public class BoardController {
 	@GetMapping("/postComplete")
 	public String postComplete() {
 		return "/WEB-INF/views/board/postComplete.jsp";
+	}
+	
+	// 게시글 상세보기
+	@GetMapping("/detail")
+	public String detail(Model model, HttpSession session,
+			@RequestParam int boardNo) {
+		// 해당 번호의 게시글 정보 모두 불러오기
+		BoardDto boardDto = boardDao.detail(boardNo);
+		// 글 수정 버튼은 작성자 본인에게만, 삭제 버튼은 관리자와 작성자 본인에게만 보이도록 jsp에 방문자 정보 전달
+		// 상세보기를 클릭한 사용자가 해당 글의 작성자인지 판단
+		String memberID = (String)session.getAttribute("memberID");
+		boolean owner = boardDto.getBoardWriter() != null && boardDto.getBoardWriter().equals(memberID);
+		model.addAttribute("owner", owner);
+		// 관리자인지 판단
+		String memberLevel = (String)session.getAttribute("memberLevel");
+		boolean admin = memberLevel != null && memberLevel.equals("관리자");
+		model.addAttribute("admin", admin);
+		// 조회수
+		// 증가 조건 1: 내가 쓴 글이 아님
+		if(!owner) {
+			// 조회한 글을 세션에서 기억하게 하기
+			Set<Integer> memory = (Set<Integer>)session.getAttribute("memory");
+			if(memory == null) {
+				memory = new TreeSet<>();
+			}
+			// 증가 조건 2: 이전에 읽은 글이 아님 (단, 세션 내에서)
+			// 세션에 저장된 읽은 글 목록에 현재 글이 없다면
+			// 조회수 증가시키고 읽은 글 목록에 현재 글 추가
+			if(!memory.contains(boardNo)) {
+				boardDao.updateView(boardNo);
+				boardDto.setBoardView(boardDto.getBoardView()+1);
+				memory.add(boardNo);
+			}
+			session.setAttribute("memory", memory);
+		}
+		model.addAttribute("boardDto", boardDto);
+		model.addAttribute("image", boardImgDao.detail(boardNo));
+		return "/WEB-INF/views/board/detail.jsp";
 	}
 	
 }
