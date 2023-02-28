@@ -7,6 +7,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 import com.exercise.exPage.dto.BoardDto;
+import com.exercise.exPage.vo.PageVO;
 
 @Repository
 public class BoardDao {
@@ -63,6 +64,64 @@ public class BoardDao {
 		String sql = "update board set board_view = board_view + 1 where board_no = ?";
 		Object[] param = {boardNo};
 		return jdbcTemplate.update(sql, param) > 0;
+	}
+	
+	// 게시판 목록
+	public List<BoardDto> list(PageVO vo) {
+		// 검색
+		if(vo.isSearch()) {
+			String sql = "select * from ("
+					+ "select TMP.*, rownum RN from ("
+						+ "select * from board where instr(#1, ?) > 0 "
+						+ "connect by prior board_no = board_parent "
+						+ "start with board_parent is null "
+						+ "order by board_no desc"
+					+ ")TMP"
+				+ ") where RN between ? and ?";
+			sql = sql.replace("#1", vo.getColumn());
+			Object[] param = {vo.getKeyword(), vo.getFirst(), vo.getLast()};
+			return jdbcTemplate.query(sql, mapper, param);
+		}
+		// 전체목록
+		else {
+			String sql = "select * from ("
+					+ "select TMP.*, rownum RN from ("
+						+ "select * from board "
+						+ "connect by prior board_no = board_parent "
+						+ "start with board_parent is null "
+						+ "order by board_no desc"
+					+ ")TMP"
+				+ ") where RN between ? and ?";
+			Object[] param = {vo.getFirst(), vo.getLast()};
+			return jdbcTemplate.query(sql, mapper, param);
+		}
+	}
+	// 데이터 개수
+	public int listCount(PageVO vo) {
+		// 검색
+		if(vo.isSearch()) {
+			String sql = "select count(*) from board where instr(#1, ?) > 0";
+			sql = sql.replace("#1", vo.getColumn());
+			Object[] param = {vo.getKeyword()};
+			return jdbcTemplate.queryForObject(sql, int.class, param);
+		}
+		// 전체
+		else {
+			String sql = "select count(*) from board";
+			return jdbcTemplate.queryForObject(sql, int.class);
+		}
+		
+	}
+	// 공지사항 상단 표시
+	public List<BoardDto> noticeList(int start, int end) {
+		String sql = "select * from ("
+				+ "select TMP.*, rownum RN from ("
+					+ "select * from board where board_category = '공지' "
+					+ "order by board_no desc"
+				+ ")TMP"
+			+ ") where RN between ? and ?";
+		Object[] param = {start, end};
+		return jdbcTemplate.query(sql, mapper, param);
 	}
 	
 }
