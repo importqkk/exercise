@@ -48,15 +48,22 @@
 						<tr>
 							<td>${boardDto.boardNo}</td>
 							<td align="left">
-								<c:if test="${boardDto.boardCategory != null}">
-									[${boardDto.boardCategory}]
+							
+								<c:forEach var="i" begin="1" end="${boardDto.boardDepth}">
+									&nbsp;&nbsp;
+								</c:forEach>
+								<c:if test="${boardDto.boardDepth > 0}">
+									ㄴ
 								</c:if>
 								<a href="/board/detail?boardNo=${boardDto.boardNo}">
-									${boardDto.boardTitle}
+									<c:if test="${boardDto.boardCategory != null}">
+										[${boardDto.boardCategory}]
+									</c:if>
+										${boardDto.boardTitle}
+									<c:if test="${boardDto.boardComment != 0}">
+										(${boardDto.boardComment})
+									</c:if>
 								</a>
-								<c:if test="${boardDto.boardComment != 0}">
-									(${boardDto.boardComment})
-								</c:if>
 							</td>
 							<td>${boardDto.boardWriter}</td>
 							<td>${boardDto.boardDateAuto}</td>
