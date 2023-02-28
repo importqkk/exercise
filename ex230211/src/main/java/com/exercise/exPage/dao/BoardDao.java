@@ -75,7 +75,7 @@ public class BoardDao {
 						+ "select * from board where instr(#1, ?) > 0 "
 						+ "connect by prior board_no = board_parent "
 						+ "start with board_parent is null "
-						+ "order by board_no desc"
+						+ "order siblings by board_group desc, board_no asc"
 					+ ")TMP"
 				+ ") where RN between ? and ?";
 			sql = sql.replace("#1", vo.getColumn());
@@ -89,7 +89,7 @@ public class BoardDao {
 						+ "select * from board "
 						+ "connect by prior board_no = board_parent "
 						+ "start with board_parent is null "
-						+ "order by board_no desc"
+						+ "order siblings by board_group desc, board_no asc"
 					+ ")TMP"
 				+ ") where RN between ? and ?";
 			Object[] param = {vo.getFirst(), vo.getLast()};
