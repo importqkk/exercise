@@ -55,7 +55,7 @@
 	
 	<br><br>
 	
-	<a href="#">게시판 목록</a>
+	<a href="/board/list">게시판 목록</a>
 	<a href="/">메인으로</a>
 	
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
