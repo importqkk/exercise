@@ -1,5 +1,6 @@
 package com.exercise.exPage.controller;
 import java.io.IOException;
+import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 import javax.servlet.http.HttpSession;
@@ -17,6 +18,7 @@ import com.exercise.exPage.dao.BoardDao;
 import com.exercise.exPage.dao.BoardImgDao;
 import com.exercise.exPage.dto.BoardDto;
 import com.exercise.exPage.service.BoardService;
+import com.exercise.exPage.vo.PageVO;
 
 @Controller
 @RequestMapping("/board")
@@ -44,11 +46,7 @@ public class BoardController {
 		boardDto.setBoardWriter(memberID);
 		int boardNo = boardService.post(boardDto, attach);
 		attr.addAttribute("boardNo", boardNo);
-		return "redirect:postComplete";
-	}
-	@GetMapping("/postComplete")
-	public String postComplete() {
-		return "/WEB-INF/views/board/postComplete.jsp";
+		return "redirect:detail";
 	}
 	
 	// 게시글 상세보기
@@ -64,7 +62,7 @@ public class BoardController {
 		model.addAttribute("owner", owner);
 		// 관리자인지 판단
 		String memberLevel = (String)session.getAttribute("memberLevel");
-		boolean admin = memberLevel != null && memberLevel.equals("관리자");
+		boolean admin = memberLevel != null && memberLevel.equals("admin");
 		model.addAttribute("admin", admin);
 		// 조회수
 		// 증가 조건 1: 내가 쓴 글이 아님
@@ -87,6 +85,20 @@ public class BoardController {
 		model.addAttribute("boardDto", boardDto);
 		model.addAttribute("image", boardImgDao.detail(boardNo));
 		return "/WEB-INF/views/board/detail.jsp";
+	}
+	
+	// 게시글 목록
+	@GetMapping("/list")
+	public String list(Model model, @ModelAttribute("vo") PageVO vo) {
+		// 게시글 개수 구하고 vo에 넣어주기
+		int totalCount = boardDao.listCount(vo);
+		vo.setCountTotalData(totalCount);
+		// 상단 고정할 공지 목록 (가장 최근 5개)
+		model.addAttribute("noticeList", boardDao.noticeList(1, 5));
+		// 게시글 목록
+		List<BoardDto> list = boardDao.list(vo);
+		model.addAttribute("list", list);
+		return "/WEB-INF/views/board/list.jsp";
 	}
 	
 }
