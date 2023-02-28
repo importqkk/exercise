@@ -41,7 +41,9 @@
 			<tr>
 				<td>
 					<a href="/board/post">새글쓰기</a>
-					<a href="/board/post?boardParent=${boardDto.boardNo}">답글쓰기</a>
+					<c:if test="${boardDto.boardCategory != '공지'}">
+						<a href="/board/post?boardParent=${boardDto.boardNo}">답글쓰기</a>
+					</c:if>
 					<c:if test="${owner}">
 						<a href="#">수정</a>
 					</c:if>
