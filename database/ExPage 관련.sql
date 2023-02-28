@@ -72,7 +72,7 @@ create table board(
     board_parent references board(board_no) on delete cascade,
     board_depth number default 0 not null check(board_depth >= 0)
 );
-create sequence board_seq;
+create sequence board_seq start with 51;
 
 -- 게시판 사진 연결 테이블
 create table board_img(
@@ -104,3 +104,7 @@ drop view member_with_img;
 drop table board;
 drop table board_img;
 drop sequence board_seq;
+
+delete board where board_no=51;
+delete board;
+commit;
