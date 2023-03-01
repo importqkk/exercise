@@ -101,4 +101,19 @@ public class BoardController {
 		return "/WEB-INF/views/board/list.jsp";
 	}
 	
+	// 게시글 수정
+	@GetMapping("/edit")
+	public String edit(Model model,
+			@RequestParam int boardNo) {
+		model.addAttribute("boardDto", boardDao.detail(boardNo));
+		return "/WEB-INF/views/board/edit.jsp";
+	}
+	@PostMapping("/edit")
+	public String edit(@ModelAttribute BoardDto boardDto,
+			RedirectAttributes attr) {
+		boardDao.edit(boardDto);
+		attr.addAttribute("boardNo", boardDto.getBoardNo());
+		return "redirect:detail";
+	}
+	
 }
