@@ -45,7 +45,7 @@
 						<a href="/board/post?boardParent=${boardDto.boardNo}">답글쓰기</a>
 					</c:if>
 					<c:if test="${owner}">
-						<a href="#">수정</a>
+						<a href="/board/edit?boardNo=${boardDto.boardNo}">수정</a>
 					</c:if>
 					<c:if test="${owner || admin}">
 						<a href="#">삭제</a>
