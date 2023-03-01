@@ -124,4 +124,14 @@ public class BoardDao {
 		return jdbcTemplate.query(sql, mapper, param);
 	}
 	
+	// 게시글 수정
+	public boolean edit(BoardDto boardDto) {
+		String sql = "update board set board_category = ?, board_title = ?, "
+						+ "board_content = ?"
+					+ " where board_no = ?";
+		Object[] param = {boardDto.getBoardCategory(), boardDto.getBoardTitle(), 
+						boardDto.getBoardContent(), boardDto.getBoardNo()};
+		return jdbcTemplate.update(sql, param) > 0;
+	}
+	
 }
