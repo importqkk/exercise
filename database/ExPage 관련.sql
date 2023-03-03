@@ -105,6 +105,6 @@ drop table board;
 drop table board_img;
 drop sequence board_seq;
 
-delete board where board_no=58;
+delete board where board_no=71;
 delete board;
 commit;
