@@ -110,8 +110,15 @@ public class BoardController {
 	}
 	@PostMapping("/edit")
 	public String edit(@ModelAttribute BoardDto boardDto,
-			RedirectAttributes attr) {
+			@RequestParam MultipartFile attach,
+			RedirectAttributes attr) throws IllegalStateException, IOException {
 		boardDao.edit(boardDto);
+		
+		if(!attach.isEmpty()) {
+			boardService.delete(boardDto.getBoardNo());
+		}
+		boardService.edit(boardDto, attach);
+			
 		attr.addAttribute("boardNo", boardDto.getBoardNo());
 		return "redirect:detail";
 	}
