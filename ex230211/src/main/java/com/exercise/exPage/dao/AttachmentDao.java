@@ -47,4 +47,21 @@ public class AttachmentDao {
 		return list.isEmpty() ? null : list.get(0);
 	}
 	
+	// 수정
+	public boolean edit(AttachmentDto attachmentDto) {
+		String sql = "update attachment "
+						+ "set attachment_name=?, attachment_type=? attachment_size=? "
+					+ "where attachment_no = ?";
+		Object[] param = {attachmentDto.getAttachmentName(), attachmentDto.getAttachmentType(), 
+						attachmentDto.getAttachmentSize(), attachmentDto.getAttachmentNo()};
+		return jdbcTemplate.update(sql, param) > 0;
+	}
+	
+	// 삭제
+	public boolean delete(int attachmentNo) {
+		String sql = "delete attachment where attachment_no = ?";
+		Object[] param = {attachmentNo};
+		return jdbcTemplate.update(sql, param) > 0;
+	}
+	
 }
