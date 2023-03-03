@@ -83,4 +83,28 @@ public class BoardService {
 		
 	}
 	
+	public void edit(BoardDto boardDto, MultipartFile attach) throws IllegalStateException, IOException {
+		if(!attach.isEmpty()) {
+			int attachmentNo = attachmentDao.sequence();
+			File target = new File(dir, String.valueOf(attachmentNo));
+			attach.transferTo(target);
+			
+			attachmentDao.insert(AttachmentDto.builder()
+						.attachmentNo(attachmentNo)
+						.attachmentName(attach.getOriginalFilename())
+						.attachmentType(attach.getContentType())
+						.attachmentSize(attach.getSize())
+					.build());
+			boardImgDao.post(BoardImgDto.builder()
+					.boardNo(boardDto.getBoardNo())
+					.attachmentNo(attachmentNo)
+				.build());
+		}
+		
+	}
+	
+	public void delete(int attachmentNo) {
+		attachmentDao.delete(attachmentNo);
+	}
+	
 }
