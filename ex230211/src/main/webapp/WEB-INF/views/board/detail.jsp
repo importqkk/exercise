@@ -48,7 +48,7 @@
 						<a href="/board/edit?boardNo=${boardDto.boardNo}">수정</a>
 					</c:if>
 					<c:if test="${owner || admin}">
-						<a href="#">삭제</a>
+						<a href="/board/delete?boardNo=${boardDto.boardNo}">삭제</a>
 					</c:if>
 				</td>
 			</tr>
