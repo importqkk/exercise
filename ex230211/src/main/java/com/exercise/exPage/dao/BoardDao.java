@@ -134,4 +134,11 @@ public class BoardDao {
 		return jdbcTemplate.update(sql, param) > 0;
 	}
 	
+	// 게시글 삭제
+	public boolean delete(int boardNo) {
+		String sql = "delete board where board_no = ?";
+		Object[] param = {boardNo};
+		return jdbcTemplate.update(sql, param) > 0;
+	}
+	
 }
