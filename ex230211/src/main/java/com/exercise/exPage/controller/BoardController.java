@@ -123,4 +123,11 @@ public class BoardController {
 		return "redirect:detail";
 	}
 	
+	// 게시글 수정
+	@GetMapping("/delete")
+	public String delete(@RequestParam int boardNo) {
+		boardDao.delete(boardNo);
+		return "redirect:list";
+	}
+	
 }
