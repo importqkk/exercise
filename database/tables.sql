@@ -230,6 +230,8 @@ create table member(
 );
 commit;
 
+insert into member 
+
 -- 탈퇴 예정인 회원들을 보관하는 테이블
 create table waiting as select * from member;
 truncate table waiting; -- delete+commit
