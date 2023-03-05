@@ -26,21 +26,27 @@
 		<c:choose>
 			<c:when test="${boardDto.boardCategory == '공지'}">
 				<select name="boardCategory">
-					<option selected>공지</option>
+					<c:if test="${sessionScope.memberLevel == 'admin'}">
+						<option selected>공지</option>
+					</c:if>
 					<option>질문</option>
 					<option>답변</option>
 				</select>
 			</c:when>
 			<c:when test="${boardDto.boardCategory == '질문'}">
 				<select name="boardCategory">
-					<option>공지</option>
+					<c:if test="${sessionScope.memberLevel == 'admin'}">
+						<option>공지</option>
+					</c:if>
 					<option selected>질문</option>
 					<option>답변</option>
 				</select>
 			</c:when>
 			<c:when test="${boardDto.boardCategory == '답변'}">
 				<select name="boardCategory">
-					<option>공지</option>
+					<c:if test="${sessionScope.memberLevel == 'admin'}">
+						<option>공지</option>
+					</c:if>
 					<option>질문</option>
 					<option selected>답변</option>
 				</select>
