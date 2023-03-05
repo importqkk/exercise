@@ -36,6 +36,10 @@ create table members(
     member_login date
 );
 
+insert into members (member_id, member_pw, member_nick, member_email, member_first_name, member_last_name, member_tel, member_birth, member_level) 
+values ('adminuser02', 'Adminuser02!', '관리자02', 'adminuser02@email.com', '관리자', '이', '01022223333', '2023-01-01', 'admin');
+commit;
+
 -- 회원 프로필 사진 연결 테이블
 create table members_img(
     member_id not null references members(member_id) on delete cascade,
