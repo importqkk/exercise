@@ -16,11 +16,14 @@
 				<thead>
 					<tr>
 						<th>번호</th>
-						<th width="400">제목</th>
+						<th width="40%">제목</th>
 						<th>작성자</th>
 						<th>작성일</th>
 						<th>좋아요</th>
 						<th>조회수</th>
+						<c:if test="${sessionScope.memberLevel == 'admin'}">
+							<th>관리</th>
+						</c:if>
 					</tr>
 				</thead>
 				<tbody align="center">
@@ -42,6 +45,12 @@
 							<td>${boardDto.boardDateAuto}</td>
 							<td>${boardDto.boardLike}</td>
 							<td>${boardDto.boardView}</td>
+							<c:if test="${sessionScope.memberLevel == 'admin'}">
+								<td>
+									<a href="/board/delete?boardNo=${boardDto.boardNo}">삭제</a> | 
+									<a href="/board/edit?boardNo=${boardDto.boardNo}">수정</a>
+								</td>
+							</c:if>
 						</tr>
 					</c:forEach>
 					<c:forEach var="boardDto" items="${list}">
@@ -69,6 +78,14 @@
 							<td>${boardDto.boardDateAuto}</td>
 							<td>${boardDto.boardLike}</td>
 							<td>${boardDto.boardView}</td>
+							<c:if test="${sessionScope.memberLevel == 'admin'}">
+								<td>
+									<a href="/board/delete?boardNo=${boardDto.boardNo}">삭제</a>
+									<c:if test="${boardDto.boardWriter == sessionScope.memberID}">
+										 | <a href="/board/edit?boardNo=${boardDto.boardNo}">수정</a>
+									</c:if>
+								</td>
+							</c:if>
 						</tr>
 					</c:forEach>
 				</tbody>
