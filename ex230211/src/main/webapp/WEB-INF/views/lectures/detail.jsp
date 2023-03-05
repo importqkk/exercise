@@ -28,8 +28,10 @@
 	
 	<br><br>
 	
-	<a href="delete?no=${lecturesDto.lecturesNo}">삭제</a>
-	<a href="edit?no=${lecturesDto.lecturesNo}">수정</a>
+	<c:if test="${sessionScope.memberLevel == 'admin'}">
+		<a href="delete?no=${lecturesDto.lecturesNo}">삭제</a>
+		<a href="edit?no=${lecturesDto.lecturesNo}">수정</a>
+	</c:if>
 	<a href="list">전체목록</a>
 	<a href="/">메인으로</a>
 
