@@ -123,7 +123,7 @@ public class BoardController {
 		return "redirect:detail";
 	}
 	
-	// 게시글 수정
+	// 게시글 삭제
 	@GetMapping("/delete")
 	public String delete(@RequestParam int boardNo) {
 		boardDao.delete(boardNo);
