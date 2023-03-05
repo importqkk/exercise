@@ -45,6 +45,10 @@
 						<th width="50%">강의명</th>
 						<th>강사명</th>
 						<th>수강료</th>
+						<c:if test="${sessionScope.memberLevel == 'admin'}">
+							<th>관리</th>
+						</c:if>
+						
 					</tr>
 				</thead>
 				<tbody align="center">
@@ -61,16 +65,24 @@
 									<fmt:formatNumber value="${lecturesDto.lecturesFee}" pattern="#,##0">
 									</fmt:formatNumber>
 								</td>
+								<c:if test="${sessionScope.memberLevel == 'admin'}">
+									<td>
+										<a href="delete?no=${lecturesDto.lecturesNo}">삭제</a> | 
+										<a href="edit?no=${lecturesDto.lecturesNo}">수정</a>
+									</td>
+								</c:if>
 							</tr>
 					</c:forEach>
 				</tbody>
-				<tfoot>
+				<c:if test="${sessionScope.memberLevel == 'admin'}">
+					<tfoot>
 					<tr>
-						<td colspan="4" align="right">
+						<td colspan="5" align="right">
 							<a href="add">등록</a>
 						</td>
 					</tr>
 				</tfoot>
+				</c:if>
 			</table>
 		</c:otherwise>
 	</c:choose>
