@@ -83,7 +83,7 @@ public class LecturesController {
 	@GetMapping("/delete")
 	public String delete(@RequestParam int no) {
 		lecturesDao.delete(no);
-		return "/WEB-INF/views/lectures/delete.jsp";
+		return "redirect:list";
 	}
 	
 }
