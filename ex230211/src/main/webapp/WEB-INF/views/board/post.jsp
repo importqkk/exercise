@@ -20,7 +20,9 @@
 			<input type="hidden" name="boardParent" value="${boardParent}">
 		</c:if>
 		<select name="boardCategory">
-			<option>공지</option>
+			<c:if test="${sessionScope.memberLevel == 'admin'}">
+				<option>공지</option>
+			</c:if>
 			<option>질문</option>
 			<option>답변</option>
 		</select>
