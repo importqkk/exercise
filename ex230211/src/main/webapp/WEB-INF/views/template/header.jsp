@@ -15,6 +15,10 @@
 		<a href="/lectures/list">강의</a>
 		<a href="/board/list">게시판</a>
 		
+		<c:if test="${sessionScope.memberLevel == 'admin'}">
+			<a href="/admin">관리</a>
+		</c:if>
+		
 		<c:choose>
 			<c:when test="${sessionScope.memberID != null}">
 				<a href="/members/mypage">마이페이지</a>
