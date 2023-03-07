@@ -7,6 +7,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 import com.exercise.exPage.dto.MembersDto;
+import com.exercise.exPage.vo.PageVO;
 
 @Repository
 public class MembersDao {
@@ -106,6 +107,48 @@ public class MembersDao {
 						membersDto.getMemberPoint(), membersDto.getMemberLevel(),
 						membersDto.getMemberJoin(), membersDto.getMemberLogin()};
 		jdbcTemplate.update(sql, param);
+	}
+	
+	// 관리자 페이지용 회원 목록
+	public List<MembersDto> list(PageVO vo) {
+		// 검색
+		if(vo.isSearch()) {
+			String sql = "select * from ("
+							+ "select TMP.*, rownum RN from ("
+								+ "select * from members where instr(#1, ?) > 0 "
+								+ "order by member_join desc"
+							+ ")TMP"
+						+ ") where RN between ? and ?";
+			sql = sql.replace("#1", vo.getColumn());
+			Object[] param = {vo.getKeyword(), vo.getFirst(), vo.getLast()};
+			return jdbcTemplate.query(sql, mapper, param);
+		}
+		// 전체목록
+		else {
+			String sql = "select * from ("
+							+ "select TMP.*, rownum RN from ("
+								+ "select * from members order by member_join desc"
+							+ ")TMP"
+						+ ") where RN between ? and ?";
+			Object[] param = {vo.getFirst(), vo.getLast()};
+			return jdbcTemplate.query(sql, mapper, param);
+		}
+	}
+	// 데이터 개수
+	public int listCount(PageVO vo) {
+		// 검색
+		if(vo.isSearch()) {
+			String sql = "select count(*) from members where instr(#1, ?) > 0";
+			sql = sql.replace("#1", vo.getColumn());
+			Object[] param = {vo.getKeyword()};
+			return jdbcTemplate.queryForObject(sql, int.class, param);
+		}
+		// 전체
+		else {
+			String sql = "select count(*) from members";
+			return jdbcTemplate.queryForObject(sql, int.class);
+		}
+		
 	}
 	
 }
