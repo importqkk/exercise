@@ -151,4 +151,17 @@ public class MembersDao {
 		
 	}
 	
+	// 관리자용 회원정보 변경
+	public boolean adminChangeInfo(MembersDto membersDto) {
+		String sql = "update members set member_nick=?, member_email=?, member_first_name=?, "
+					+ "member_last_name=?, member_tel=?, member_birth=?, member_point=?, "
+					+ "member_level=? where member_id=?";
+		Object[] param = {membersDto.getMemberNick(), membersDto.getMemberEmail(), 
+						membersDto.getMemberFirstName(), membersDto.getMemberLastName(),
+						membersDto.getMemberTel(), membersDto.getMemberBirth(),
+						membersDto.getMemberPoint(), membersDto.getMemberLevel(),
+						membersDto.getMemberID()};
+		return jdbcTemplate.update(sql, param) > 0;
+	}
+	
 }
