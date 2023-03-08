@@ -68,15 +68,17 @@
 					<c:forEach var="membersDto" items="${list}">
 						<tr>
 							<td>
-								<a href="#">${membersDto.memberID}</a>
+								<a href="/admin/members/detail?memberID=${membersDto.memberID}">
+									${membersDto.memberID}
+								</a>
 							</td>
 							<td>${membersDto.memberNick}</td>
 							<td>${membersDto.memberLastName}${membersDto.memberFirstName}</td>
 							<td>${membersDto.memberLevel}</td>
 							<td>${membersDto.memberJoin}</td>
 							<td>
-								<a href="#">탈퇴</a> | 
-								<a href="#">수정</a> | 
+								<a href="/admin/members/leave?memberID=${membersDto.memberID}&page=${vo.page}">탈퇴</a> | 
+								<a href="/admin/members/changeInfo?memberID=${membersDto.memberID}">수정</a> | 
 								<a href="#">임시비밀번호</a>
 							</td>
 						</tr>
