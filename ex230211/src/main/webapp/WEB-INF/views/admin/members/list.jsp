@@ -79,7 +79,7 @@
 							<td>
 								<a href="/admin/members/leave?memberID=${membersDto.memberID}&page=${vo.page}">탈퇴</a> | 
 								<a href="/admin/members/changeInfo?memberID=${membersDto.memberID}">수정</a> | 
-								<a href="#">임시비밀번호</a>
+								<a href="/admin/members/tempPW?memberID=${membersDto.memberID}">임시비밀번호</a>
 							</td>
 						</tr>
 					</c:forEach>
