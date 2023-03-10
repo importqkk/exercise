@@ -38,10 +38,11 @@ public class AdminController {
 	
 	// 회원 목록
 	@GetMapping("/members/list")
-	public String membersList(Model model, @ModelAttribute("vo") PageVO vo) {
+	public String membersList(Model model, @ModelAttribute("vo") PageVO vo,
+			@RequestParam(required = false, defaultValue = "member_join desc") String sort) {
 		int totalMembers = membersDao.listCount(vo);
 		vo.setCountTotalData(totalMembers);
-		List<MembersDto> list = membersDao.list(vo);
+		List<MembersDto> list = membersDao.list(vo, sort);
 		model.addAttribute("list", list);
 		return "/WEB-INF/views/admin/members/list.jsp";
 	}
