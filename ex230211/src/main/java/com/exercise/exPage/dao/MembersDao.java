@@ -110,13 +110,13 @@ public class MembersDao {
 	}
 	
 	// 관리자 페이지용 회원 목록
-	public List<MembersDto> list(PageVO vo) {
+	public List<MembersDto> list(PageVO vo, String sort) {
 		// 검색
 		if(vo.isSearch()) {
 			String sql = "select * from ("
 							+ "select TMP.*, rownum RN from ("
 								+ "select * from members where instr(#1, ?) > 0 "
-								+ "order by member_join desc"
+								+ "order by " + sort
 							+ ")TMP"
 						+ ") where RN between ? and ?";
 			sql = sql.replace("#1", vo.getColumn());
@@ -127,7 +127,8 @@ public class MembersDao {
 		else {
 			String sql = "select * from ("
 							+ "select TMP.*, rownum RN from ("
-								+ "select * from members order by member_join desc"
+								+ "select * from members "
+								+ "order by " + sort
 							+ ")TMP"
 						+ ") where RN between ? and ?";
 			Object[] param = {vo.getFirst(), vo.getLast()};
