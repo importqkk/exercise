@@ -47,6 +47,14 @@
 	
 	<br><br>
 	
+	<a href="/admin/members/list?sort=member_id asc">아이디순</a>
+	<a href="/admin/members/list?sort=member_nick asc">닉네임순</a>
+	<a href="/admin/members/list?sort=member_level asc">등급순</a>
+	<a href="/admin/members/list?sort=member_join asc">가입일 오름차</a>
+	<a href="/admin/members/list?sort=member_join desc">가입일 내림차</a>
+	
+	<br><br>
+	
 	<c:choose>
 		<c:when test="${list.isEmpty()}">
 			<br>
