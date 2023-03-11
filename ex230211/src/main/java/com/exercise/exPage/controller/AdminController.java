@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.exercise.exPage.component.RandomStringComponent;
+import com.exercise.exPage.dao.BoardStatDao;
+import com.exercise.exPage.dao.LectureStatDao;
+import com.exercise.exPage.dao.MemberStatDao;
 import com.exercise.exPage.dao.MembersDao;
 import com.exercise.exPage.dao.MembersImgDao;
 import com.exercise.exPage.dto.MembersDto;
@@ -29,10 +32,19 @@ public class AdminController {
 	private RandomStringComponent ranStringComponent;
 	@Autowired
 	private JavaMailSender sender;
+	@Autowired
+	private MemberStatDao memberStatDao;
+	@Autowired
+	private LectureStatDao lectureStatDao;
+	@Autowired
+	private BoardStatDao boardStatDao;
 	
-	// 관리 메인
+	// 관리 메인 (회원, 강의, 게시판 통계)
 	@GetMapping
-	public String main() {
+	public String main(Model model) {
+		model.addAttribute("memberList", memberStatDao.list());
+		model.addAttribute("lectureList", lectureStatDao.list());
+		model.addAttribute("boardList", boardStatDao.list());
 		return "/WEB-INF/views/admin/main.jsp";
 	}
 	
