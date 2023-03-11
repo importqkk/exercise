@@ -85,6 +85,33 @@ create table board_img(
     primary key(board_no, attachment_no)
 );
 
+-- 회원 통계 뷰
+create or replace view member_stat as select 
+    member_level,
+    count(*) cnt,
+    avg(member_point) avg_point,
+    max(member_point) max_point,
+    min(member_point) min_point
+from members group by member_level;
+
+-- 과목 통계 뷰
+create or replace view lecture_stat as select
+    count(*) cnt,
+    avg(fee) avg_fee,
+    max(fee) max_fee,
+    min(fee) min_fee,
+    avg(hours) avg_hours,
+    max(hours) max_hours,
+    min(hours) min_hours
+from lectures;
+
+-- 게시판 통계 뷰
+create or replace view board_stat as select 
+    board_category,
+    count(*) cnt
+from board group by board_category;
+    
+
 commit;
 
 select attachment_seq.nextval from dual;
@@ -100,6 +127,9 @@ select * from members where member_id='testuser01';
 select * from attachment where attachment_no=1;
 select * from board;
 select * from board_img;
+select * from lecture_stat;
+select * from member_stat;
+select * from board_stat;
 
 drop table attachment;
 drop table lecture_img;
