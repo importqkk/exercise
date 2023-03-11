@@ -26,7 +26,7 @@ public class BoardStatDao {
 	};
 	
 	public List<BoardStatDto> list() {
-		String sql = "select * from board_stat";
+		String sql = "select * from board_stat order by board_category asc";
 		return jdbcTemplate.query(sql, mapper);
 	}
 	
