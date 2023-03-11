@@ -7,7 +7,7 @@
 		
 	<a href="/admin/members/list">회원 관리</a>
 	
-	<br><br>
+	<br><br><br>
 	
 	<h2>회원 현황</h2>
 	<table border="1" width=500>
