@@ -3,45 +3,36 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
-
-	<h1>로그인</h1>
-	
-	<br><br>
 	
 	<form action="login" method="post">
-		<table border="0">
-			<tbody>
-				<tr>
-					<th>아이디</th>
-					<td>
-						<input type="text" name="memberID" required>
-					</td>
-				</tr>
-				<tr>
-					<th>비밀번호</th>
-					<td>
-						<input type="password" name="memberPW" required>
-					</td>
-				</tr>
-				<tr>
-					<td colspan="2" align="right">
-						<button>로그인</button>
-					<td>
-				</tr>
-			</tbody>
-		</table>
+		<div class="container-450">
+		    <div class="row center">
+		        <h1 class="title">로그인</h1>
+		    </div>
+		    <div class="row">
+		        <label class="form-label">아이디</label>
+		        <input class="form-input large w-100" type="text" name="memberID" required>
+		    </div>
+		    <div class="row">
+		        <label class="form-label">비밀번호</label>
+		        <input class="form-input large w-100" type="password" name="memberPW" required>
+		    </div>
+		    <c:if test="${param.mode == 'error'}">
+			    <div class="row center pt-10 pb-10">
+			    	<h4 style="color: #c10e0e;">로그인 정보가 일치하지 않습니다.</h4>
+			    </div>
+		    </c:if>
+		    <div class="row">
+		        <button class="form-btn large positive w-100">로그인</button>
+		    </div>
+		    <div class="row center pt-20">
+		        <a class="link" href="/members/findID">아이디 찾기</a> | 
+		        <a class="link" href="/members/findPW">비밀번호 찾기</a>
+		    </div>
+		    <div class="row center">
+		        <a class="link" href="/members/join">회원가입</a>
+		    </div>
+		</div>
 	</form>
-	
-	<br>
-	
-	<c:if test="${param.mode == 'error'}">
-		<h4>로그인 정보가 일치하지 않습니다.</h4>
-		<br>
-	</c:if>
-	
-	<br>
-	<a href="/members/findID">아이디 찾기</a> / <a href="/members/findPW">비밀번호 찾기</a>
-	<br><br>
-	<a href="/">메인으로</a>
 	
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
