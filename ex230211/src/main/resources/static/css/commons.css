@@ -264,6 +264,18 @@
 /*
     입력창, 버튼 등 디자인
 */
+.form-btn, .form-input, select.form-input{
+    vertical-align: bottom;
+}
+select.form-input.large, .form-btn.large {
+    height: 2.94em;
+}
+select.form-input.medium, .form-btn.medium {
+    height: 2.9em;
+}
+select.form-input.small, .form-btn.small {
+    height: 2.4em;
+}
 .form-input.large {
     font-size: 20px;
     outline: none;
@@ -291,7 +303,7 @@
 .form-btn.large {
     font-size: 20px;
     padding: 0.8em;
-    border-width: 3px;
+    border-width: 2.5px;
     border-style: solid;
     border-radius: 0.5em;
     cursor: pointer;
@@ -305,8 +317,8 @@
     cursor: pointer;
 }
 .form-btn.small {
-    font-size: 17px;
-    padding: 0.75em;
+    font-size: 13px;
+    padding: 0.5em;
     border-width: 2px;
     border-style: solid;
     border-radius: 0.5em;
@@ -354,7 +366,7 @@ a.link.warning {
 }
 a.link:hover {
     font-weight: bold;
-    color: #211572;
+    color: #4431bf;
 }
 a.link.warning:hover {
     font-weight: bold;
@@ -399,4 +411,79 @@ h1.title, h2.title, h3.title, h4.title, h5.title, h6.title {
 }
 .invalid3 ~ .invalid-message3 {
     display: block;
+}
+
+/*
+    표(table) 스타일
+*/
+/* 칸 내부 여백 */
+.table > thead > tr > th,
+.table > thead > tr > td, 
+.table > tbody > tr > th, 
+.table > tbody > tr > td, 
+.table > tfoot > tr > th,
+.table > tfoot > tr > td {
+    padding: 0.75em;
+}
+/* .table-border: 전체 테두리 */
+.table.table-border,
+.table.table-border > thead > tr > th, 
+.table.table-border > thead > tr > td, 
+.table.table-border > tbody > tr > th, 
+.table.table-border > tbody > tr > td, 
+.table.table-border > tfoot > tr > th, 
+.table.table-border > tfoot > tr > td {
+    border: 1px solid #4431bf;
+}
+/* .table-row: 가로선만 있는 테이블 */
+.table.table-row {
+    border-bottom: 2px solid #4431bf;
+}
+.table.table-row > thead,
+.table.table-row > tfoot {
+    /* border-top: 2px solid #4431bf; */
+    border-bottom: 2px solid #4431bf;
+    color: #4431bf;
+}
+.table.table-row > tbody > tr:not(:last-child) {
+    border-bottom: 1px dotted #cac3f2;
+}
+/* .table-striped: 줄무늬 표 */
+.table.table-striped > thead > tr,
+.table.table-striped > tfoot > tr {
+    background-color: #8297ff;
+    color: white;
+}
+.table.table-striped > tbody > tr:nth-child(2n) {
+    background-color: #e4e8ff;
+}
+.table.table-striped > tbody > tr:nth-child(2n-1) {
+    background-color: #f5f7ff;
+}
+/* .table-hover: hover시 설정 */
+.table.table-hover > tbody > tr:hover {
+    background-color: #f5f7ff;
+}
+
+
+/* 페이지네이션 */
+.pagination {
+    text-align: center;
+}
+.pagination > a {
+    display: inline-block;
+    color: rgb(169, 169, 169);
+    text-decoration: none;
+    font-size: 13px;
+    min-width: 2.25em;
+    padding: 0.4em;
+    text-align: cneter;
+}
+.pagination > a.on,
+.pagination > a:hover:not(.disabled) {
+    color: #4431bf;
+    font-weight: bold;
+}
+.pagination > a.disabled {
+    cursor: default;
 }
