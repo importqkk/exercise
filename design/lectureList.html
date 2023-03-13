@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="css/load.css">
+    <link rel="stylesheet" type="text/css" href="css/reset.css">
+    <link rel="stylesheet" type="text/css" href="css/test.css">
+    <link rel="stylesheet" type="text/css" href="css/commons.css">
+    <!-- font awsome 아이콘 -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+    <!-- jquery cdn -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <title>강의</title>
+    <script type="text/javascript">
+        $(function() {
+            $("#delete").click(function() {
+                var result = confirm("정말 삭제하시겠습니까?");
+                if(!result) return false;
+            })
+        })
+    </script>
+</head>
+<body>
+    <form action="list" method="get">
+        <div class="container-800">
+            <!-- 제목 -->
+            <div class="row">
+                <h1 class="title pb-20">강의</h1>
+            </div>
+            <!-- 등록버튼, 검색창 -->
+            <div class="row" style="display: flex;">
+                <!-- 등록버튼 -->
+                <div class="left w-25">
+                    <a class="form-btn small positive w-50">등록</a>
+                </div>
+                <!-- 검색창 -->
+                <div class="right w-75">
+                    <!-- 카테고리 -->
+                    <select class="form-input small w-15" name="column">
+                        <option value="lecture">강의명</option>
+                        <option value="lecturer">강사명</option>
+                    </select>
+                    <!-- 검색창 -->
+                    <input class="form-input small w-40" type="text" name="keyword" placeholder="검색어를 입력하세요.">
+                    <!-- 검색버튼 -->
+                    <button class="form-btn small positive w-10" type="submit">검색</button>
+                </div>
+            </div>
+            <!-- 목록 -->
+            <div class="row">
+                <table class="table table-row table-hover w-100">
+                    <thead>
+                        <tr>
+                            <th>번호</th>
+                            <th class="w-40">강의명</th>
+                            <th>강사명</th>
+                            <th class="right">수강료</th>
+                            <th>관리</th>
+                        </tr>
+                    </thead>
+                    <tbody class="center">
+                        <tr>
+                            <td>500</td>
+                            <td>테스트강의 500</td>
+                            <td>김강사</td>
+                            <td>100,000</td>
+                            <td><a class="link" id="delete">삭제</a> | <a class="link">수정</a></td>
+                        </tr>
+                        <tr>
+                            <td>500</td>
+                            <td>테스트강의 500</td>
+                            <td>김강사</td>
+                            <td>100,000</td>
+                            <td><a class="link">삭제</a> | <a class="link">수정</a></td>
+                        </tr>
+                        <tr>
+                            <td>500</td>
+                            <td>테스트강의 500</td>
+                            <td>김강사</td>
+                            <td>100,000</td>
+                            <td><a class="link">삭제</a> | <a class="link">수정</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- 페이지 네비 -->
+            <div class="row pagination">
+                <!-- << (첫페이지로) -->
+                <a href="#">&laquo;</a>
+                <!-- < (이전페이지로) -->
+                <a href="#">&lt;</a>
+                <!-- 숫자(begin ~ end) -->
+                <a href="#" class="on">1</a>
+                <a href="#">2</a>
+                <a href="#">3</a>
+                <a href="#">4</a>
+                <a href="#">5</a>
+                <!-- >  (다음페이지로) -->
+                <a href="#">&gt;</a>
+                <!-- >> (마지막 페이지로) -->
+                <a href="#">&raquo;</a>
+            </div>
+        </div>
+    </form>
+</body>
+</html>
