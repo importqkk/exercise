@@ -12,6 +12,7 @@
 	    <link rel="stylesheet" type="text/css" href="/css/reset.css">
 	    <link rel="stylesheet" type="text/css" href="/css/test.css">
 	    <link rel="stylesheet" type="text/css" href="/css/commons.css">
+	    <link rel="stylesheet" type="text/css" href="/css/layout.css">
 	    <!-- font awsome 아이콘 -->
     	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
     	<!-- jquery cdn -->
