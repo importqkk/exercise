@@ -180,6 +180,7 @@
 .ms-90 {margin-left: 90px;}
 .ms-100 {margin-left: 100px;}
 
+.me-5 {margin-right: 5px;}
 .me-10 {margin-right: 10px;}
 .me-20 {margin-right: 20px;}
 .me-30 {margin-right: 30px;}
@@ -255,6 +256,13 @@
 }
 
 /*
+    글자 크기
+*/
+.font-h3 {
+    font-size: 1.17em;
+}
+
+/*
     내부 요소 정렬
 */
 .center {text-align: center;}
@@ -300,6 +308,9 @@ select.form-input.small, .form-btn.small {
 .form-input:focus {
     border-color: #36269a;
 }
+.form-btn {
+    text-align: center;
+}
 .form-btn.large {
     font-size: 20px;
     padding: 0.8em;
@@ -330,14 +341,19 @@ select.form-input.small, .form-btn.small {
     color: white;
 }
 .form-btn.neutral {
-    background-color: white;
+    background-color: #edf1ff;
     border-color: #4431bf;
     color: #4431bf;
+}
+.form-btn.warning {
+    background-color: #ffe8ee;
+    border-color: #f75d86;
+    color: #f75d86;
 }
 .form-btn.large:hover,
 .form-btn.medium:hover,
 .form-btn.small:hover {
-    filter: brightness(120%);
+    filter: brightness(105%);
 }
 .form-btn.positive[disabled],
 .form-btn.positive[disabled]:hover {
@@ -477,7 +493,7 @@ h1.title, h2.title, h3.title, h4.title, h5.title, h6.title {
     font-size: 13px;
     min-width: 2.25em;
     padding: 0.4em;
-    text-align: cneter;
+    text-align: center;
 }
 .pagination > a.on,
 .pagination > a:hover:not(.disabled) {
