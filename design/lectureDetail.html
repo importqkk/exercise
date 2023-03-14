@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="css/load.css">
+    <link rel="stylesheet" type="text/css" href="css/reset.css">
+    <link rel="stylesheet" type="text/css" href="css/test.css">
+    <link rel="stylesheet" type="text/css" href="css/commons.css">
+    <link rel="stylesheet" type="text/css" href="css/layout.css">
+    <!-- font awsome 아이콘 -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+    <!-- jquery cdn -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <title>강의 상세</title>
+    <style>
+
+    </style>
+    <script type="text/javascript">
+        $(function() {
+            $(".delete-btn").click(function() {
+                var result = window.confirm("정말 삭제하시겠습니까?");
+                if(!result) return false;
+            })
+        })
+    </script>
+</head>
+<body test>
+    <div class="container-600">
+        <div class="row pb-10">
+            <h1 class="title">테스트강의 492</h1>
+        </div>
+        <div class="row flex pb-20">
+            <div class="flex w-33">
+                <div class="flex pe-10">
+                    <h3 class="title"><i class="fa-solid fa-chalkboard-user pe-5"></i>강사</h3>
+                </div>
+                <div class="flex font-h3">김강사</div>
+            </div>
+            <div class="flex w-33 center">
+                <div class="flex pe-10">
+                    <h3 class="title"><i class="fa-regular fa-clock pe-5"></i>시수</h3>
+                </div>
+                <div class="flex font-h3">30시간</div>
+            </div>
+            <div class="flex w-33 right">
+                <div class="flex pe-10">
+                    <h3 class="title"><i class="fa-solid fa-won-sign pe-5"></i>수강료</h3>
+                </div>
+                <div class="flex font-h3">100,000원</div>
+            </div>
+        </div>
+        <div class="pb-20">
+            <hr>
+        </div>
+        <div class="row center pb-20">
+            <img src="https://via.placeholder.com/500x600?text=lecture">
+        </div>
+        <div>
+            <hr>
+        </div>
+        <div class="row flex">
+            <div class="flex w-50">
+                <a href="#" class="form-btn small neutral w-20">목록</a>
+            </div>
+            <div class="flex w-50 right">
+                <a href="#" class="form-btn small neutral w-20 me-5">수정</a>
+                <a href="#" class="form-btn small warning w-20 delete-btn">삭제</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
