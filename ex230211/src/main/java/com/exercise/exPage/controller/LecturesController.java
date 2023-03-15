@@ -42,7 +42,7 @@ public class LecturesController {
 	}
 	@GetMapping("/addCompleted")
 	public String addCompleted(@ModelAttribute LecturesDto lecturesDto) {
-		return "/WEB-INF/views/lectures/addCompleted.jsp";
+		return "redirect:list";
 	}
 	
 	// 강의 목록, 검색
