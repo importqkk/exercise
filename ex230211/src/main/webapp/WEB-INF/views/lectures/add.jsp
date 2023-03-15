@@ -2,44 +2,53 @@
     pageEncoding="UTF-8"%>
 
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
-
-	<h1>강의 등록</h1>
-
-	<br><br>
+<script type="text/javascript">
+    $(function() {
+        // 취소 버튼 경고창
+        $(".cancel-btn").click(function() {
+            var result = confirm("등록을 취소합니다.")
+            if(!result) return false;
+            else history.back();
+        })
+    })
+</script>
 
 	<form action="add" method="post" enctype="multipart/form-data">
-		<table border="0" width="350">
-			<tbody>
-				<tr>
-					<th width="50%">강의명</th>
-					<td><input type="text" name="lecturesLecture" required></td>
-				</tr>
-				<tr>
-					<th>강사명</th>
-					<td><input type="text" name="lecturesLecturer" required></td>
-				</tr>
-				<tr>
-					<th>시수</th>
-					<td><input type="number" name="lecturesHours" required min=0 step="30"></td>
-				</tr>
-				<tr>
-					<th>수강료</th>
-					<td><input type="number" name="lecturesFee" required min=0></td>
-				</tr>
-				<tr>
-					<th>사진등록</th>
-					<td><input type="file" name="attach" accept="image/"></td>
-				</tr>
-				<tr>
-					<td colspan="2" align="right"><button>등록</button></td>
-				</tr>
-			</tbody>
-		</table>
+		<div class="container-450">
+	        <div class="row">
+	            <h1 class="title">신규 강의 등록</h1>
+	        </div>
+	        <div class="row">
+	            <input hidden name="no">
+	            <label>강의명</label>
+	            <input type="text" class="form-input medium w-100" name="lecturesLecture">
+	        </div>
+	        <div class="row">
+	            <label>강사명</label>
+	            <input type="text" class="form-input medium w-100" name="lecturesLecturer">
+	        </div>
+	        <div class="row">
+	            <label>시수</label>
+	            <input type="number" class="form-input medium w-100" name="lecturesHours">
+	        </div>
+	        <div class="row">
+	            <label>수강료</label>
+	            <input type="number" class="form-input medium w-100" name="lecturesFee">
+	        </div>
+	        <div class="row">
+	            <label>사진등록</label>
+	            <input type="file" class="form-input medium w-100" name="attach" accept="image/">
+	        </div>
+	        <div class="row">
+	            <button type="submit" class="form-btn positive medium w-100">등록</button>
+	        </div>
+	        <div class="row pt-10 pb-10">
+	            <hr>
+	        </div>
+	        <div class="row">
+	            <a class="form-btn neutral medium w-100 cancel-btn">취소</a>
+	        </div>
+	    </div>
 	</form>
-	
-	<br>
-	
-	<a href="list">전체목록</a>
-	<a href="/">메인으로</a>
 
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
