@@ -19,7 +19,7 @@
 	            <h1 class="title">신규 강의 등록</h1>
 	        </div>
 	        <div class="row">
-	            <input hidden name="no">
+	            <input hidden="hidden" name="no">
 	            <label>강의명</label>
 	            <input type="text" class="form-input medium w-100" name="lecturesLecture">
 	        </div>
