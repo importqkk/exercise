@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="css/load.css">
+    <link rel="stylesheet" type="text/css" href="css/reset.css">
+    <link rel="stylesheet" type="text/css" href="css/test.css">
+    <link rel="stylesheet" type="text/css" href="css/commons.css">
+    <link rel="stylesheet" type="text/css" href="css/layout.css">
+    <!-- font awsome 아이콘 -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+    <!-- jquery cdn -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <title>강의 등록</title>
+    <style>
+
+    </style>
+    <script type="text/javascript">
+        $(function() {
+            // 취소 버튼 경고창
+            $(".cancel-btn").click(function() {
+                var result = confirm("등록을 취소합니다.")
+                if(!result) return false;
+                else history.back();
+            })
+        })
+    </script>
+</head>
+<body>
+    <div class="container-450">
+        <div class="row">
+            <h1 class="title">신규 강의 등록</h1>
+        </div>
+        <div class="row">
+            <input hidden name="no">
+            <label>강의명</label>
+            <input type="text" class="form-input medium w-100" name="lecturesLecture">
+        </div>
+        <div class="row">
+            <label>강사명</label>
+            <input type="text" class="form-input medium w-100" name="lecturesLecturer">
+        </div>
+        <div class="row">
+            <label>시수</label>
+            <input type="number" class="form-input medium w-100" name="lecturesHours">
+        </div>
+        <div class="row">
+            <label>수강료</label>
+            <input type="number" class="form-input medium w-100" name="lecturesFee">
+        </div>
+        <div class="row">
+            <label>사진등록</label>
+            <input type="file" class="form-input medium w-100" name="attach" accept="image/">
+        </div>
+        <div class="row">
+            <button type="submit" class="form-btn positive medium w-100">등록</button>
+        </div>
+        <div class="row pt-10 pb-10">
+            <hr>
+        </div>
+        <div class="row">
+            <a class="form-btn neutral medium w-100 cancel-btn" href="#">취소</a>
+        </div>
+    </div>
+</body>
+</html>
