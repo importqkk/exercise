@@ -2,53 +2,56 @@
     pageEncoding="UTF-8"%>
 
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
-
-	<h1>강의 정보 수정</h1>
-
-	<br><br>
+<script type="text/javascript">
+    $(function() {
+        // 취소 버튼 경고창
+        $(".cancel-btn").click(function() {
+            var result = confirm("수정을 취소합니다.")
+            if(!result) return false;
+            else history.back();
+        })
+    })
+</script>
 
 	<form action="edit" method="post">
-		<table border="0" width="250">
-			<tbody>
-				<tr>
-					<td>
-						<input type="hidden" name="lecturesNo" required value="${lecturesDto.lecturesNo}" readonly>
-					</td>
-				</tr>
-				<tr>
-					<th width="35%">강의명</th>
-					<td>
-						<input type="text" name="lecturesLecture" required value="${lecturesDto.lecturesLecture}">
-					</td>
-				</tr>
-				<tr>
-					<th>강사명</th>
-					<td>
-						<input type="text" name="lecturesLecturer" required value="${lecturesDto.lecturesLecturer}">
-					</td>
-				</tr>
-				<tr>
-					<th>시수</th>
-					<td>
-						<input type="number" name="lecturesHours" required min=0 step="30" value="${lecturesDto.lecturesHours}">
-					</td>
-				</tr>
-				<tr>
-					<th>수강료</th>
-					<td>
-						<input type="number" name="lecturesFee" required min=0  value="${lecturesDto.lecturesFee}">
-					</td>
-				</tr>
-				<tr>
-					<td colspan="2" align="right"><button>수정</button></td>
-				</tr>
-			</tbody>
-		</table>
+		<div class="container-450">
+	        <div class="row">
+	            <h1 class="title">강의 정보 수정</h1>
+	        </div>
+	        <div class="row">
+	            <label>번호(수정 불가)</label>
+	            <input readonly class="form-input medium w-100" name="lecturesNo" value="${lecturesDto.lecturesNo}">
+	        </div>
+	        <div class="row">
+	            <label>강의명</label>
+	            <input type="text" class="form-input medium w-100" name="lecturesLecture" value="${lecturesDto.lecturesLecture}" required>
+	        </div>
+	        <div class="row">
+	            <label>강사명</label>
+	            <input type="text" class="form-input medium w-100" name="lecturesLecturer" value="${lecturesDto.lecturesLecturer}" required>
+	        </div>
+	        <div class="row">
+	            <label>시수</label>
+	            <input type="number" class="form-input medium w-100" name="lecturesHours" value="${lecturesDto.lecturesHours}" min=0 step="30" required>
+	        </div>
+	        <div class="row">
+	            <label>수강료</label>
+	            <input type="number" class="form-input medium w-100" name="lecturesFee" value="${lecturesDto.lecturesFee}" min=0 required>
+	        </div>
+	        <div class="row">
+	            <label>사진등록</label>
+	            <input type="file" class="form-input medium w-100" name="attach" value="#">
+	        </div>
+	        <div class="row">
+	            <button type="submit" class="form-btn positive medium w-100">수정</button>
+	        </div>
+	        <div class="row pt-10 pb-10">
+	            <hr>
+	        </div>
+	        <div class="row">
+	            <a class="form-btn neutral medium w-100 cancel-btn">취소</a>
+	        </div>
+	    </div>
 	</form>
-	
-	<br>
-	
-	<a href="list">목록으로</a>
-	<a href="/">메인으로</a>
 
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
