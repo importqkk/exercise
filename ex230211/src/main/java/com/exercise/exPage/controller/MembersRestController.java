@@ -10,7 +10,7 @@ import com.exercise.exPage.dao.MembersDao;
 @RestController
 @CrossOrigin(origins = "http://127.0.0.1:5500")
 @RequestMapping("/rest/members")
-public class MemberRestController {
+public class MembersRestController {
 
 	@Autowired
 	private MembersDao membersDao;
