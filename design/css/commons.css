@@ -308,6 +308,9 @@ select.form-input.small, .form-btn.small {
 .form-input:focus {
     border-color: #36269a;
 }
+.form-btn {
+    text-align: center;
+}
 .form-btn.large {
     font-size: 20px;
     padding: 0.8em;
@@ -406,6 +409,7 @@ h1.title, h2.title, h3.title, h4.title, h5.title, h6.title {
 .valid-message {
     color: #4431bf;
     display: none;
+    font-size: small;
 }
 .valid ~ .valid-message {
     display: block;
@@ -415,6 +419,7 @@ h1.title, h2.title, h3.title, h4.title, h5.title, h6.title {
 .invalid-message3 {
     color: #c10e0e;
     display: none;
+    font-size: small;
 }
 .invalid1 ~ .invalid-message1 {
     display: block;
