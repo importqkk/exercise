@@ -165,4 +165,12 @@ public class MembersDao {
 		return jdbcTemplate.update(sql, param) > 0;
 	}
 	
+	// 닉네임 중복 검사
+	public MembersDto selectByNick(String memberNick) {
+		String sql = "select * from members where member_nick=?";
+		Object[] param = {memberNick};
+		List<MembersDto> list = jdbcTemplate.query(sql, mapper, param);
+		return list.isEmpty() ? null : list.get(0);
+	}
+	
 }
