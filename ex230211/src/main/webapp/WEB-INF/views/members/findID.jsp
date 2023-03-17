@@ -4,41 +4,34 @@
 
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
-	<h1>아이디 찾기</h1>
-	
-	<br><br>
-	
 	<form action="findID" method="post">
-		<table border="0">
-			<tbody>
-				<tr>
-					<th>닉네임</th>
-					<td>
-						<input type="text" name="memberNick" required>
-					</td>
-				</tr>
-				<tr>
-					<th>이메일</th>
-					<td>
-						<input type="email" name="memberEmail" required>
-					</td>
-				</tr>
-				<tr>
-					<td colspan="2" align="right">
-						<button>아이디 찾기</button>
-					</td>
-				</tr>
-			</tbody>
-		</table>
+		<div class="container-450">
+	        <div class="row center">
+	            <h1 class="title">아이디 찾기</h1>
+	        </div>
+	        <div class="row">
+	            <label class="form-label">닉네임</label>
+	            <input class="form-input large w-100" type="text" name="memberNick">
+	        </div>
+	        <div class="row">
+	            <label class="form-label">이메일</label>
+	            <input class="form-input large w-100" type="email" name="memberEmail">
+	        </div>
+	        <c:if test="${param.mode == 'error'}">
+		        <div class="row center pt-10 pb-10">
+		            <h4 style="color: #c10e0e;">회원 정보가 일치하지 않습니다.</h4>
+		        </div>
+	        </c:if>
+	        <div class="row">
+	            <button class="form-btn large positive w-100">아이디 찾기</button>
+	        </div>
+	        <div class="row center pb-10">
+	            <a class="link form-btn large neutral w-100" href="/members/login">로그인</a>
+	        </div>
+	        <div class="row center">
+	            <a class="link" href="/members/join">회원가입</a>
+	        </div>
+	    </div>
 	</form>
-	
-	<br>
-	
-	<c:if test="${param.mode == 'error'}">
-		<h4>입력하신 정보와 일치하는 아이디가 없습니다.</h4>
-		<br>
-	</c:if>
-	
-	<a href="/members/login">로그인</a> / <a href="/">메인으로</a>
 	
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
