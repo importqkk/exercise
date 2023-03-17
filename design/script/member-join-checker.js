@@ -15,7 +15,7 @@ $(function() {
         memberBirthValid:true,
         isAllValid:function() {
 			return this.memberIDValid && this.memberPWValid 
-                    && this.memberPWCheckValid && this.memberNickValid 
+                    && this.memberPWCheckValid && this.memberNickValid && memberEmailValid
                     && this.memberLastNameValid && this.memberFirstNameValid 
                     && this.memberTelValid && this.memberBirthValid;
 		}

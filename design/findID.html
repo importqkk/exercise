@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="css/load.css">
+    <link rel="stylesheet" type="text/css" href="css/reset.css">
+    <link rel="stylesheet" type="text/css" href="css/test.css">
+    <link rel="stylesheet" type="text/css" href="css/commons.css">
+    <!-- 아이디찾기 유효성 검사 -->
+    <script src="/script/member-findID-checker.js"></script>
+    <title>아이디 찾기</title>
+</head>
+<body>
+    <div class="container-450">
+        <div class="row center">
+            <h1 class="title">아이디 찾기</h1>
+        </div>
+        <div class="row">
+            <label class="form-label">닉네임</label>
+            <input class="form-input large w-100" type="text" name="memberNick">
+        </div>
+        <div class="row">
+            <label class="form-label">이메일</label>
+            <input class="form-input large w-100" type="email" name="memberEmail">
+        </div>
+        <div class="row center pt-10 pb-10">
+            <h4 style="color: #c10e0e;">회원 정보가 일치하지 않습니다.</h4>
+        </div>
+        <div class="row">
+            <button class="form-btn large positive w-100">아이디 찾기</button>
+        </div>
+        <div class="row center pb-10">
+            <a class="link form-btn large neutral w-100" href="/members/login">로그인</a>
+        </div>
+        <div class="row center">
+            <a class="link" href="/members/join">회원가입</a>
+        </div>
+    </div>
+</body>
+</html>
