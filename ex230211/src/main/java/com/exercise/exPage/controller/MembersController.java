@@ -225,6 +225,11 @@ public class MembersController {
 		// 입력한 아이디와 일치하는 회원 정보 불러오기
 		String memberID = inID;
 		MembersDto membersDto = membersDao.selectOne(memberID);
+		// 없는 아이디라면
+		if(membersDto == null) {
+			attr.addAttribute("mode", "error");
+			return "redirect:findPW";
+		}
 		// 불러온 회원정보에 있는 이메일과 입력한 이메일 일치 검사
 		// 이메일이 일치하지 않는다면
 		if(!membersDto.getMemberEmail().equals(inEmail)) {
