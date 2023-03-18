@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="css/load.css">
+    <link rel="stylesheet" type="text/css" href="css/reset.css">
+    <link rel="stylesheet" type="text/css" href="css/test.css">
+    <link rel="stylesheet" type="text/css" href="css/commons.css">
+    <!-- font awsome 아이콘 -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+    <!-- jquery cdn -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <title>강의</title>
+    <script type="text/javascript">
+        $(function() {
+            $("#delete").click(function() {
+                var result = confirm("정말 삭제하시겠습니까?");
+                if(!result) return false;
+            })
+        })
+    </script>
+</head>
+<body>
+    <form action="list" method="get">
+        <div class="container-800">
+            <!-- 제목 -->
+            <div class="row">
+                <h1 class="title pb-20">QnA 게시판</h1>
+            </div>
+            <!-- 등록버튼, 검색창 -->
+            <div class="row" style="display: flex;">
+                <!-- 등록버튼 -->
+                <div class="left w-25">
+                    <a class="form-btn small positive w-50">글쓰기</a>
+                </div>
+                <!-- 검색창 -->
+                <div class="right w-75 pb-20">
+                    <!-- 카테고리 -->
+                    <select class="form-input small w-15" name="column">
+                        <option value="boardTitle">제목</option>
+                        <option value="boardContent">내용</option>
+                        <option value="boardWriter">작성자</option>
+                        <option value="boardCategory">카테고리</option>
+                    </select>
+                    <!-- 검색창 -->
+                    <input class="form-input small w-40" type="text" name="keyword" placeholder="검색어를 입력하세요.">
+                    <!-- 검색버튼 -->
+                    <button class="form-btn small positive w-10" type="submit">검색</button>
+                </div>
+            </div>
+            <!-- 목록 -->
+            <div class="row">
+                <table class="table table-row table-hover w-100">
+                    <thead>
+                        <tr>
+                            <th>번호</th>
+                            <th class="w-40">제목</th>
+                            <th>작성자</th>
+                            <th>작성일</th>
+                            <th>좋아요</th>
+                            <th>조회수</th>
+                            <th>관리</th>
+                        </tr>
+                    </thead>
+                    <tbody class="center">
+                        <tr style="background-color: #f5f7ff;">
+                            <td>500</td>
+                            <td class="left">테스트 게시물 500</td>
+                            <td>테스트</td>
+                            <td>2303-03-18</td>
+                            <td>100</td>
+                            <td>1025</td>
+                            <td><a class="link" id="delete">삭제</a> | <a class="link">수정</a></td>
+                        </tr>
+                        <tr>
+                            <td>500</td>
+                            <td class="left">테스트 게시물 500</td>
+                            <td>테스트</td>
+                            <td>2303-03-18</td>
+                            <td>100</td>
+                            <td>1025</td>
+                            <td><a class="link" id="delete">삭제</a> | <a class="link">수정</a></td>
+                        </tr>
+                        <tr>
+                            <td>500</td>
+                            <td class="left">테스트 게시물 500</td>
+                            <td>테스트</td>
+                            <td>2303-03-18</td>
+                            <td>100</td>
+                            <td>1025</td>
+                            <td><a class="link" id="delete">삭제</a> | <a class="link">수정</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- 페이지 네비 -->
+            <div class="row pagination pt-20">
+                <!-- << (첫페이지로) -->
+                <a href="#">&laquo;</a>
+                <!-- < (이전페이지로) -->
+                <a href="#">&lt;</a>
+                <!-- 숫자(begin ~ end) -->
+                <a href="#" class="on">1</a>
+                <a href="#">2</a>
+                <a href="#">3</a>
+                <a href="#">4</a>
+                <a href="#">5</a>
+                <!-- >  (다음페이지로) -->
+                <a href="#">&gt;</a>
+                <!-- >> (마지막 페이지로) -->
+                <a href="#">&raquo;</a>
+            </div>
+        </div>
+    </form>
+</body>
+</html>
