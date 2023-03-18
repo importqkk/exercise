@@ -7,7 +7,7 @@
 
 <script type="text/javascript">
     $(function() {
-        $("#delete").click(function() {
+        $(".delete-btn").click(function() {
             var result = confirm("정말 삭제하시겠습니까?");
             if(!result) return false;
         })
@@ -88,7 +88,7 @@
 				                        </td>
 				                        <c:if test="${sessionScope.memberLevel == 'admin'}">
 				                        	<td>
-				                        		<a class="link" id="delete" href="delete?no=${lecturesDto.lecturesNo}">삭제</a> | 
+				                        		<a class="link delete-btn" href="delete?no=${lecturesDto.lecturesNo}">삭제</a> | 
 				                        		<a class="link" href="edit?no=${lecturesDto.lecturesNo}">수정</a>
 				                        	</td>
 				                        </c:if>
