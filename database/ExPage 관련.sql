@@ -110,7 +110,13 @@ create or replace view board_stat as select
     board_category,
     count(*) cnt
 from board group by board_category;
-    
+
+-- 게시판 좋아요 테이블
+create table board_like(
+    member_id references members(member_id) on delete cascade,
+    board_no references board(board_no) on delete cascade,
+    primary key(member_id, board_no)
+);
 
 commit;
 
