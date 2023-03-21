@@ -140,5 +140,12 @@ public class BoardDao {
 		Object[] param = {boardNo};
 		return jdbcTemplate.update(sql, param) > 0;
 	}
+
+	// 좋아요 개수 카운트
+	public void updateLike(int boardNo, int count) {
+		String sql = "update board set board_like=? where board_no=?";
+		Object[] param = {count, boardNo};
+		jdbcTemplate.update(sql, param);
+	}
 	
 }
