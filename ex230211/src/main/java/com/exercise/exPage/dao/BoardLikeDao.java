@@ -34,7 +34,7 @@ public class BoardLikeDao {
 	
 	// (게시글에) 좋아요 개수 확인
 	public int countLike(int boardNo) {
-		String sql = "select count(*) board_like where board_no=?";
+		String sql = "select count(*) from board_like where board_no=?";
 		Object[] param = {boardNo};
 		return jdbcTemplate.queryForObject(sql, int.class, param);
 	}
