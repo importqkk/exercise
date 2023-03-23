@@ -15,6 +15,8 @@
 	    <link rel="stylesheet" type="text/css" href="/css/layout.css">
 	    <!-- font awsome 아이콘 -->
     	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+    	<!-- tabler 아이콘 -->
+    	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
     	<!-- jquery cdn -->
 		<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 		<title>개발하는 쿼카</title>
