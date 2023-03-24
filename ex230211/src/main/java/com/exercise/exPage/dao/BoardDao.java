@@ -148,4 +148,11 @@ public class BoardDao {
 		jdbcTemplate.update(sql, param);
 	}
 	
+	// 첨부파일 연결
+	public void connectImg(int boardNo, int attachmentNo) {
+		String sql = "insert into board_img values(?, ?)";
+		Object[] param = {boardNo, attachmentNo};
+		jdbcTemplate.update(sql, param);
+	}
+	
 }
