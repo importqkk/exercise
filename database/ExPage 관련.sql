@@ -80,8 +80,8 @@ create sequence board_seq start with 51;
 
 -- 게시판 사진 연결 테이블
 create table board_img(
-    board_no not null references board(board_no) on delete cascade,
-    attachment_no not null references attachment(attachment_no) on delete cascade,
+    board_no not null references board(board_no),
+    attachment_no not null references attachment(attachment_no),
     primary key(board_no, attachment_no)
 );
 
