@@ -1,5 +1,4 @@
 package com.exercise.exPage.controller;
-import java.io.IOException;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
@@ -12,10 +11,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.exercise.exPage.dao.BoardDao;
-import com.exercise.exPage.dao.BoardImgDao;
 import com.exercise.exPage.dto.BoardDto;
 import com.exercise.exPage.service.BoardService;
 import com.exercise.exPage.vo.PageVO;
@@ -28,8 +25,6 @@ public class BoardController {
 	private BoardService boardService;
 	@Autowired
 	private BoardDao boardDao;
-	@Autowired
-	private BoardImgDao boardImgDao;
 	
 	// 게시글 등록
 	@GetMapping("/post")
@@ -41,10 +36,10 @@ public class BoardController {
 	@PostMapping("/post")
 	public String post(HttpSession session, RedirectAttributes attr,
 			@ModelAttribute BoardDto boardDto,
-			@RequestParam MultipartFile attach) throws IllegalStateException, IOException {
+			@RequestParam List<Integer> attachmentNo) {
 		String memberID = (String)session.getAttribute("memberID");
 		boardDto.setBoardWriter(memberID);
-		int boardNo = boardService.post(boardDto, attach);
+		int boardNo = boardService.post(boardDto, attachmentNo);
 		attr.addAttribute("boardNo", boardNo);
 		return "redirect:detail";
 	}
@@ -83,7 +78,6 @@ public class BoardController {
 			session.setAttribute("memory", memory);
 		}
 		model.addAttribute("boardDto", boardDto);
-		model.addAttribute("image", boardImgDao.detail(boardNo));
 		return "/WEB-INF/views/board/detail.jsp";
 	}
 	
@@ -110,15 +104,8 @@ public class BoardController {
 	}
 	@PostMapping("/edit")
 	public String edit(@ModelAttribute BoardDto boardDto,
-			@RequestParam MultipartFile attach,
-			RedirectAttributes attr) throws IllegalStateException, IOException {
+			RedirectAttributes attr) {
 		boardDao.edit(boardDto);
-		
-		if(!attach.isEmpty()) {
-			boardService.delete(boardDto.getBoardNo());
-		}
-		boardService.edit(boardDto, attach);
-			
 		attr.addAttribute("boardNo", boardDto.getBoardNo());
 		return "redirect:detail";
 	}
