@@ -61,9 +61,6 @@
             <hr>
         </div>
         <div class="row content-box p-10">
-			<c:if test="${image != null}">
-				<img src="/attachment/download?attachmentNo=${image.attachmentNo}"><br>
-			</c:if>
 			${boardDto.boardContent}
         </div>
         <div class="row">
