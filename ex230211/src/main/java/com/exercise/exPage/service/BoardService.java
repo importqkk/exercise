@@ -1,36 +1,15 @@
 package com.exercise.exPage.service;
-import java.io.File;
-import java.io.IOException;
-import javax.annotation.PostConstruct;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
-import com.exercise.exPage.configuration.FileProperties;
-import com.exercise.exPage.dao.AttachmentDao;
 import com.exercise.exPage.dao.BoardDao;
-import com.exercise.exPage.dao.BoardImgDao;
-import com.exercise.exPage.dto.AttachmentDto;
 import com.exercise.exPage.dto.BoardDto;
-import com.exercise.exPage.dto.BoardImgDto;
 
 @Service
 public class BoardService {
 
 	@Autowired
 	private BoardDao boardDao;
-	@Autowired
-	private BoardImgDao boardImgDao;
-	@Autowired
-	private AttachmentDao attachmentDao;
-	@Autowired
-	private FileProperties props;
-	
-	private File dir;
-	@PostConstruct
-	public void init() {
-		dir = new File(props.getPath());
-		dir.mkdirs();
-	}
 	
 	// boardDto의정보를 새 글과 답글로 구분하여 처리후 등록
 	// - 새글일 경우 boardParent가 null
@@ -41,7 +20,7 @@ public class BoardService {
 	// 		- 그룹번호(boardGroup)는 대상글의 그룹번호와 동일하게 처리
 	//		- 대상글번호(boardParent)는 전달받은 값을 그대로 사용
 	// 		- 차수(boardDepth)는 대상글의 차수에 1을 더해서 사용
-	public int post(BoardDto boardDto, MultipartFile attach) throws IllegalStateException, IOException {
+	public int post(BoardDto boardDto, List<Integer> attachmentNo) {
 		
 		// 글 번호 구하기
 		int boardNo = boardDao.sequence();
@@ -61,50 +40,13 @@ public class BoardService {
 		boardDao.post(boardDto);
 		
 		// 첨부파일 처리
-		if(!attach.isEmpty()) {
-			int attchmentNo = attachmentDao.sequence();
-			File target = new File(dir, String.valueOf(attchmentNo));
-			attach.transferTo(target);
-			
-			attachmentDao.insert(AttachmentDto.builder()
-						.attachmentNo(attchmentNo)
-						.attachmentName(attach.getOriginalFilename())
-						.attachmentType(attach.getContentType())
-						.attachmentSize(attach.getSize())
-					.build());
-			boardImgDao.post(BoardImgDto.builder()
-						.boardNo(boardDto.getBoardNo())
-						.attachmentNo(attchmentNo)
-					.build());
+		for(int no : attachmentNo) {
+			boardDao.connectImg(boardNo, no);
 		}
 		
 		// 게시글 번호 반환
 		return boardNo;
 		
-	}
-	
-	public void edit(BoardDto boardDto, MultipartFile attach) throws IllegalStateException, IOException {
-		if(!attach.isEmpty()) {
-			int attachmentNo = attachmentDao.sequence();
-			File target = new File(dir, String.valueOf(attachmentNo));
-			attach.transferTo(target);
-			
-			attachmentDao.insert(AttachmentDto.builder()
-						.attachmentNo(attachmentNo)
-						.attachmentName(attach.getOriginalFilename())
-						.attachmentType(attach.getContentType())
-						.attachmentSize(attach.getSize())
-					.build());
-			boardImgDao.post(BoardImgDto.builder()
-					.boardNo(boardDto.getBoardNo())
-					.attachmentNo(attachmentNo)
-				.build());
-		}
-		
-	}
-	
-	public void delete(int attachmentNo) {
-		attachmentDao.delete(attachmentNo);
 	}
 	
 }
