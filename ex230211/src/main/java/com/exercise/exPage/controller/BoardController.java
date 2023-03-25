@@ -36,7 +36,7 @@ public class BoardController {
 	@PostMapping("/post")
 	public String post(HttpSession session, RedirectAttributes attr,
 			@ModelAttribute BoardDto boardDto,
-			@RequestParam List<Integer> attachmentNo) {
+			@RequestParam(required = false) List<Integer> attachmentNo) {
 		String memberID = (String)session.getAttribute("memberID");
 		boardDto.setBoardWriter(memberID);
 		int boardNo = boardService.post(boardDto, attachmentNo);
