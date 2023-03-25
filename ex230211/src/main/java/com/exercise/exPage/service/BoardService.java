@@ -40,10 +40,11 @@ public class BoardService {
 		boardDao.post(boardDto);
 		
 		// 첨부파일 처리
-		for(int no : attachmentNo) {
-			boardDao.connectImg(boardNo, no);
+		if(attachmentNo != null) {
+			for(int no : attachmentNo) {
+				boardDao.connectImg(boardNo, no);
+			}
 		}
-		
 		// 게시글 번호 반환
 		return boardNo;
 		
