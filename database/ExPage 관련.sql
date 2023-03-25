@@ -80,10 +80,11 @@ create sequence board_seq start with 51;
 
 -- 게시판 사진 연결 테이블
 create table board_img(
-    board_no not null references board(board_no),
-    attachment_no not null references attachment(attachment_no),
+    board_no references board(board_no) ON DELETE CASCADE,
+    attachment_no references attachment(attachment_no) ON DELETE CASCADE,
     primary key(board_no, attachment_no)
 );
+
 
 -- 회원 통계 뷰
 create or replace view member_stat as select 
@@ -148,3 +149,7 @@ drop sequence board_seq;
 delete board where board_no=71;
 delete board;
 commit;
+
+
+SELECT CONSTRAINT_NAME, TABLE_NAME, R_CONSTRAINT_NAME FROM USER_CONSTRAINTS
+WHERE CONSTRAINT_NAME = 'SYS_C007943';
