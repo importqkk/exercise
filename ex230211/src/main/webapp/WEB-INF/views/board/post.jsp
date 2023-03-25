@@ -27,7 +27,7 @@
                     // if(files.length != 1) return;
                     // [1] FormData / [2] processData / [3] contentType
                     var fd = new FormData();
-                    fd.append("attach", files[0]);
+                    fd.append("attachment", files[0]);
                     $.ajax({
                         url:"/rest/attachment/upload",
                         method:"post",
@@ -70,7 +70,7 @@
 				<input type="hidden" name="boardParent" value="${boardParent}">
 			</c:if>
 	        <div class="row flex">
-	            <select class="form-input small w-15 me-10">
+	            <select name="boardCategory" class="form-input small w-15 me-10">
 	                <c:if test="${sessionScope.memberLevel == 'admin'}">
 						<option>공지</option>
 						<option>답변</option>
