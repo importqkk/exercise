@@ -51,6 +51,22 @@
             }
         });
         $('.note-statusbar').hide();
+        $(".list-btn").click(function() {
+        	var result = confirm("목록으로 이동하면 작성중인 내용이 저장되지 않습니다.\n정말 이동하시겠습니까?");
+        	if(!result) return false;
+        })
+        $(".post-btn").click(function() {
+        	var title = $("[name=boardTitle]").val().length;
+        	var content = $("[name=boardContent]").val().length;
+        	if(!title) {
+        		alert("제목을 입력하세요.");
+        		return false;
+        	}
+        	if(!content) {
+        		alert("내용을 입력하세요.");
+        		return false;
+        	}
+        })
     })
 </script>
 
@@ -84,7 +100,7 @@
 			            <input type="text" name="boardTitle" class="form-input small w-100" placeholder="제목을 입력하세요.">
 			        </c:when>
 					<c:otherwise>
-						<input type="text" name="boardTitle" class="form-input small w-100" required value="RE: " placeholder="제목을 입력하세요.">
+						<input type="text" name="boardTitle" class="form-input small w-100" value="RE: " placeholder="제목을 입력하세요.">
 	        		</c:otherwise>
 				</c:choose>
 	        </div>
@@ -93,10 +109,10 @@
 	        </div>
 	        <div class="row flex">
 	            <div class="w-50">
-	                <a class="form-btn small neutral w-20" href="/board/list">목록으로</a>
+	                <a class="form-btn small neutral w-20 list-btn" href="/board/list">목록으로</a>
 	            </div>
 	            <div class="w-50 right">
-	                <button type="submit" class="form-btn small positive w-20">등록하기</button>
+	                <button type="submit" class="form-btn small positive w-20 post-btn">등록하기</button>
 	            </div>
 	        </div>
 	    </form>
