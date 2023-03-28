@@ -6,7 +6,7 @@
 
 	<div class="container-450">
         <div class="row pb-40">
-            <h1 class="title center">비밀번호 찾기</h1>
+            <h1 class="title center">비밀번호 변경</h1>
         </div>
         <div class="row pb-40 center">
             <h3>비밀번호 변경이 완료되었습니다.</h3>
