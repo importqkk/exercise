@@ -3,6 +3,8 @@
     
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 		
-		<h1>환영합니다!</h1>
+		<div class="container-800">
+			<h1>환영합니다!</h1>
+		</div>
 		
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
