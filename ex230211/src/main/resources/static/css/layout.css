@@ -11,6 +11,26 @@
 }
 
 header {
-	margin-top: 20px;
-	margin-bottom: 20px;
+	position: sticky;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	margin-bottom: 50px;
+	top: 0;
+	background-color: white;
+	z-index: 2;
+	border-bottom: 1px solid black;
+}
+
+footer {
+    border-top: 1px solid black;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin-top: 50px;
+}
+
+section{
+	position: relative;
+    margin: 0 auto;
+    min-height: 90.8vh;
+    z-index: 0;
 }
