@@ -22,7 +22,7 @@
         <div class="flex">
             <div class="w-25 me-40" style="position: relative; border-right: 0.5px solid rgb(169, 169, 169)">
                 <div class="row">
-                    <h3><a class="link" href="/members/changeInfo">개인정보 변경</a></h3>
+                    <h3><a class="link" href="/members/PWCheck">개인정보 변경</a></h3>
                 </div>
                 <div class="row">
                     <h3><a class="link" href="/members/changePW">비밀번호 변경</a></h3>
