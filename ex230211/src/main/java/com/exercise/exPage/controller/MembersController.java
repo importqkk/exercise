@@ -146,6 +146,22 @@ public class MembersController {
 		return "/WEB-INF/views/members/changePWComplete.jsp";
 	}
 	
+	// 개인정보 변경 전 비밀번호 인증
+	@GetMapping("/PWCheck")
+	public String PWCheck() {
+		return "/WEB-INF/views/members/PWCheck.jsp";
+	}
+	@PostMapping("/PWCheck")
+	public String PWCheck(HttpSession session, RedirectAttributes attr,
+			@RequestParam String memberPW) {
+		String memberID = (String)session.getAttribute("memberID");
+		MembersDto membersDto = membersDao.selectOne(memberID);
+		if(!memberPW.equals(membersDto.getMemberPW())) {
+			attr.addAttribute("mode", "error");
+			return "redirect:PWCheck";
+		}
+		return "redirect:changeInfo";
+	}
 	// 개인정보 변경
 	@GetMapping("/changeInfo")
 	public String changeInfo(Model model,
@@ -160,16 +176,9 @@ public class MembersController {
 	public String changeInfo(HttpSession session,
 			RedirectAttributes attr,
 			@ModelAttribute MembersDto membersDto) {
-		// 비밀번호 검사를 위해 세션 아이디 불러오기
+		// 세션 아이디 불러오기
 		String memberID = (String)session.getAttribute("memberID");
-		MembersDto findDto = membersDao.selectOne(memberID);
-		// 비밀번호 검사
-		// 비밀번호가 일치하지 않는다면
-		if(!findDto.getMemberPW().equals(membersDto.getMemberPW())) {
-			attr.addAttribute("mode", "error");
-			return "redirect:changeInfo";
-		}
-		// 비밀번호가 일치한다면 개인정보 변경
+		// 개인정보 변경
 		membersDto.setMemberID(memberID);
 		membersDao.changeInfo(membersDto);
 		return "redirect:changeInfoComplete";
