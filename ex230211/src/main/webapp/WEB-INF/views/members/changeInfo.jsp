@@ -3,27 +3,20 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
+<!-- 개인정보 변경 유효성 검사 -->
+<script src="/js/member-info-checker.js"></script>
 
 	<h1>개인정보 변경</h1>
 	
 	<br><br>
 	
-	<form action="changeInfo" method="post" enctype="multipart/form-data">
+	<form class="change-form" action="changeInfo" method="post" enctype="multipart/form-data" autocomplete="off">
 		<table border="0" width="530">
 			<tbody align="left">
 				<tr>
 					<th width="22%">*아이디</th>
 					<td colspan="2">
 						${memberDto.memberID}
-					</td>
-				</tr>
-				<tr>
-					<th>*비밀번호 확인</th>
-					<td>본인 확인을 위해 비밀번호를 입력해주세요.</td>
-				</tr>
-				<tr>
-					<td colspan="2">
-						<input type="password" name="memberPW" required>
 					</td>
 				</tr>
 				<tr>
