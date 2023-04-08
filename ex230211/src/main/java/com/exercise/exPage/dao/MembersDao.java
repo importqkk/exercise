@@ -109,14 +109,14 @@ public class MembersDao {
 		jdbcTemplate.update(sql, param);
 	}
 	
-	// 관리자 페이지용 회원 목록
-	public List<MembersDto> list(PageVO vo, String sort) {
+	// 관리자 페이지용 회원 목록 - 가입일 내림차순
+	public List<MembersDto> joinDescList(PageVO vo) {
 		// 검색
 		if(vo.isSearch()) {
 			String sql = "select * from ("
 							+ "select TMP.*, rownum RN from ("
 								+ "select * from members where instr(#1, ?) > 0 "
-								+ "order by " + sort
+								+ "order by member_join desc"
 							+ ")TMP"
 						+ ") where RN between ? and ?";
 			sql = sql.replace("#1", vo.getColumn());
@@ -128,7 +128,111 @@ public class MembersDao {
 			String sql = "select * from ("
 							+ "select TMP.*, rownum RN from ("
 								+ "select * from members "
-								+ "order by " + sort
+								+ "order by member_join desc"
+							+ ")TMP"
+						+ ") where RN between ? and ?";
+			Object[] param = {vo.getFirst(), vo.getLast()};
+			return jdbcTemplate.query(sql, mapper, param);
+		}
+	}
+	// 관리자 페이지용 회원 목록 - 가입일 오름차순
+	public List<MembersDto> joinAscList(PageVO vo) {
+		// 검색
+		if(vo.isSearch()) {
+			String sql = "select * from ("
+							+ "select TMP.*, rownum RN from ("
+								+ "select * from members where instr(#1, ?) > 0 "
+								+ "order by member_join asc"
+							+ ")TMP"
+						+ ") where RN between ? and ?";
+			sql = sql.replace("#1", vo.getColumn());
+			Object[] param = {vo.getKeyword(), vo.getFirst(), vo.getLast()};
+			return jdbcTemplate.query(sql, mapper, param);
+		}
+		// 전체목록
+		else {
+			String sql = "select * from ("
+							+ "select TMP.*, rownum RN from ("
+								+ "select * from members "
+								+ "order by member_join asc"
+							+ ")TMP"
+						+ ") where RN between ? and ?";
+			Object[] param = {vo.getFirst(), vo.getLast()};
+			return jdbcTemplate.query(sql, mapper, param);
+		}
+	}
+	// 관리자 페이지용 회원 목록 - 아이디순
+	public List<MembersDto> idList(PageVO vo) {
+		// 검색
+		if(vo.isSearch()) {
+			String sql = "select * from ("
+							+ "select TMP.*, rownum RN from ("
+								+ "select * from members where instr(#1, ?) > 0 "
+								+ "order by member_id asc"
+							+ ")TMP"
+						+ ") where RN between ? and ?";
+			sql = sql.replace("#1", vo.getColumn());
+			Object[] param = {vo.getKeyword(), vo.getFirst(), vo.getLast()};
+			return jdbcTemplate.query(sql, mapper, param);
+		}
+		// 전체목록
+		else {
+			String sql = "select * from ("
+							+ "select TMP.*, rownum RN from ("
+								+ "select * from members "
+								+ "order by member_id asc"
+							+ ")TMP"
+						+ ") where RN between ? and ?";
+			Object[] param = {vo.getFirst(), vo.getLast()};
+			return jdbcTemplate.query(sql, mapper, param);
+		}
+	}
+	// 관리자 페이지용 회원 목록 - 닉네임순
+	public List<MembersDto> nickList(PageVO vo) {
+		// 검색
+		if(vo.isSearch()) {
+			String sql = "select * from ("
+							+ "select TMP.*, rownum RN from ("
+								+ "select * from members where instr(#1, ?) > 0 "
+								+ "order by member_nick asc"
+							+ ")TMP"
+						+ ") where RN between ? and ?";
+			sql = sql.replace("#1", vo.getColumn());
+			Object[] param = {vo.getKeyword(), vo.getFirst(), vo.getLast()};
+			return jdbcTemplate.query(sql, mapper, param);
+		}
+		// 전체목록
+		else {
+			String sql = "select * from ("
+							+ "select TMP.*, rownum RN from ("
+								+ "select * from members "
+								+ "order by member_nick asc"
+							+ ")TMP"
+						+ ") where RN between ? and ?";
+			Object[] param = {vo.getFirst(), vo.getLast()};
+			return jdbcTemplate.query(sql, mapper, param);
+		}
+	}
+	// 관리자 페이지용 회원 목록 - 등급순
+	public List<MembersDto> levelList(PageVO vo) {
+		// 검색
+		if(vo.isSearch()) {
+			String sql = "select * from ("
+							+ "select TMP.*, rownum RN from ("
+								+ "select * from members where instr(#1, ?) > 0 "
+								+ "order by member_level asc"
+							+ ")TMP"
+						+ ") where RN between ? and ?";
+			sql = sql.replace("#1", vo.getColumn());
+			Object[] param = {vo.getKeyword(), vo.getFirst(), vo.getLast()};
+			return jdbcTemplate.query(sql, mapper, param);
+		}
+		// 전체목록
+		else {
+			String sql = "select * from ("
+							+ "select TMP.*, rownum RN from ("
+								+ "select * from members "
+								+ "order by member_level asc"
 							+ ")TMP"
 						+ ") where RN between ? and ?";
 			Object[] param = {vo.getFirst(), vo.getLast()};
