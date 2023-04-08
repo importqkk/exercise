@@ -50,12 +50,19 @@ public class AdminController {
 	
 	// 회원 목록
 	@GetMapping("/members/list")
-	public String membersList(Model model, @ModelAttribute("vo") PageVO vo,
-			@RequestParam(required = false, defaultValue = "member_join desc") String sort) {
+	public String membersList(Model model, @ModelAttribute("vo") PageVO vo) {
 		int totalMembers = membersDao.listCount(vo);
 		vo.setCountTotalData(totalMembers);
-		List<MembersDto> list = membersDao.list(vo, sort);
-		model.addAttribute("list", list);
+		List<MembersDto> joinDescList = membersDao.joinDescList(vo);
+		List<MembersDto> joinAscList = membersDao.joinAscList(vo);
+		List<MembersDto> idList = membersDao.idList(vo);
+		List<MembersDto> nickList = membersDao.nickList(vo);
+		List<MembersDto> levelList = membersDao.levelList(vo);
+		model.addAttribute("joinDescList", joinDescList);
+		model.addAttribute("joinAscList", joinAscList);
+		model.addAttribute("idList", idList);
+		model.addAttribute("nickList", nickList);
+		model.addAttribute("levelList", levelList);
 		return "/WEB-INF/views/admin/members/list.jsp";
 	}
 	
