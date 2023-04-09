@@ -75,7 +75,7 @@
 			<div class="row">
 				<h2>게시판 현황</h2>
 			</div>
-			<div class="row pb-50">
+			<div class="row pb-50 w-65">
 				<canvas id="boardStat"></canvas>
 			</div>
 		</div>
