@@ -1,16 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
-	<h2>임시비밀번호 발급이 완료되었습니다.</h2>
-	발급된 임시비밀번호는 회원 정보에 등록된 이메일을 통해 발송되었습니다.
+	<div class="container-450">
+        <div class="row pb-40 center">
+            <h1 class="title">임시비밀번호 발급</h1>
+        </div>
+        <div class="row pb-40 center">
+            <h3>임시 비밀번호가 회원님의 이메일로 전송되었습니다.</h3>
+            <h3>로그인 즉시 비밀번호 변경 안내해주세요.</h3>
+        </div>
+        <div class="row center">
+            <a class="form-btn neutral medium w-100" href="/admin/members/list">목록으로</a>
+        </div>
+    </div>
 	
-	<br><br><br>
-	
-	<a href="/admin/members/list">목록으로</a>
-
-
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
