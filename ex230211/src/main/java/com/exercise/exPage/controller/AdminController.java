@@ -69,11 +69,10 @@ public class AdminController {
 	// 회원 강제 탈퇴
 	@GetMapping("/members/leave")
 	public String membersLeave(@RequestParam String memberID,
-			@RequestParam int page, RedirectAttributes attr) {
+			RedirectAttributes attr) {
 		MembersDto membersDto = membersDao.selectOne(memberID);
 		membersDao.leave(memberID);
 		membersDao.waiting(membersDto);
-		attr.addAttribute("page", page);
 		return "redirect:list";
 		
 	}
