@@ -20,6 +20,10 @@
     .content-box {
         min-height: 10vh;
     }
+    [name=commentContent] {
+    	min-height: 80px;
+    	resize: none;
+    }
 </style>
 <script type="text/javascript">
     $(function() {
@@ -28,6 +32,15 @@
             if(!result) return false;
         })
     })
+</script>
+<script type="text/template" id="comment-template">
+	<div class="comment-item">
+        <div class="flex">
+            <div class="commentWriter w-50">작성자 닉네임</div>
+            <div class="commentTime w-50 right">2023-04-14</div>
+        </div>
+		<div class="commentContent">?</div>
+	</div>
 </script>
 
     <div class="container-800">
@@ -92,11 +105,31 @@
                 </c:if>
             </div>
         </div>
-        <div class="row">
-            댓글목록
+        <div class="row comment-list pb-20 pt-20">
+            <div class="comment-item">
+            	<div class="flex">
+            		<div class="commentWriter w-50 pb-10">작성자 닉네임</div>
+            		<div class="commentTime w-50 right">2023-04-14</div>
+            	</div>
+				<div class="commentContent">?</div>
+			</div>
         </div>
         <div class="row">
-            댓글 작성창
+        	<div class="row">
+	            <c:choose>
+	            	<c:when test="${sessionScope.memberID != null}">
+	            		<textarea class="form-input small w-100" name="commentContent" placeholder="댓글을 입력하세요."></textarea>
+	            	</c:when>
+	            	<c:otherwise>
+	            		<textarea class="form-input small w-100" name="commentContent" placeholder="로그인한 회원만 댓글을 작성할 수 있습니다." disabled></textarea>
+	            	</c:otherwise>
+	            </c:choose>
+	        </div>
+	        <c:if test="${sessionScope.memberID != null}">
+	        	<div class="row right">
+	        		<button type="button" class="form-btn positive small comment-btn w-10">댓글 쓰기</button>
+	        	</div>
+	        </c:if>
         </div>
         <div class="row flex">
             <a href="/board/list" class="form-btn small neutral w-10 me-15">목록보기</a>
