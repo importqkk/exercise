@@ -155,4 +155,13 @@ public class BoardDao {
 		jdbcTemplate.update(sql, param);
 	}
 	
+	// 댓글 개수 갱신
+	public void updateCommentCount(int boardNo) {
+		String sql = "update board set board_comment=("
+						+ "select count(*) from board_comment where board_no=?) "
+					+ "where board_no=?";
+		Object[] param = {boardNo, boardNo};
+		jdbcTemplate.update(sql, param);
+	}
+	
 }
