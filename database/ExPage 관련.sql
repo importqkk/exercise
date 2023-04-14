@@ -119,6 +119,16 @@ create table board_like(
     primary key(member_id, board_no)
 );
 
+-- 게시판 댓글 테이블
+create table board_comment(
+    comment_no number primary key,
+    comment_writer references members(member_id) on delete cascade not null,
+    board_no references board(board_no) on delete cascade not null,
+    comment_content varchar(3000) not null,
+    comment_time date default sysdate not null
+);
+create sequence comment_seq;
+
 commit;
 
 select attachment_seq.nextval from dual;
@@ -137,8 +147,9 @@ select * from board_img;
 select * from lecture_stat;
 select * from member_stat;
 select * from board_stat;
+select * from board_comment;
 
-drop table attachment;
+drop table board_reply;
 drop table lecture_img;
 drop sequence attachment_seq;
 drop view member_with_img;
