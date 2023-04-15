@@ -26,6 +26,9 @@
     }
 </style>
 <script type="text/javascript">
+	var memberID = "${sessionScope.memberID}";
+	var boardWriter = "${boardDto.boardWriter}";
+	
     $(function() {
         $(".delete-btn").click(function() {
             var result = confirm("정말 삭제하시겠습니까?");
