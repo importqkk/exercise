@@ -19,7 +19,7 @@ public class BoardCommentRepositoryImpl implements BoardCommentRepository {
 
 	@Override
 	public List<BoardCommentDto> selectList(int boardNo) {
-		return sql.selectList("comment.list");
+		return sql.selectList("comment.list", boardNo);
 	}
 
 	@Override
