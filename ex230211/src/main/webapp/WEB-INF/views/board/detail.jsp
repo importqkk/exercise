@@ -114,7 +114,7 @@
                 </c:if>
             </div>
         </div>
-        <div class="row comment-list pb-20 pt-20">
+        <div class="row comment-list pb-20">
             <!-- 댓글 목록 위치 -->
             댓글 목록 위치
         </div>
