@@ -6,12 +6,16 @@
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 <!-- 좋아요 모듈 -->
 <script src="/js/board-like.min.js"></script>
+<!-- 댓글 모듈 -->
+<script src="/js/board-comment.js"></script>
 <style>
-    .fa-heart {
+    .fa-heart,
+    .fa-trash {
         color: #f75d86;
         cursor: pointer;
     }
-    .fa-comment {
+    .fa-comment,
+    .fa-edit {
         color: #4431bf;
     }
     .ti-eye {
@@ -20,7 +24,8 @@
     .content-box {
         min-height: 10vh;
     }
-    [name=commentContent] {
+    [name=commentContent],
+    .edit-box {
     	min-height: 80px;
     	resize: none;
     }
@@ -38,11 +43,12 @@
 </script>
 <script type="text/template" id="comment-template">
 	<div class="comment-item">
-        <div class="flex">
+        <div class="flex pb-10 pt-30">
             <div class="commentWriter w-50">작성자 닉네임</div>
             <div class="commentTime w-50 right">2023-04-14</div>
         </div>
 		<div class="commentContent">?</div>
+		<div class="manageBtns right pb-30" style="border-bottom:0.5px solid grey;"></div>
 	</div>
 </script>
 
@@ -109,13 +115,8 @@
             </div>
         </div>
         <div class="row comment-list pb-20 pt-20">
-            <div class="comment-item">
-            	<div class="flex">
-            		<div class="commentWriter w-50 pb-10">작성자 닉네임</div>
-            		<div class="commentTime w-50 right">2023-04-14</div>
-            	</div>
-				<div class="commentContent">?</div>
-			</div>
+            <!-- 댓글 목록 위치 -->
+            댓글 목록 위치
         </div>
         <div class="row">
         	<div class="row">
