@@ -7,24 +7,24 @@
 	<!-- 댓글 등록 -->
 	<insert id="post">
 		insert into board_comment(comment_no, comment_writer, board_no, comment_content, comment_time)
-		values(comment_seq.nextval, #{commentWriter}, #{boardNo}, #{commentContent}, sysdate)
+		values(comment_seq.nextval, #{commentWriter, jdbcType=VARCHAR}, #{boardNo, jdbcType=NUMERIC}, #{commentContent, jdbcType=VARCHAR}, sysdate)
 	</insert>
 	<!-- 댓글 목록 -->
-	<select id="list" resultType="BoardCommentDto">
-		select * from board_comment where board_no=#{boardNo}
+	<select id="list" resultType="BoardCommentDto" parameterType="int">
+		select * from board_comment where board_no=#{boardNo, jdbcType=NUMERIC}
 		order by comment_no asc
 	</select>
 	<!-- 댓글 단일조회 -->
-	<select id="selectOne" resultType="BoardCommentDto">
-		select * from board_comment where comment_no=#{commentNo}
+	<select id="selectOne" resultType="BoardCommentDto" parameterType="int">
+		select * from board_comment where comment_no=#{commentNo, jdbcType=NUMERIC}
 	</select>
 	<!-- 댓글 수정 -->
 	<update id="edit">
-		update board_comment set comment_content=#{commentContent} where comment_no=#{commentNo}
+		update board_comment set comment_content=#{commentContent, jdbcType=VARCHAR} where comment_no=#{commentNo, jdbcType=NUMERIC}
 	</update>
 	<!-- 댓글 삭제 -->
 	<delete id="delete">
-		delete board_comment where comment_no=#{commentNo}
+		delete board_comment where comment_no=#{commentNo, jdbcType=NUMERIC}
 	</delete>
 </mapper>
     
