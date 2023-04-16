@@ -36,13 +36,15 @@ $(function() {
 			url:"/rest/comment/" + boardNo,
 			method:"get",
 			success:function(rsp) {
-				console.log(rsp);
 				for(var i=0; i<rsp.length; i++) {
 					var template = $("#comment-template").html();
 					var html = $.parseHTML(template);
 					$(html).find(".commentWriter").text(rsp[i].commentWriter);
 					$(html).find(".commentTime").text(rsp[i].commentTime);
 					$(html).find(".commentContent").text(rsp[i].commentContent);
+					if(boardWriter == rsp[i].commentWriter) {
+						$(html).find(".commentWriter").css("color", "#4431bf")
+					}
 					if(memberID == rsp[i].commentWriter) {
 						var editBtn = $("<i>").addClass("fa-solid fa-edit right")
 							.attr("data-comment-no", rsp[i].commentNo)
