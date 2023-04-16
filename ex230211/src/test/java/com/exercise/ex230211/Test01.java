@@ -29,7 +29,7 @@ public class Test01 {
 		sql.insert("comment.post", dto);
 	}
 
-//	@Test
+	@Test
 	public void test2() {
 		int boardNo = 103;
 		List<BoardCommentDto> list = sql.selectList("comment.list", boardNo);
@@ -53,7 +53,7 @@ public class Test01 {
 		sql.update("comment.edit", boardCommentDto);
 	}
 	
-	@Test
+//	@Test
 	public void test5() {
 		int commentNo = 1;
 		sql.delete("comment.delete", commentNo);
