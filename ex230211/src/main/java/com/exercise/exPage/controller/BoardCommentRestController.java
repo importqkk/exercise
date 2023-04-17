@@ -32,6 +32,7 @@ public class BoardCommentRestController {
 	@PostMapping("/")
 	public void insert(@ModelAttribute BoardCommentDto boardCommentDto) {
 		commentRepo.insert(boardCommentDto);
+		boardDao.updateCommentCount(boardCommentDto.getBoardNo());
 	}
 	
 	// 수정
