@@ -18,6 +18,8 @@ import com.exercise.exPage.dao.MemberStatDao;
 import com.exercise.exPage.dao.MembersDao;
 import com.exercise.exPage.dao.MembersImgDao;
 import com.exercise.exPage.dto.MembersDto;
+import com.exercise.exPage.repository.MemberListRepository;
+import com.exercise.exPage.vo.MemberDetailSearchVo;
 import com.exercise.exPage.vo.PageVO;
 
 @Controller
@@ -38,6 +40,8 @@ public class AdminController {
 	private LectureStatDao lectureStatDao;
 	@Autowired
 	private BoardStatDao boardStatDao;
+	@Autowired
+	private MemberListRepository listRepo;
 	
 	// 관리 메인 (회원, 강의, 게시판 통계)
 	@GetMapping
@@ -49,7 +53,7 @@ public class AdminController {
 	}
 	
 	// 회원 목록
-	@GetMapping("/members/list")
+	/*@GetMapping("/members/list")
 	public String membersList(Model model, @ModelAttribute("vo") PageVO vo) {
 		int totalMembers = membersDao.listCount(vo);
 		vo.setCountTotalData(totalMembers);
@@ -63,6 +67,13 @@ public class AdminController {
 		model.addAttribute("idList", idList);
 		model.addAttribute("nickList", nickList);
 		model.addAttribute("levelList", levelList);
+		return "/WEB-INF/views/admin/members/list.jsp";
+	}*/
+	@GetMapping("/members/list")
+	public String memberList(Model model, 
+			@ModelAttribute("vo") MemberDetailSearchVo searchVo) {
+		int totalMembers = listRepo.selectOne(searchVo);
+		searchVo.setCountTotalData(totalMembers);
 		return "/WEB-INF/views/admin/members/list.jsp";
 	}
 	
