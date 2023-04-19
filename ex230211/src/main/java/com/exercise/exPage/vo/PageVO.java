@@ -7,7 +7,7 @@ public class PageVO {
 	private String column = "lecturesLecture";
 	private String keyword ="";
 	private int page = 1;
-	private int size = 10;
+	private int size = 5;
 	private int countTotalData;
 	private int blockSize = 5;
 	
