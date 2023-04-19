@@ -4,7 +4,108 @@
     "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
     
 <mapper namespace="member">
-	<select id="detailSearch" resultType="memberDto">
+
+	<select id="listCount" resultType="integer">
+		<!-- 변수선언 -->
+		<bind name="hasMemberID" value="memberID != null and !memberID.equals('')"/>
+		<bind name="hasMemberNick" value="memberNick != null and !memberNick.equals('')"/>
+		<bind name="hasMemberEmail" value="memberEmail != null and !memberEmail.equals('')"/>
+		<bind name="hasMemberLastName" value="memberLastName != null and !memberLastName.equals('')"/>
+		<bind name="hasMemberFirstName" value="memberFirstName != null and !memberFirstName.equals('')"/>
+		<bind name="hasMemberTel" value="memberTel != null and !memberTel.equals('')"/>
+		<bind name="hasMemberBirthYear" value="memberBirthYear != null and !memberBirthYear.equals('')"/>
+		<bind name="hasMemberBirthMonth" value="memberBirthMonth != null and !memberBirthMonth.equals('')"/>
+		<bind name="hasMinPoint" value="minPoint != null and !minPoint.equals('')"/>
+		<bind name="hasMaxPoint" value="maxPoint != null and !maxPoint.equals('')"/>
+		<bind name="hasMemberLevels" value="memberLevels != null and !memberLevels.size() > 0"/>
+		<bind name="hasJoinStart" value="joinStart != null and !joinStart.equals('')"/>
+		<bind name="hasJoinEnd" value="joinEnd != null and !joinEnd.equals('')"/>
+		<bind name="hasMemberLogin" value="memberLogin != null and !memberLogin.equals('')"/>
+	
+		select count(*) cnt from members
+		<where>
+			<!-- 아이디 -->
+			<if test="hasMemberID">
+				and instr(member_id, #{memberID}) > 0
+			</if>
+			<!-- 닉네임 -->
+			<if test="hasMemberNick">
+				and instr(member_nick, #{memberNick}) > 0
+			</if>
+			<!-- 이메일 -->
+			<if test="hasMemberEmail">
+				and instr(member_email, #{memberEmail}) > 0
+			</if>
+			<!-- 성 -->
+			<if test="hasMemberLastName">
+				and member_last_name = #{memberLastName}
+			</if>
+			<!-- 이름 -->
+			<if test="hasMemberFirstName">
+				and instr(member_first_name, #{memberFirstName}) > 0
+			</if>
+			<!-- 전화번호 -->
+			<if test="hasMemberTel">
+				and member_tel = #{memberTel}
+			</if>
+			<!-- 생년 -->
+			<if test="hasMemberBirthYear">
+				and member_birth like #{memberBirthYear} || '%'
+			</if>
+			<!-- 생월 -->
+			<if test="hasMemberBirthMonth">
+				and substr(member_birth, 6, 2) = #{memberBirthMonth}
+			</if>
+			<!-- 포인트 -->
+			<choose>
+				<when test="hasMinPoint and hasMaxPoint">
+					and member_point between #{minPoint} and #{maxPoint}
+				</when>
+				<when test="hasMinPoint">
+					and member_point >= #{minPoint}
+				</when>
+				<when test="hasMaxPoint">
+					<![CDATA[
+						and member_point <= #{maxPoint}
+					]]>
+				</when>
+			</choose>
+			<!-- 등급 -->
+			<if test="hasMemberLevels">
+				and member_level in
+				<foreach collection="memberLevels" open="(" close=")" item="memberLevel" separator=", ">
+					#{memberLevel}
+				</foreach>
+			</if>
+			<!-- 가입일 -->
+			<choose>
+				<when test="hasJoinStart and hasJoinEnd">
+					and member_join between
+						to_date(#{joinStart} ||''|| '00:00:00', 'YYYY-MM-DD HH24:MI:SS')
+						and
+						to_date(#{joinEnd} ||''|| '23:59:59', 'YYYY-MM-DD HH24:MI:SS')
+				</when>
+				<when test="hasJoinStart">
+					and member_join
+						>= to_date (#{joinStart} ||''|| '00:00:00', 'YYYY-MM-DD HH24:MI:SS')
+				</when>
+				<when test="hasJoinEnd">
+					<![CDATA[
+						and member_join
+						<= to_date (#{joinEnd} ||''|| '23:59:59', 'YYYY-MM-DD HH24:MI:SS')
+					]]>
+				</when>
+			</choose>
+			<!-- 로그인 -->
+			<if test="hasMemberLogin">
+				and member_login between
+					to_date(to_char(sysdate - #{memberLogin}, 'YYYY-MM-DD'), 'YYYY-MM-DD')
+					and sysdate
+			</if>
+		</where>
+	</select>
+
+	<select id="detailSearch" resultType="MembersDto">
 		<!-- 변수선언 -->
 		<bind name="hasMemberID" value="memberID != null and !memberID.equals('')"/>
 		<bind name="hasMemberNick" value="memberNick != null and !memberNick.equals('')"/>
@@ -21,7 +122,9 @@
 		<bind name="hasJoinEnd" value="joinEnd != null and !joinEnd.equals('')"/>
 		<bind name="hasMemberLogin" value="memberLogin != null and !memberLogin.equals('')"/>
 		
-		select * from (
+		<!-- select * from members -->
+		
+ 		select * from (
 			select TMP.*, rownum RN from (
 				select * from members
 				<where>
@@ -49,11 +152,11 @@
 					<if test="hasMemberTel">
 						and member_tel = #{memberTel}
 					</if>
-					<!-- 생년 년도 -->
+					<!-- 생년 -->
 					<if test="hasMemberBirthYear">
 						and member_birth like #{memberBirthYear} || '%'
 					</if>
-					<!-- 생년 월 -->
+					<!-- 생월 -->
 					<if test="hasMemberBirthMonth">
 						and substr(member_birth, 6, 2) = #{memberBirthMonth}
 					</if>
@@ -104,7 +207,7 @@
 							and sysdate
 					</if>
 				</where>
-			)TMP	
+			 )TMP	
 		) where RN between #{first} and #{last}
 	</select>
 </mapper>
