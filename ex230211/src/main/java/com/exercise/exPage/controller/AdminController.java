@@ -74,6 +74,8 @@ public class AdminController {
 			@ModelAttribute("vo") MemberDetailSearchVo searchVo) {
 		int totalMembers = listRepo.selectOne(searchVo);
 		searchVo.setCountTotalData(totalMembers);
+		List<MembersDto> list = listRepo.selectList(searchVo);
+		model.addAttribute("list", list);
 		return "/WEB-INF/views/admin/members/list.jsp";
 	}
 	
