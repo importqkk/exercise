@@ -7,7 +7,7 @@ public class MemberDetailSearchVo {
 
 	private String memberID, memberNick, memberEmail, memberLastName, 
 				memberFirstName, memberTel, memberBirthYear, memberBirthMonth,
-				joinStart, joinEnd, memberlogin;
+				joinStart, joinEnd, memberLogin;
 	private Integer minPoint, maxPoint, first, last;
 	private List<String> memberLevels;
 	
