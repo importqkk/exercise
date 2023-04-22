@@ -5,36 +5,115 @@ import lombok.Data;
 @Data
 public class MemberDetailSearchVo {
 
-	private String memberID, memberNick, memberEmail, memberLastName, 
-				memberFirstName, memberTel, memberBirthYear, memberBirthMonth,
-				joinStart, joinEnd, memberLogin;
-	private Integer minPoint, maxPoint, first, last;
+	private String memberID="", memberNick="", memberEmail="", memberLastName="", 
+				memberFirstName="", memberTel="", memberBirthYear="", memberBirthMonth="",
+				joinStart="", joinEnd="", memberLogin="";
+	private Integer minPoint, maxPoint;
 	private List<String> memberLevels;
 	
-	
-	private String column = "memberID";
-	private String keyword ="";
 	private int page = 1;
-	private int size = 10;
+	private int size = 5;
 	private int countTotalData;
 	private int blockSize = 5;
 	
-	public boolean isSearch() {
-		return !keyword.equals("");
+	public boolean isMemberIDSearch() {
+		return !memberID.equals("");
 	}
-	public boolean isList() {
-		return !isSearch();
+	public boolean isMemberNickSearch() {
+		return !memberNick.equals("");
+	}
+	public boolean isMemberEmailSearch() {
+		return !memberEmail.equals("");
+	}
+	public boolean isMemberLastNameSearchSearch() {
+		return !memberLastName.equals("");
+	}
+	public boolean isMemberFirstNameSearch() {
+		return !memberFirstName.equals("");
+	}
+	public boolean isMemberTelSearch() {
+		return !memberTel.equals("");
+	}
+	public boolean isMemberBirthYearSearch() {
+		return !memberBirthYear.equals("");
+	}
+	public boolean isMemberBirthMonthSearch() {
+		return !memberBirthMonth.equals("");
+	}
+	public boolean isJoinStartSearch() {
+		return !joinStart.equals("");
+	}
+	public boolean isJoinEndSearch() {
+		return !joinEnd.equals("");
+	}
+	public boolean isMemberLoginSearch() {
+		return !memberLogin.equals("");
+	}
+	public boolean isMemberLevelsSearch() {
+		return !(memberLevels.size()>0);
+	}
+	public boolean isMinPointSearch() {
+		return !(minPoint==null);
+	}
+	public boolean isMaxPointSearch() {
+		return !(maxPoint==null);
 	}
 	
 	public String getParam() {
 		StringBuffer buffer = new StringBuffer();
 		buffer.append("&size=");
 		buffer.append(size);
-		if(isSearch()) {
-			buffer.append("&column=");
-			buffer.append(column);
-			buffer.append("&keyword=");
-			buffer.append(keyword);
+		if(isMemberIDSearch()) {
+			buffer.append("&memberID=");
+			buffer.append(memberID);
+		}
+		if(isMemberNickSearch()) {
+			buffer.append("&memberNick=");
+			buffer.append(memberNick);
+		}
+		if(isMemberEmailSearch()) {
+			buffer.append("&memberEmail=");
+			buffer.append(memberEmail);
+		}
+		if(isMemberTelSearch()) {
+			buffer.append("&memberTel=");
+			buffer.append(memberTel);
+		}
+		if(isMemberLastNameSearchSearch()) {
+			buffer.append("&memberLastName=");
+			buffer.append(memberLastName);
+		}
+		if(isMemberFirstNameSearch()) {
+			buffer.append("&memberFirstName=");
+			buffer.append(memberFirstName);
+		}
+		if(isMemberBirthYearSearch()) {
+			buffer.append("&memberBirthYear=");
+			buffer.append(memberBirthYear);
+		}
+		if(isMemberBirthMonthSearch()) {
+			buffer.append("&memberBirthMonth=");
+			buffer.append(memberBirthMonth);
+		}
+		if(isJoinStartSearch()) {
+			buffer.append("&joinStart=");
+			buffer.append(joinStart);
+		}
+		if(isJoinEndSearch()) {
+			buffer.append("&joinEnd=");
+			buffer.append(joinEnd);
+		}
+		if(isMemberLoginSearch()) {
+			buffer.append("&memberLogin=");
+			buffer.append(memberLogin);
+		}
+		if(isMinPointSearch()) {
+			buffer.append("&minPoint=");
+			buffer.append(minPoint);
+		}
+		if(isMaxPointSearch()) {
+			buffer.append("&maxPoint=");
+			buffer.append(maxPoint);
 		}
 		return buffer.toString();
 	}
