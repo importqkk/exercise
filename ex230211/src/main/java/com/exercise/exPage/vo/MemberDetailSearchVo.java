@@ -7,8 +7,8 @@ public class MemberDetailSearchVo {
 
 	private String memberID="", memberNick="", memberEmail="", memberLastName="", 
 				memberFirstName="", memberTel="", memberBirthYear="", memberBirthMonth="",
-				joinStart="", joinEnd="", memberLogin="";
-	private Integer minPoint, maxPoint;
+				joinStart="", joinEnd="";
+	private Integer minPoint, maxPoint, memberLogin;
 	private List<String> memberLevels;
 	
 	private int page = 1;
@@ -47,7 +47,7 @@ public class MemberDetailSearchVo {
 		return !joinEnd.equals("");
 	}
 	public boolean isMemberLoginSearch() {
-		return !memberLogin.equals("");
+		return !(memberLogin==null);
 	}
 	public boolean isMemberLevelsSearch() {
 		return !(memberLevels.size()>0);
