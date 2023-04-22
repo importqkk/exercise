@@ -17,7 +17,7 @@
 		<bind name="hasMemberBirthMonth" value="memberBirthMonth != null and !memberBirthMonth.equals('')"/>
 		<bind name="hasMinPoint" value="minPoint != null and !minPoint.equals('')"/>
 		<bind name="hasMaxPoint" value="maxPoint != null and !maxPoint.equals('')"/>
-		<bind name="hasMemberLevels" value="memberLevels != null and !memberLevels.size() > 0"/>
+		<bind name="hasMemberLevels" value="memberLevels != null and memberLevels.size() > 0"/>
 		<bind name="hasJoinStart" value="joinStart != null and !joinStart.equals('')"/>
 		<bind name="hasJoinEnd" value="joinEnd != null and !joinEnd.equals('')"/>
 		<bind name="hasMemberLogin" value="memberLogin != null and !memberLogin.equals('')"/>
@@ -117,7 +117,7 @@
 		<bind name="hasMemberBirthMonth" value="memberBirthMonth != null and !memberBirthMonth.equals('')"/>
 		<bind name="hasMinPoint" value="minPoint != null and !minPoint.equals('')"/>
 		<bind name="hasMaxPoint" value="maxPoint != null and !maxPoint.equals('')"/>
-		<bind name="hasMemberLevels" value="memberLevels != null and !memberLevels.size() > 0"/>
+		<bind name="hasMemberLevels" value="memberLevels != null and memberLevels.size() > 0"/>
 		<bind name="hasJoinStart" value="joinStart != null and !joinStart.equals('')"/>
 		<bind name="hasJoinEnd" value="joinEnd != null and !joinEnd.equals('')"/>
 		<bind name="hasMemberLogin" value="memberLogin != null and !memberLogin.equals('')"/>
@@ -177,7 +177,7 @@
 					<!-- 등급 -->
 					<if test="hasMemberLevels">
 						and member_level in
-						<foreach collection="memberLevels" open="(" close=")" item="memberLevel" separator=", ">
+						<foreach collection="memberLevels" open="(" close=")" item="memberLevel" separator=",">
 							#{memberLevel}
 						</foreach>
 					</if>
