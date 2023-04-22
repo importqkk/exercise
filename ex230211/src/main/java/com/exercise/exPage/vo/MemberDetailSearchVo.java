@@ -50,7 +50,7 @@ public class MemberDetailSearchVo {
 		return !(memberLogin==null);
 	}
 	public boolean isMemberLevelsSearch() {
-		return !(memberLevels.size()>0);
+		return !(memberLevels==null) && memberLevels.size() > 0;
 	}
 	public boolean isMinPointSearch() {
 		return !(minPoint==null);
@@ -106,6 +106,13 @@ public class MemberDetailSearchVo {
 		if(isMemberLoginSearch()) {
 			buffer.append("&memberLogin=");
 			buffer.append(memberLogin);
+		}
+		if(isMemberLevelsSearch()) {
+			buffer.append("&memberLevels=");
+			for(String str : memberLevels) {				
+				buffer.append(str);
+				buffer.append("&memberLevels=");
+			}
 		}
 		if(isMinPointSearch()) {
 			buffer.append("&minPoint=");
