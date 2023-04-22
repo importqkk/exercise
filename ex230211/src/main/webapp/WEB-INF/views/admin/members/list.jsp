@@ -174,8 +174,8 @@
 				</div>
 			</div>
 			<div class="row w-100">
-				<label>최종 로그인</label>
-				<input type="text" name="memberLogin" class="form-input small w-100 date-picker3" value="${vo.memberLogin}">	
+				<label class="w-100">최종 로그인</label><br>
+				<input type="text" name="memberLogin" class="form-input small w-10" value="${vo.memberLogin}"> 일 전
 			</div>
 			<!-- 검색버튼 -->
 			<div class="row">
