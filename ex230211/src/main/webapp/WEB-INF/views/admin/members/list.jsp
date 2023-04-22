@@ -27,7 +27,7 @@
 	}
 </style>
 <script type="text/javascript">
-    /*$(function() {
+    $(function() {
         $(".delete-btn").click(function() {
             var result = confirm("회원 강제 탈퇴를 진행합니다.");
             if(!result) return false;
@@ -39,7 +39,7 @@
         })
         
         // 정렬 처리
-        $(".id_list").hide();
+        /*$(".id_list").hide();
    		$(".nick_list").hide();
    		$(".level_list").hide();
    		$(".join_asc_list").hide();
