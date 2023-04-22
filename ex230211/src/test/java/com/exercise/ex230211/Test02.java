@@ -11,6 +11,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import com.exercise.exPage.Ex230211Application;
 import com.exercise.exPage.dto.MembersDto;
+import com.exercise.exPage.vo.MemberDetailSearchVo;
 import com.exercise.exPage.vo.PageVO;
 import lombok.extern.slf4j.Slf4j;
 
@@ -27,28 +28,30 @@ public class Test02 {
 	public void test1() {
 		
 		PageVO vo = new PageVO();
+		MemberDetailSearchVo searchVo = new MemberDetailSearchVo();
 		Map<String, Object> param = new HashMap<>();
 		
-		param.put("memberID", "test");
+		/*param.put("memberID", "design");*/
 		/*param.put("memberNick", "유저");
 		param.put("memberBirthMonth", 04);*/
+		param.put("memberLevel", List.of("silver"));
 		
 		int count = sql.selectOne("member.listCount", param);
-		vo.setCountTotalData(count);
+		searchVo.setCountTotalData(count);
 		
 		param.put("countTotalData", count);
 		
-		int first = vo.getFirst();
-		int last = vo.getLast();
+		int first = searchVo.getFirst();
+		int last = searchVo.getLast();
 		
 		param.put("first", first);
 		param.put("last", last);
 		
 		List<MembersDto> list = sql.selectList("member.detailSearch", param);
 		
-		log.debug("count = {}", count);
-		log.debug("first = {}", first);
-		log.debug("last = {}", last);
+		//log.debug("count = {}", count);
+		//log.debug("first = {}", first);
+		//log.debug("last = {}", last);
 		
 		for(MembersDto dto : list) {			
 			log.debug("dto = {}", dto);
