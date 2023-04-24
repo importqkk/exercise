@@ -37,56 +37,6 @@
         	var result = confirm("임시비밀번호를 회원 이메일로 전송합니다.");
             if(!result) return false;
         })
-        
-        // 정렬 처리
-        /*$(".id_list").hide();
-   		$(".nick_list").hide();
-   		$(".level_list").hide();
-   		$(".join_asc_list").hide();
-   		$(".join_desc_list").show();
-   		
-        $(".not-selected").click(function() {
-        	$(".selected").removeClass("selected").addClass("not-selected");
-        	$(this).removeClass("not-selected").addClass("selected");
-        	if($(this).text() == "아이디순") {
-        		$(".id_list").show();
-        		$(".nick_list").hide();
-        		$(".level_list").hide();
-        		$(".join_asc_list").hide();
-        		$(".join_desc_list").hide();
-        	}
-        	else if($(this).text() == "닉네임순") {
-        		$(".id_list").hide();
-        		$(".nick_list").show();
-        		$(".level_list").hide();
-        		$(".join_asc_list").hide();
-        		$(".join_desc_list").hide();
-        	}
-        	else if($(this).text() == "등급순") {
-        		$(".id_list").hide();
-        		$(".nick_list").hide();
-        		$(".level_list").show();
-        		$(".join_asc_list").hide();
-        		$(".join_desc_list").hide();
-        	}
-        	else if($(this).text() == "가입일 오름차") {
-        		$(".id_list").hide();
-        		$(".nick_list").hide();
-        		$(".level_list").hide();
-        		$(".join_asc_list").show();
-        		$(".join_desc_list").hide();
-        	}
-        	else if($(this).text() == "가입일 내림차") {
-        		$(".id_list").hide();
-        		$(".nick_list").hide();
-        		$(".level_list").hide();
-        		$(".join_asc_list").hide();
-        		$(".join_desc_list").show();
-        	}
-        })
-        
-        $(".default-sort").removeClass("not-selected").addClass("selected");
-    })*/
 </script>
 
 <form action="list" method="get">
@@ -176,6 +126,108 @@
 			<div class="row w-100">
 				<label class="w-100">최종 로그인</label><br>
 				<input type="text" name="memberLogin" class="form-input small w-10" value="${vo.memberLogin}"> 일 전
+			</div>
+			<div class="row flex">
+				<div class="row w-50 pe-10">
+					<label>정렬옵션 1</label>
+					<c:choose>
+						<c:when test="${vo.orders[0] == 'member_id asc'}">
+							<select name="orders" class="form-input small w-100">
+								<option value="">선택하세요.</option>
+								<option value="member_id asc" selected>아이디순</option>
+								<option value="member_join asc">가입일 오름차</option>
+								<option value="member_join desc">가입일 내림차</option>
+								<option value="member_nick asc">닉네임순</option>
+							</select>
+						</c:when>
+						<c:when test="${vo.orders[0] == 'member_join asc'}">
+							<select name="orders" class="form-input small w-100">
+								<option value="">선택하세요.</option>
+								<option value="member_id asc">아이디순</option>
+								<option value="member_join asc" selected>가입일 오름차</option>
+								<option value="member_join desc">가입일 내림차</option>
+								<option value="member_nick asc">닉네임순</option>
+							</select>
+						</c:when>
+						<c:when test="${vo.orders[0] == 'member_join desc'}">
+							<select name="orders" class="form-input small w-100">
+								<option value="">선택하세요.</option>
+								<option value="member_id asc">아이디순</option>
+								<option value="member_join asc">가입일 오름차</option>
+								<option value="member_join desc" selected>가입일 내림차</option>
+								<option value="member_nick asc">닉네임순</option>
+							</select>
+						</c:when>
+						<c:when test="${vo.orders[0] == 'member_nick asc'}">
+							<select name="orders" class="form-input small w-100">
+								<option value="">선택하세요.</option>
+								<option value="member_id asc">아이디순</option>
+								<option value="member_join asc">가입일 오름차</option>
+								<option value="member_join desc">가입일 내림차</option>
+								<option value="member_nick asc" selected>닉네임순</option>
+							</select>
+						</c:when>
+						<c:otherwise>
+							<select name="orders" class="form-input small w-100">
+								<option value="" selected>선택하세요.</option>
+								<option value="member_id asc">아이디순</option>
+								<option value="member_join asc">가입일 오름차</option>
+								<option value="member_join desc">가입일 내림차</option>
+								<option value="member_nick asc">닉네임순</option>
+							</select>
+						</c:otherwise>
+					</c:choose>
+				</div>
+				<div class="row w-50 ps-10">
+					<label>정렬옵션 2</label>
+					<c:choose>
+						<c:when test="${vo.orders[1] == 'member_id asc'}">
+							<select name="orders" class="form-input small w-100">
+								<option value="">선택하세요.</option>
+								<option value="member_id asc" selected>아이디순</option>
+								<option value="member_join asc">가입일 오름차</option>
+								<option value="member_join desc">가입일 내림차</option>
+								<option value="member_nick asc">닉네임순</option>
+							</select>
+						</c:when>
+						<c:when test="${vo.orders[1] == 'member_join asc'}">
+							<select name="orders" class="form-input small w-100">
+								<option value="">선택하세요.</option>
+								<option value="member_id asc">아이디순</option>
+								<option value="member_join asc" selected>가입일 오름차</option>
+								<option value="member_join desc">가입일 내림차</option>
+								<option value="member_nick asc">닉네임순</option>
+							</select>
+						</c:when>
+						<c:when test="${vo.orders[1] == 'member_join desc'}">
+							<select name="orders" class="form-input small w-100">
+								<option value="">선택하세요.</option>
+								<option value="member_id asc">아이디순</option>
+								<option value="member_join asc">가입일 오름차</option>
+								<option value="member_join desc" selected>가입일 내림차</option>
+								<option value="member_nick asc">닉네임순</option>
+							</select>
+						</c:when>
+						<c:when test="${vo.orders[1] == 'member_nick asc'}">
+							<select name="orders" class="form-input small w-100">
+								<option value="">선택하세요.</option>
+								<option value="member_id asc">아이디순</option>
+								<option value="member_join asc">가입일 오름차</option>
+								<option value="member_join desc">가입일 내림차</option>
+								<option value="member_nick asc" selected>닉네임순</option>
+							</select>
+						</c:when>
+						<c:otherwise>
+							<select name="orders" class="form-input small w-100">
+								<option value="" selected>선택하세요.</option>
+								<option value="member_id asc">아이디순</option>
+								<option value="member_join asc">가입일 오름차</option>
+								<option value="member_join desc">가입일 내림차</option>
+								<option value="member_nick asc">닉네임순</option>
+							</select>
+						</c:otherwise>
+					</c:choose>
+				</div>
 			</div>
 			<!-- 검색버튼 -->
 			<div class="row">
