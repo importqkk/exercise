@@ -53,25 +53,10 @@ public class AdminController {
 	}
 	
 	// 회원 목록
-	/*@GetMapping("/members/list")
-	public String membersList(Model model, @ModelAttribute("vo") PageVO vo) {
-		int totalMembers = membersDao.listCount(vo);
-		vo.setCountTotalData(totalMembers);
-		List<MembersDto> joinDescList = membersDao.joinDescList(vo);
-		List<MembersDto> joinAscList = membersDao.joinAscList(vo);
-		List<MembersDto> idList = membersDao.idList(vo);
-		List<MembersDto> nickList = membersDao.nickList(vo);
-		List<MembersDto> levelList = membersDao.levelList(vo);
-		model.addAttribute("joinDescList", joinDescList);
-		model.addAttribute("joinAscList", joinAscList);
-		model.addAttribute("idList", idList);
-		model.addAttribute("nickList", nickList);
-		model.addAttribute("levelList", levelList);
-		return "/WEB-INF/views/admin/members/list.jsp";
-	}*/
 	@GetMapping("/members/list")
 	public String memberList(Model model, 
 			@ModelAttribute("vo") MemberDetailSearchVo searchVo) {
+		searchVo.refreshOrders();
 		int totalMembers = listRepo.selectOne(searchVo);
 		searchVo.setCountTotalData(totalMembers);
 		List<MembersDto> list = listRepo.selectList(searchVo);
