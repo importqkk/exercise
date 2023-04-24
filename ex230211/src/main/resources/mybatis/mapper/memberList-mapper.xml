@@ -121,6 +121,7 @@
 		<bind name="hasJoinStart" value="joinStart != null and !joinStart.equals('')"/>
 		<bind name="hasJoinEnd" value="joinEnd != null and !joinEnd.equals('')"/>
 		<bind name="hasMemberLogin" value="memberLogin != null and !memberLogin.equals('')"/>
+		<bind name="hasOrders" value="orders != null and orders.size() > 0"/>
 		
 		<!-- select * from members -->
 		
@@ -207,6 +208,12 @@
 							and sysdate
 					</if>
 				</where>
+				<if test="hasOrders">
+					order by
+					<foreach collection="orders" item="order" separator=",">
+						${order}
+					</foreach>
+				</if>
 			 )TMP	
 		) where RN between #{first} and #{last}
 	</select>
