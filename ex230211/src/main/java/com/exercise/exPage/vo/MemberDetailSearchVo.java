@@ -1,4 +1,5 @@
 package com.exercise.exPage.vo;
+import java.util.ArrayList;
 import java.util.List;
 import lombok.Data;
 
@@ -9,12 +10,22 @@ public class MemberDetailSearchVo {
 				memberFirstName="", memberTel="", memberBirthYear="", memberBirthMonth="",
 				joinStart="", joinEnd="";
 	private Integer minPoint, maxPoint, memberLogin;
-	private List<String> memberLevels;
+	private List<String> memberLevels, orders;
 	
 	private int page = 1;
 	private int size = 5;
 	private int countTotalData;
 	private int blockSize = 5;
+	
+	
+	public void refreshOrders() {
+		if(this.orders == null) return;
+		List<String> list = new ArrayList<>();
+		for(String str : orders) {
+			if(str.length() > 0) list.add(str);
+		}
+		this.orders = list;
+	}
 	
 	public boolean isMemberIDSearch() {
 		return !memberID.equals("");
@@ -57,6 +68,9 @@ public class MemberDetailSearchVo {
 	}
 	public boolean isMaxPointSearch() {
 		return !(maxPoint==null);
+	}
+	public boolean isOrdersSearch() {
+		return !(orders==null) && orders.size() > 0;
 	}
 	
 	public String getParam() {
@@ -121,6 +135,13 @@ public class MemberDetailSearchVo {
 		if(isMaxPointSearch()) {
 			buffer.append("&maxPoint=");
 			buffer.append(maxPoint);
+		}
+		if(isOrdersSearch()) {
+			buffer.append("&orders=");
+			for(String str : orders) {				
+				buffer.append(str);
+				buffer.append("&orders=");
+			}
 		}
 		return buffer.toString();
 	}
