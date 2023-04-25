@@ -30,20 +30,20 @@ public class LecturesController {
 	private LectureImgDao lectureImgDao;
 	
 	// 강의 등록
-	@GetMapping("/add")
-	public String add() {
-		return "/WEB-INF/views/lectures/add.jsp";
-	}
-	@PostMapping("/add")
-	public String add(@ModelAttribute LecturesDto lecturesDto,
-			@RequestParam MultipartFile attach) throws IllegalStateException, IOException {
-		lecturesService.add(lecturesDto, attach);
-		return "redirect:addCompleted";
-	}
-	@GetMapping("/addCompleted")
-	public String addCompleted(@ModelAttribute LecturesDto lecturesDto) {
-		return "redirect:list";
-	}
+//	@GetMapping("/add")
+//	public String add() {
+//		return "/WEB-INF/views/lectures/add.jsp";
+//	}
+//	@PostMapping("/add")
+//	public String add(@ModelAttribute LecturesDto lecturesDto,
+//			@RequestParam MultipartFile attach) throws IllegalStateException, IOException {
+//		lecturesService.add(lecturesDto, attach);
+//		return "redirect:addCompleted";
+//	}
+//	@GetMapping("/addCompleted")
+//	public String addCompleted(@ModelAttribute LecturesDto lecturesDto) {
+//		return "redirect:list";
+//	}
 	
 	// 강의 목록, 검색
 	@GetMapping("/list")
