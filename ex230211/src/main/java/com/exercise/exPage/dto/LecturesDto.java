@@ -8,10 +8,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor @Builder
 public class LecturesDto {
 
-	private int lecturesNo;
-	private String lecturesLecture;
-	private String lecturesLecturer;
-	private int lecturesHours;
-	private int lecturesFee;
+	private int no;
+	private String lecture;
+	private String lecturer;
+	private int hours;
+	private int fee;
 	
 }
