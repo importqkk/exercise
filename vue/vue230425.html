@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="css/load.css">
+    <link rel="stylesheet" type="text/css" href="css/reset.css">
+    <link rel="stylesheet" type="text/css" href="css/test.css">
+    <link rel="stylesheet" type="text/css" href="css/commons.css">
+    <link rel="stylesheet" type="text/css" href="css/layout.css">
+    <!-- font awsome 아이콘 -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+    <!-- tabler 아이콘 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+    <title>강의 등록</title>
+</head>
+<body>
+    <div id="app">
+        <div class="container-450">
+	        <div class="row">
+	            <input hidden="hidden" v-model="lectures.lecturesNo">
+	            <label>강의명</label>
+	            <input type="text" class="form-input medium w-100" v-model="lectures.lecturesLecture"
+                        @input="lectures.lecture = $event.target.value">
+                <span v-if="lectures.lecturesLecture.length > 0">{{lectures.lectureMessage}}</span>
+	        </div>
+	        <div class="row">
+	            <label>강사명</label>
+	            <input type="text" class="form-input medium w-100"  v-model="lectures.lecturesLecturer"
+                        @input="lectures.lecturer = $event.target.value">
+                <span v-if="lectures.lecturesLecturer.length > 0">{{lectures.lecturerMessage}}</span>
+	        </div>
+	        <div class="row">
+	            <label>시수</label>
+	            <input type="text" class="form-input medium w-100"  v-model="lectures.lecturesHours">
+                <span v-if="lectures.lecturesHours.length > 0">{{lectures.hoursMessage}}</span>
+	        </div>
+	        <div class="row">
+	            <label>수강료</label>
+	            <input type="text" class="form-input medium w-100"  v-model="lectures.lecturesFee">
+                <span v-if="lectures.lecturesFee.length > 0">{{lectures.feeMessage}}</span>
+	        </div>
+	        <div class="row">
+	            <button type="submit" class="form-btn positive medium w-100" @click="insert" :disabled="!lectures.allValid">
+                    등록
+                </button>
+	        </div>
+	    </div>
+    </div>
+
+    <!-- jquery cdn -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <!-- Vue cdn -->
+    <script src="https://unpkg.com/vue@3.2.36"></script>
+    <!-- axios cdn -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <!-- lodash cdn -->
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+    <script>
+        Vue.createApp({
+            data() {
+                return {
+                    lectures: {
+                        lecturesNo:"",
+                        lecturesLecture:"",
+                        lecturesLecturer:"",
+                        lecturesHours:"",
+                        lecturesFee:"",
+
+                        // 유효성 검사
+                        get lectureValid() {
+                            return this.lecturesLecture.length > 0 && this.lecturesLecture.length <= 10;
+                        },
+                        get lecturerValid() {
+                            const regex = /^[가-힣]{2,7}$/;
+                            return regex.test(this.lecturesLecturer);
+                        },
+                        get hoursValid() {
+                            const hours = parseInt(this.lecturesHours);
+                            return hours > 0 && hours % 30 == 0;
+                        },
+                        get feeValid() {
+                            const fee = parseInt(this.lecturesFee);
+                            return fee >= 0;
+                        },
+                        get allValid() {
+                            return this.lectureValid
+                                && this.lecturerValid
+                                && this.hoursValid
+                                && this.feeValid
+                        },
+
+                        // 검사 메세지 출력
+                        get lectureMessage() {
+                            if(!this.lectureValid) return "강의명은 10자 이내로 작성해주세요.";
+                        },
+                        get lecturerMessage() {
+                            if(!this.lecturerValid) return "강사명은 한글 7자 이내로 작성해주세요.";
+                        },
+                        get hoursMessage() {
+                            if(!this.hoursValid) return "시수는 30의 배수입니다.";
+                        },
+                        get feeMessage() {
+                            if(!this.feeValid) return "0 이상의 숫자만 입력해주세요.";
+                        },
+
+                        // 등록 후 입력창 지우기
+                        clearInput() {
+                            this.lecturesNo = "",
+                            this.lecturesLecture = "",
+                            this.lecturesLecturer = "",
+                            this.lecturesHours = "",
+                            this.lecturesFee = ""
+                        }
+                    },
+                    
+                };
+            },
+            methods: {
+                async insert() {
+                    const url = "http://localhost:8080/lectures/";
+                    const resp = await axios.post(url, this.lectures);
+                    this.lectures.clearInput();
+                }
+            },
+            watch: {
+
+            },
+        }).mount("#app");
+    </script>
+</body>
+</html>

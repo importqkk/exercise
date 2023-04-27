@@ -1,0 +1,29 @@
+@charset "UTF-8";
+
+.flex {
+    display: flex;
+}
+.flex.center {
+    justify-content: center;
+}
+.flex.right {
+    justify-content: right;
+}
+
+header {
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+footer {
+    border-top: 1px solid black;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+section{
+	position: relative;
+    margin: 0 auto;
+    min-height: 100vh;
+    z-index: 0;
+}
