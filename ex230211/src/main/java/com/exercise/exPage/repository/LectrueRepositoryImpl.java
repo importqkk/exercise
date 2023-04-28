@@ -22,4 +22,9 @@ public class LectrueRepositoryImpl implements LectureRepository {
 		return sql.selectList("lecture.selectList");
 	}
 
+	@Override
+	public List<LecturesDto> searchList(Map<String, String> param) {
+		return sql.selectList("lecture.selectList", param);
+	}
+
 }
