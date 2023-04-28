@@ -33,4 +33,16 @@ public class LecturesRestController {
 		return lectureRepository.selectList();
 	}
 	
+	@GetMapping("/{param}")
+	public List<LecturesDto> searchList(Model model, 
+			@RequestParam("column") String column,
+			@RequestParam("keyword") String keyword) {
+		
+		Map<String, String> param = new HashMap<>();
+		param.put("column", column);
+		param.put("keyword", keyword);
+		
+		return lectureRepository.searchList(param);
+	}
+	
 }
