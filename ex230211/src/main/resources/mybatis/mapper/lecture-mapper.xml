@@ -12,6 +12,11 @@
 	
 	<select id="selectList" resultType="LecturesDto">
 		select * from lectures
+		<where>
+			<if test="column != null and keyword != null">
+				and instr(${column}, #{keyword}) > 0
+			</if>
+		</where>
 		order by no desc
 	</select>
 </mapper>
