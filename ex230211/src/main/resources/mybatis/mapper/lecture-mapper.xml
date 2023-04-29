@@ -10,14 +10,25 @@
 		values(lectures_seq.nextval, #{lecturesLecture}, #{lecturesLecturer}, #{lecturesHours}, #{lecturesFee})
 	</insert>
 	
+	<sql id="topNHeader">
+		select * from (
+			select TMP.*, rownum RN from (
+	</sql>
+	<sql id="topNFooter">
+			)TMP	
+		) where RN between #{first} and #{last}
+	</sql>
+	
 	<select id="selectList" resultType="LecturesDto">
-		select * from lectures
-		<where>
-			<if test="column != null and keyword != null">
-				and instr(${column}, #{keyword}) > 0
-			</if>
-		</where>
-		order by no desc
+		<include refid="topNHeader"/>
+			select * from lectures
+				<where>
+					<if test="column != null and keyword != null">
+						and instr(${column}, #{keyword}) > 0
+					</if>
+				</where>
+			order by no desc
+		<include refid="topNFooter"/>
 	</select>
 </mapper>
     
