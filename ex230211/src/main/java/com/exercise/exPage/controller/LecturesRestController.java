@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,21 +29,21 @@ public class LecturesRestController {
 		lectureRepository.insert(lecturesDto);
 	}
 	
-	@GetMapping("/")
-	public List<LecturesDto> selectList(Model model) {
-		return lectureRepository.selectList();
+	@GetMapping("/page/{page}")
+	public List<LecturesDto> selectList(Model model,
+			@PathVariable int page) {
+		return lectureRepository.selectList(page);
 	}
 	
-	@GetMapping("/{param}")
+	@PostMapping("/page/{page}")
 	public List<LecturesDto> searchList(Model model, 
 			@RequestParam("column") String column,
-			@RequestParam("keyword") String keyword) {
-		
-		Map<String, String> param = new HashMap<>();
+			@RequestParam("keyword") String keyword,
+			@PathVariable int page) {
+		Map<Object, Object> param = new HashMap<>();
 		param.put("column", column);
 		param.put("keyword", keyword);
-		
-		return lectureRepository.searchList(param);
+		return lectureRepository.searchList(page, param);
 	}
 	
 }
