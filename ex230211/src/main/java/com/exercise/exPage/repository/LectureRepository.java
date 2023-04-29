@@ -6,7 +6,7 @@ import com.exercise.exPage.dto.LecturesDto;
 public interface LectureRepository {
 
 	void insert(LecturesDto lecturesDto);
-	List<LecturesDto> selectList();
-	List<LecturesDto> searchList(Map<String, String> param);
+	List<LecturesDto> selectList(int page);
+	List<LecturesDto> searchList(int page, Map<Object, Object> param);
 	
 }

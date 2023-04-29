@@ -18,12 +18,19 @@ public class LectrueRepositoryImpl implements LectureRepository {
 	}
 
 	@Override
-	public List<LecturesDto> selectList() {
-		return sql.selectList("lecture.selectList");
+	public List<LecturesDto> selectList(int page) {
+		int last = page * 20;
+		int first = last - 19;
+		Map<String, Object> param = Map.of("first", first, "last", last);
+		return sql.selectList("lecture.selectList", param);
 	}
 
 	@Override
-	public List<LecturesDto> searchList(Map<String, String> param) {
+	public List<LecturesDto> searchList(int page, Map<Object, Object> param) {
+		int last = page * 20;
+		int first = last - 19;
+		param.put("first", first);
+		param.put("last", last);
 		return sql.selectList("lecture.selectList", param);
 	}
 
