@@ -7,7 +7,7 @@
 	<!-- 강의 등록 -->
 	<insert id="insert">
 		insert into lectures(no, lecture, lecturer, hours, fee)
-		values(lectures_seq.nextval, #{lecturesLecture}, #{lecturesLecturer}, #{lecturesHours}, #{lecturesFee})
+		values(lectures_seq.nextval, #{lecture}, #{lecturer}, #{hours}, #{fee})
 	</insert>
 	
 	<sql id="topNHeader">
