@@ -13,39 +13,103 @@
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
     <!-- tabler 아이콘 -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
-    <title>강의 등록</title>
+    <!-- toastify -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <style>
+        .fullscreen > .fullscreen-container {
+            width: 600px;
+        }
+    </style>
+    <title>강의 관리</title>
 </head>
 <body>
     <div id="app">
-        <div class="container-450">
-	        <div class="row">
-	            <input hidden="hidden" v-model="lectures.lecturesNo">
-	            <label>강의명</label>
-	            <input type="text" class="form-input medium w-100" v-model="lectures.lecturesLecture"
-                        @input="lectures.lecture = $event.target.value">
-                <span v-if="lectures.lecturesLecture.length > 0">{{lectures.lectureMessage}}</span>
+        <div class="container-800">
+            <div class="row">
+                <h1>강의 관리</h1>
+            </div>
+
+            <!-- 등록버튼, 검색창 -->
+	        <div class="row" style="display: flex;">
+                <!-- 등록버튼 -->
+                <div class="w-25 pb-20">
+                    <button type="button" class="form-btn small positive" id="insertBtn" @click="insertModal = true">등록하기</button>
+                </div>
+	            <!-- 검색창 -->
+	            <div class="right w-75 pb-20">
+	                <!-- 카테고리 -->
+                    <select class="form-input small w-15 me-5" v-model="column">
+                        <option value="lecture">강의명</option>
+                        <option value="lecturer">강사명</option>
+                    </select>
+	                <!-- 검색창 -->
+	                <input class="form-input small w-30 me-5" type="text" placeholder="검색어를 입력하세요." 
+                            v-model="keyword" @input="keyword = $event.target.value" @keyup.enter="searchList">
+	                <!-- 검색버튼 -->
+	                <button class="form-btn small positive w-10" type="submit" @click="searchList">검색</button>
+	            </div>
 	        </div>
-	        <div class="row">
-	            <label>강사명</label>
-	            <input type="text" class="form-input medium w-100"  v-model="lectures.lecturesLecturer"
-                        @input="lectures.lecturer = $event.target.value">
-                <span v-if="lectures.lecturesLecturer.length > 0">{{lectures.lecturerMessage}}</span>
-	        </div>
-	        <div class="row">
-	            <label>시수</label>
-	            <input type="text" class="form-input medium w-100"  v-model="lectures.lecturesHours">
-                <span v-if="lectures.lecturesHours.length > 0">{{lectures.hoursMessage}}</span>
-	        </div>
-	        <div class="row">
-	            <label>수강료</label>
-	            <input type="text" class="form-input medium w-100"  v-model="lectures.lecturesFee">
-                <span v-if="lectures.lecturesFee.length > 0">{{lectures.feeMessage}}</span>
-	        </div>
-	        <div class="row">
-	            <button type="submit" class="form-btn positive medium w-100" @click="insert" :disabled="!lectures.allValid">
-                    등록
-                </button>
-	        </div>
+
+            <div class="row">
+                <table class="table table-row w-100">
+                    <thead>
+                        <tr>
+                            <th>번호</th>
+                            <th>강의명</th>
+                            <th>강사명</th>
+                            <th>수강료</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="(lectures, index) in lecturesList" :key="lectures.no">
+                            <td>{{lectures.no}}</td>
+                            <td>{{lectures.lecture}}</td>
+                            <td>{{lectures.lecturer}}</td>
+                            <td class="right">{{lectures.fee}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="fullscreen" v-if="insertModal">
+                <div class="fullscreen-container">
+                    <div class="row">
+                        <h2>강의 등록하기</h2>
+                    </div>
+                    <div class="row">
+                        <input hidden="hidden" v-model="lectures.no">
+                        <label>강의명</label>
+                        <input type="text" class="form-input medium w-100" v-model="lectures.lecture"
+                                @input="lectures.lecture = $event.target.value">
+                        <span v-if="lectures.lecture.length > 0">{{lectures.lectureMessage}}</span>
+                    </div>
+                    <div class="row">
+                        <label>강사명</label>
+                        <input type="text" class="form-input medium w-100"  v-model="lectures.lecturer"
+                                @input="lectures.lecturer = $event.target.value">
+                        <span v-if="lectures.lecturer.length > 0">{{lectures.lecturerMessage}}</span>
+                    </div>
+                    <div class="row">
+                        <label>시수</label>
+                        <input type="text" class="form-input medium w-100"  v-model="lectures.hours">
+                        <span v-if="lectures.hours.length > 0">{{lectures.hoursMessage}}</span>
+                    </div>
+                    <div class="row pb-30">
+                        <label>수강료</label>
+                        <input type="text" class="form-input medium w-100"  v-model="lectures.fee">
+                        <span v-if="lectures.fee.length > 0">{{lectures.feeMessage}}</span>
+                    </div>
+                    <div class="row">
+                        <button type="submit" class="form-btn positive medium w-100 mb-10" @click="insert" :disabled="!lectures.allValid">
+                            등록
+                        </button>
+                        <button type="submit" class="form-btn neutral medium w-100" @click="insertModal = false">
+                            닫기
+                        </button>
+                    </div>
+                </div>
+            </div>
 	    </div>
     </div>
 
@@ -62,26 +126,26 @@
             data() {
                 return {
                     lectures: {
-                        lecturesNo:"",
-                        lecturesLecture:"",
-                        lecturesLecturer:"",
-                        lecturesHours:"",
-                        lecturesFee:"",
+                        no:"",
+                        lecture:"",
+                        lecturer:"",
+                        hours:"",
+                        fee:"",
 
                         // 유효성 검사
                         get lectureValid() {
-                            return this.lecturesLecture.length > 0 && this.lecturesLecture.length <= 10;
+                            return this.lecture.length > 0 && this.lecture.length <= 10;
                         },
                         get lecturerValid() {
                             const regex = /^[가-힣]{2,7}$/;
-                            return regex.test(this.lecturesLecturer);
+                            return regex.test(this.lecturer);
                         },
                         get hoursValid() {
-                            const hours = parseInt(this.lecturesHours);
+                            const hours = parseInt(this.hours);
                             return hours > 0 && hours % 30 == 0;
                         },
                         get feeValid() {
-                            const fee = parseInt(this.lecturesFee);
+                            const fee = parseInt(this.fee);
                             return fee >= 0;
                         },
                         get allValid() {
@@ -107,13 +171,24 @@
 
                         // 등록 후 입력창 지우기
                         clearInput() {
-                            this.lecturesNo = "",
-                            this.lecturesLecture = "",
-                            this.lecturesLecturer = "",
-                            this.lecturesHours = "",
-                            this.lecturesFee = ""
+                            this.no = "",
+                            this.lecture = "",
+                            this.lecturer = "",
+                            this.hours = "",
+                            this.fee = ""
                         }
                     },
+
+                    insertModal: false,
+
+                    lecturesList:[],
+                    percent: 0,
+                    page: 1,
+                    loading: false,
+                    loadFinish: false,
+
+                    column: "",
+                    keyword: "",
                     
                 };
             },
@@ -122,11 +197,71 @@
                     const url = "http://localhost:8080/lectures/";
                     const resp = await axios.post(url, this.lectures);
                     this.lectures.clearInput();
+                        // 토스트 메세지 띄우기
+                        Toastify({
+                            text: "등록이 완료되었습니다.",
+                            duration: 3000,
+                            newWindow: true,
+                            close: true,
+                            gravity: "bottom", // `top` or `bottom`
+                            position: "right", // `left`, `center` or `right`
+                            stopOnFocus: true, // Prevents dismissing of toast on hover
+                            style: {
+                                background: "linear-gradient(to right, #00b09b, #96c93d)",
+                            },
+                            onClick: function(){} // Callback after click
+                        }).showToast();
+                },
+                clearList() {
+                    this.lecturesList.splice(0);
+                },
+                async loadList() {
+                    if(this.loading == true) return;
+                    if(this.loadFinish == true) return;
+                    this.loading = true;
+                    const url = `http://localhost:8080/lectures/page/${this.page}`;
+                    const resp = await axios.get(url);
+                    this.lecturesList.push(...resp.data);
+                    this.page++
+                    this.loading = false;
+                    if(resp.data.length < 10) this.loadFinish = true;
+                },
+                async searchList() {
+                    if(this.loading == true) return;
+                    if(this.loadFinish == true) return;
+                    this.clearList();
+                    this.loading = true;
+                    const column = this.column;
+                    const keyword = this.keyword;
+                    const url = `http://localhost:8080/lectures/page/${this.page}?column=${column}&keyword=${keyword}`;
+                    const resp = await axios.post(url);
+                    this.lecturesList.push(...resp.data);
+                    this.page++;
+                    this.loading = false;
+                    if(resp.data.length < 10) this.loadFinish = true;
                 }
             },
             watch: {
-
+                percent() {
+                    if(this.percent >= 70) {
+                        this.loadList();
+                    }
+                },
             },
+            mounted() {
+                window.addEventListener("scroll", _.throttle(() => {
+                    // clientHeight: 전체 페이지의 높이
+                    // innerHeight: 브라우저의 높이(화면 높이)
+                    // scrollY: 현재 스크롤의 위치
+                    const height = document.body.clientHeight - window.innerHeight;
+                    const current = window.scrollY;
+                    const percent = (current / height) * 100;
+                    this.percent = Math.round(percent);
+                }, 250))
+            },
+            created() {
+                this.loadList();
+            }
         }).mount("#app");
     </script>
 </body>
