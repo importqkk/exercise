@@ -61,10 +61,12 @@
                             <th>수강료</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody class="center">
                         <tr v-for="(lectures, index) in lecturesList" :key="lectures.no">
                             <td>{{lectures.no}}</td>
-                            <td>{{lectures.lecture}}</td>
+                            <td>
+                                <a @click="openDetailModal(lectures)" class="link">{{lectures.lecture}}</a>
+                            </td>
                             <td>{{lectures.lecturer}}</td>
                             <td class="right">{{lectures.fee}}</td>
                         </tr>
@@ -72,6 +74,7 @@
                 </table>
             </div>
 
+            <!-- 강의 등록 모달 -->
             <div class="fullscreen" v-if="insertModal">
                 <div class="fullscreen-container">
                     <div class="row">
@@ -105,6 +108,46 @@
                             등록
                         </button>
                         <button type="submit" class="form-btn neutral medium w-100" @click="insertModal = false">
+                            닫기
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            
+            <!-- 강의 상세 모달 -->
+            <div class="fullscreen" v-if="detailModal">
+                <div class="fullscreen-container">
+                    <div class="row pb-30">
+                        <h2>강의 상세정보</h2>
+                    </div>
+                    <div class="row pb-20">
+                        <input hidden="hidden" v-model="lectures.no">
+                        <label>강의명</label>
+                        <div class="row">
+                            <h3>{{detailModal.lecture}}</h3>
+                        </div>
+                    </div>
+                    <div class="row pb-20">
+                        <label>강사명</label>
+                        <div class="row">
+                            <h3>{{detailModal.lecturer}}</h3>
+                        </div>
+                    </div>
+                    <div class="row pb-20">
+                        <label>시수</label>
+                        <div class="row">
+                            <h3>{{detailModal.hours}}</h3>
+                        </div>
+                    </div>
+                    <div class="row pb-30">
+                        <label>수강료</label>
+                        <div class="row">
+                            <h3>{{detailModal.fee}}</h3>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <button type="submit" class="form-btn neutral medium w-100" @click="detailModal = null">
                             닫기
                         </button>
                     </div>
@@ -180,6 +223,7 @@
                     },
 
                     insertModal: false,
+                    detailModal: "",
 
                     lecturesList:[],
                     percent: 0,
@@ -197,20 +241,23 @@
                     const url = "http://localhost:8080/lectures/";
                     const resp = await axios.post(url, this.lectures);
                     this.lectures.clearInput();
-                        // 토스트 메세지 띄우기
-                        Toastify({
-                            text: "등록이 완료되었습니다.",
-                            duration: 3000,
-                            newWindow: true,
-                            close: true,
-                            gravity: "bottom", // `top` or `bottom`
-                            position: "right", // `left`, `center` or `right`
-                            stopOnFocus: true, // Prevents dismissing of toast on hover
-                            style: {
-                                background: "linear-gradient(to right, #00b09b, #96c93d)",
-                            },
-                            onClick: function(){} // Callback after click
-                        }).showToast();
+                    this.insertModal = false;
+                    // 토스트 메세지 띄우기
+                    Toastify({
+                        text: "등록이 완료되었습니다.",
+                        duration: 3000,
+                        newWindow: true,
+                        close: true,
+                        gravity: "bottom", // `top` or `bottom`
+                        position: "right", // `left`, `center` or `right`
+                        stopOnFocus: true, // Prevents dismissing of toast on hover
+                        style: {
+                            background: "linear-gradient(to right, #00b09b, #96c93d)",
+                        },
+                        onClick: function(){} // Callback after click
+                    }).showToast();
+                    this.clearList();
+                    this.loadList();
                 },
                 clearList() {
                     this.lecturesList.splice(0);
@@ -239,6 +286,14 @@
                     this.page++;
                     this.loading = false;
                     if(resp.data.length < 10) this.loadFinish = true;
+                },
+                async detail() {
+                    const no = this.no;
+                    const url = "http://localhost:8080/lectures/" + no;
+                    const resp = await axios.get(url);
+                },
+                openDetailModal(lecture) {
+                    this.detailModal = lecture;
                 }
             },
             watch: {
