@@ -34,4 +34,9 @@ public class LectrueRepositoryImpl implements LectureRepository {
 		return sql.selectList("lecture.selectList", param);
 	}
 
+	@Override
+	public LecturesDto selectOne(int no) {
+		return sql.selectOne("lecture.selectOne", no);
+	}
+
 }
