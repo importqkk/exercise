@@ -46,4 +46,10 @@ public class LecturesRestController {
 		return lectureRepository.searchList(page, param);
 	}
 	
+	@GetMapping("/{no}")
+	public LecturesDto selectOne(Model model,
+			@PathVariable int no) {
+		return lectureRepository.selectOne(no);
+	}
+	
 }
