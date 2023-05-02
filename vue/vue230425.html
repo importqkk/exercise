@@ -227,7 +227,7 @@
 
                     lecturesList:[],
                     percent: 0,
-                    page: 1,
+                    page: 0,
                     loading: false,
                     loadFinish: false,
 
@@ -257,6 +257,7 @@
                         onClick: function(){} // Callback after click
                     }).showToast();
                     this.clearList();
+                    this.page = 0;
                     this.loadList();
                 },
                 clearList() {
@@ -266,7 +267,7 @@
                     if(this.loading == true) return;
                     if(this.loadFinish == true) return;
                     this.loading = true;
-                    const url = `http://localhost:8080/lectures/page/${this.page}`;
+                    const url = `http://localhost:8080/lectures/page/${this.page+1}`;
                     const resp = await axios.get(url);
                     this.lecturesList.push(...resp.data);
                     this.page++
@@ -274,13 +275,14 @@
                     if(resp.data.length < 10) this.loadFinish = true;
                 },
                 async searchList() {
+                    this.clearList();
+                    this.page = 0;
                     if(this.loading == true) return;
                     if(this.loadFinish == true) return;
-                    this.clearList();
                     this.loading = true;
                     const column = this.column;
                     const keyword = this.keyword;
-                    const url = `http://localhost:8080/lectures/page/${this.page}?column=${column}&keyword=${keyword}`;
+                    const url = `http://localhost:8080/lectures/page/${this.page+1}?column=${column}&keyword=${keyword}`;
                     const resp = await axios.post(url);
                     this.lecturesList.push(...resp.data);
                     this.page++;
