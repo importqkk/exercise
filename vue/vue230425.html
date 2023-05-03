@@ -114,42 +114,90 @@
                 </div>
             </div>
 
-            
-            <!-- 강의 상세 모달 -->
+            <!-- 강의 상세/수정 모달 -->
             <div class="fullscreen" v-if="detailModal">
                 <div class="fullscreen-container">
-                    <div class="row pb-30">
-                        <h2>강의 상세정보</h2>
-                    </div>
-                    <div class="row pb-20">
-                        <input hidden="hidden" v-model="lectures.no">
-                        <label>강의명</label>
+                    <!-- 강의 정보 수정 -->
+                    <div v-if="detailModal.edit == true">
+                        <div class="row pb-30">
+                            <h2>강의 상세정보</h2>
+                        </div>
+                        <div class="row pb-20">
+                            <input hidden="hidden" v-model="lectures.no">
+                            <label>강의명</label>
+                            <div>
+                                <input v-model="detailModal.lecture" class="form-input medium w-100">
+                            </div>
+                        </div>
+                        <div class="row pb-20">
+                            <label>강사명</label>
+                            <div>
+                                <input v-model="detailModal.lecturer" class="form-input medium w-100">
+                            </div>
+                        </div>
+                        <div class="row pb-20">
+                            <label>시수</label>
+                            <div>
+                                <input v-model="detailModal.hours" class="form-input medium w-100">
+                            </div>
+                        </div>
+                        <div class="row pb-30">
+                            <label>수강료</label>
+                            <div>
+                                <input v-model="detailModal.fee" class="form-input medium w-100">
+                            </div>
+                        </div>
                         <div class="row">
-                            <h3>{{detailModal.lecture}}</h3>
+                            <button type="submit" class="form-btn positive medium w-100">
+                                수정
+                            </button>
+                        </div>
+                        <div class="row">
+                            <button type="submit" class="form-btn neutral medium w-100" @click="detailModal.edit=false">
+                                취소
+                            </button>
                         </div>
                     </div>
-                    <div class="row pb-20">
-                        <label>강사명</label>
-                        <div class="row">
-                            <h3>{{detailModal.lecturer}}</h3>
+                    <!-- 강의 상세정보 -->
+                    <div v-else>
+                        <div class="row pb-30">
+                            <h2>강의 상세정보</h2>
                         </div>
-                    </div>
-                    <div class="row pb-20">
-                        <label>시수</label>
-                        <div class="row">
-                            <h3>{{detailModal.hours}}</h3>
+                        <div class="row pb-20">
+                            <input hidden="hidden" v-model="lectures.no">
+                            <label>강의명</label>
+                            <div class="row">
+                                <h3>{{detailModal.lecture}}</h3>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row pb-30">
-                        <label>수강료</label>
-                        <div class="row">
-                            <h3>{{detailModal.fee}}</h3>
+                        <div class="row pb-20">
+                            <label>강사명</label>
+                            <div class="row">
+                                <h3>{{detailModal.lecturer}}</h3>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <button type="submit" class="form-btn neutral medium w-100" @click="detailModal = null">
-                            닫기
-                        </button>
+                        <div class="row pb-20">
+                            <label>시수</label>
+                            <div class="row">
+                                <h3>{{detailModal.hours}}</h3>
+                            </div>
+                        </div>
+                        <div class="row pb-30">
+                            <label>수강료</label>
+                            <div class="row">
+                                <h3>{{detailModal.fee}}</h3>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <button type="submit" class="form-btn positive medium w-100" @click="detailModal.edit = true">
+                                수정
+                            </button>
+                        </div>
+                        <div class="row">
+                            <button type="submit" class="form-btn neutral medium w-100" @click="detailModal = null">
+                                닫기
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -223,7 +271,6 @@
                     },
 
                     insertModal: false,
-                    detailModal: "",
 
                     lecturesList:[],
                     percent: 0,
@@ -233,7 +280,9 @@
 
                     column: "",
                     keyword: "",
-                    
+
+                    detailModal: "",
+
                 };
             },
             methods: {
@@ -294,8 +343,8 @@
                     const url = "http://localhost:8080/lectures/" + no;
                     const resp = await axios.get(url);
                 },
-                openDetailModal(lecture) {
-                    this.detailModal = lecture;
+                openDetailModal(lectures) {
+                    this.detailModal = lectures;
                 }
             },
             watch: {
