@@ -9,10 +9,13 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.NoHandlerFoundException;
+
 import com.exercise.exPage.dto.LecturesDto;
 import com.exercise.exPage.repository.LectureRepository;
 
@@ -50,6 +53,13 @@ public class LecturesRestController {
 	public LecturesDto selectOne(Model model,
 			@PathVariable int no) {
 		return lectureRepository.selectOne(no);
+	}
+	
+	@PutMapping("/")
+	public void edit(@RequestBody LecturesDto lecturesDto) throws NoHandlerFoundException {
+		LecturesDto findDto = lectureRepository.selectOne(lecturesDto.getNo());
+		if(findDto == null) throw new NoHandlerFoundException(null, null, null);
+		lectureRepository.edit(lecturesDto);
 	}
 	
 }
