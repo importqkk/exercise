@@ -39,4 +39,9 @@ public class LectrueRepositoryImpl implements LectureRepository {
 		return sql.selectOne("lecture.selectOne", no);
 	}
 
+	@Override
+	public void edit(LecturesDto lecturesDto) {
+		sql.update("lecture.edit", lecturesDto);
+	}
+
 }

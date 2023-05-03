@@ -9,5 +9,6 @@ public interface LectureRepository {
 	List<LecturesDto> selectList(int page);
 	List<LecturesDto> searchList(int page, Map<Object, Object> param);
 	LecturesDto selectOne(int no);
+	void edit(LecturesDto lecturesDto);
 	
 }
