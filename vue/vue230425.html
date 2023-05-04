@@ -148,7 +148,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <button type="submit" class="form-btn positive medium w-100">
+                            <button type="submit" class="form-btn positive medium w-100" @click="edit">
                                 수정
                             </button>
                         </div>
@@ -345,7 +345,16 @@
                 },
                 openDetailModal(lectures) {
                     this.detailModal = lectures;
-                }
+                },
+                async edit() {
+                    const url = "http://localhost:8080/lectures/";
+                    const data = this.detailModal;
+                    const resp = await axios.put(url, data);
+                    this.clearList();
+                    this.page = 0;
+                    this.loadList();
+                    this.detailModal.edit = false;
+                },
             },
             watch: {
                 percent() {
