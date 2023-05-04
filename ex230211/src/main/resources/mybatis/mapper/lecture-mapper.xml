@@ -39,7 +39,7 @@
 	
 	<!-- 강의 수정 -->
 	<update id="edit">
-		update lectures set lecture=#{lecture}, lecturer#{lecturer}, hours=#{hours}, fee=#{fee}
+		update lectures set lecture=#{lecture}, lecturer=#{lecturer}, hours=#{hours}, fee=#{fee}
 		where no=#{no}
 	</update>
 </mapper>
