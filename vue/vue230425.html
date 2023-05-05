@@ -63,12 +63,12 @@
                     </thead>
                     <tbody class="center">
                         <tr v-for="(lectures, index) in lecturesList" :key="lectures.no">
-                            <td>{{lectures.no}}</td>
+                            <td>{{lecturesList[index].no}}</td>
                             <td>
-                                <a @click="openDetailModal(lectures)" class="link">{{lectures.lecture}}</a>
+                                <a @click="openDetailModal(index)" class="link">{{lecturesList[index].lecture}}</a>
                             </td>
-                            <td>{{lectures.lecturer}}</td>
-                            <td class="right">{{lectures.fee}}</td>
+                            <td>{{lecturesList[index].lecturer}}</td>
+                            <td class="right">{{lecturesList[index].fee}}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -115,10 +115,10 @@
             </div>
 
             <!-- 강의 상세/수정 모달 -->
-            <div class="fullscreen" v-if="detailModal">
+            <div class="fullscreen" v-if="detailMode">
                 <div class="fullscreen-container">
                     <!-- 강의 정보 수정 -->
-                    <div v-if="detailModal.edit == true">
+                    <div v-if="editMode == true">
                         <div class="row pb-30">
                             <h2>강의 상세정보</h2>
                         </div>
@@ -153,7 +153,7 @@
                             </button>
                         </div>
                         <div class="row">
-                            <button type="submit" class="form-btn neutral medium w-100" @click="detailModal.edit=false">
+                            <button type="submit" class="form-btn neutral medium w-100" @click="cancelEidt">
                                 취소
                             </button>
                         </div>
@@ -189,12 +189,12 @@
                             </div>
                         </div>
                         <div class="row">
-                            <button type="submit" class="form-btn positive medium w-100" @click="detailModal.edit = true">
+                            <button type="submit" class="form-btn positive medium w-100" @click="editMode = true">
                                 수정
                             </button>
                         </div>
                         <div class="row">
-                            <button type="submit" class="form-btn neutral medium w-100" @click="detailModal = null">
+                            <button type="submit" class="form-btn neutral medium w-100" @click="detailMode = false">
                                 닫기
                             </button>
                         </div>
@@ -273,6 +273,7 @@
                     insertModal: false,
 
                     lecturesList:[],
+                    lecturesListBackup:[],
                     percent: 0,
                     page: 0,
                     loading: false,
@@ -281,8 +282,20 @@
                     column: "",
                     keyword: "",
 
-                    detailModal: "",
-
+                    detailMode: false,
+                    detailModal: {
+                        lecture: '',
+                        lecturer: '',
+                        hours: '',
+                        fee: ''
+                    },
+                    editMode: false,
+                    editModal: {
+                        lecture: '',
+                        lecturer: '',
+                        hours: '',
+                        fee: ''
+                    }
                 };
             },
             methods: {
@@ -311,6 +324,7 @@
                 },
                 clearList() {
                     this.lecturesList.splice(0);
+                    this.lecturesListBackup.splice(0);
                 },
                 async loadList() {
                     if(this.loading == true) return;
@@ -318,7 +332,9 @@
                     this.loading = true;
                     const url = `http://localhost:8080/lectures/page/${this.page+1}`;
                     const resp = await axios.get(url);
+                    const copy = _.cloneDeep(resp.data);
                     this.lecturesList.push(...resp.data);
+                    this.lecturesListBackup.push(...copy);
                     this.page++
                     this.loading = false;
                     if(resp.data.length < 10) this.loadFinish = true;
@@ -343,8 +359,11 @@
                     const url = "http://localhost:8080/lectures/" + no;
                     const resp = await axios.get(url);
                 },
-                openDetailModal(lectures) {
-                    this.detailModal = lectures;
+                openDetailModal(index) {
+                    this.currentIndex = index;
+                    this.detailMode = true;
+                    this.detailModal = this.lecturesList[index];
+                    this.editModal = this.lecturesListBackup[index];
                 },
                 async edit() {
                     const url = "http://localhost:8080/lectures/";
@@ -353,8 +372,16 @@
                     this.clearList();
                     this.page = 0;
                     this.loadList();
-                    this.detailModal.edit = false;
+                    this.editMode = false;
+                    this.detailMode = false;
                 },
+                cancelEidt() {
+                    this.detailModal = this.editModal;
+                    this.clearList();
+                    this.page = 0;
+                    this.loadList();
+                    this.editMode = false;
+                }
             },
             watch: {
                 percent() {
