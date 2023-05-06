@@ -42,5 +42,10 @@
 		update lectures set lecture=#{lecture}, lecturer=#{lecturer}, hours=#{hours}, fee=#{fee}
 		where no=#{no}
 	</update>
+	
+	<!-- 강의 삭제 -->
+	<delete id="delete">
+		delete * from lectures where no=#{no}
+	</delete>
 </mapper>
     
