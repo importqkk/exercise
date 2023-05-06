@@ -45,7 +45,7 @@
 	
 	<!-- 강의 삭제 -->
 	<delete id="delete">
-		delete * from lectures where no=#{no}
+		delete lectures where no=#{no}
 	</delete>
 </mapper>
     
