@@ -44,4 +44,9 @@ public class LectrueRepositoryImpl implements LectureRepository {
 		sql.update("lecture.edit", lecturesDto);
 	}
 
+	@Override
+	public void delete(int no) {
+		sql.delete("lecture.delete", no);
+	}
+
 }
